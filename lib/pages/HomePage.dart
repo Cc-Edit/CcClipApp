@@ -30,8 +30,8 @@ class _MyHomePageState extends State<MyHomePage> {
         titleTextStyle: const TextStyle(
             fontSize: 21,
             fontStyle: FontStyle.normal,
-            fontWeight: FontWeight.w600,
-            color: Colors.white
+            fontWeight: FontWeight.bold,
+            color: Colors.black87
         ),
       ),
       body: Center(
@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'You have pushed the button this many times:',
+              '按钮点击次数:',
             ),
             Text(
               '$_counter',

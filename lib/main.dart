@@ -16,14 +16,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // 创建一个materialApp
     return MaterialApp(
-      title: 'Clip Video',
+      title: 'Clip',
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.white,  // seedColor 是种子颜色，由此派生相关主题下的其他颜色
           brightness: Brightness.light,
-          primary: Colors.black,
-          background: Colors.white10
+          primary: Colors.white,
+          background: Colors.white
         ),
         // 文本样式
         textTheme: TextTheme(
@@ -35,16 +35,16 @@ class MyApp extends StatelessWidget {
             fontSize: 21,
             fontStyle: FontStyle.normal,
             fontWeight: FontWeight.w600,
-            color: Colors.white
+            color: Colors.black54
           ), // 标题样式
           bodyMedium: GoogleFonts.lato(
             fontSize: 16,
-            color: Colors.white
+            color: Colors.black54
           ),
           displaySmall: GoogleFonts.lato(),
         ),
       ),
-      home: const MyHomePage(title: 'CcClip App'),
+      home: const MyHomePage(title: 'CcClip'),
     );
   }
 }
