@@ -31,7 +31,10 @@ class _MyHomePageState extends State<MyHomePage> {
     // Scaffold 是一个类似fixed的容器，用来实现导航栏、悬浮、侧边栏等
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.menu), // 左侧icon
+        leading: const Icon(
+            Icons.menu,
+            color: Colors.white
+        ), // 左侧icon
         title: Text(widget.title),
         actions: <Widget>[
           Container(
@@ -41,7 +44,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 IconButton(
                   padding: const EdgeInsets.all(0),
                   alignment: Alignment.center,
-                  highlightColor: Colors.black.withOpacity(0.05),
+                  highlightColor: Colors.white.withOpacity(0.1),
+                  color: Colors.white,
                   icon: (_showList
                       ? const Icon(Icons.view_stream)
                       : const Icon(Icons.dashboard)),
@@ -52,12 +56,12 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
         toolbarHeight: 45,
-        backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.3),
+        backgroundColor: Colors.black,
         titleTextStyle: const TextStyle(
             fontSize: 21,
             fontStyle: FontStyle.normal,
             fontWeight: FontWeight.bold,
-            color: Colors.black87
+            color: Colors.white
         ),
       ),
       body: Center(
@@ -69,14 +73,12 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
             ),
             const Text(
               '展示:',
             ),
             Text(
               _showList ? '列表' : '卡片',
-              style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
         ),

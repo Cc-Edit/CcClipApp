@@ -21,9 +21,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.white,  // seedColor 是种子颜色，由此派生相关主题下的其他颜色
-          brightness: Brightness.light,
           primary: Colors.white,
-          background: Colors.white
+          background: Colors.black
         ),
         // 文本样式
         textTheme: TextTheme(
@@ -35,11 +34,15 @@ class MyApp extends StatelessWidget {
             fontSize: 21,
             fontStyle: FontStyle.normal,
             fontWeight: FontWeight.w600,
-            color: Colors.black54
+            color: Colors.white
           ), // 标题样式
           bodyMedium: GoogleFonts.lato(
-            fontSize: 16,
-            color: Colors.black54
+              fontSize: 16,
+              color: Colors.white
+          ),
+          bodyLarge: GoogleFonts.lato(
+              fontSize: 16,
+              color: Colors.white
           ),
           displaySmall: GoogleFonts.lato(),
         ),
