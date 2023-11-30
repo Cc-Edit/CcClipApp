@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../component/VideoList.dart';
 
 // 定义一个 MyHomePage 部件，它是一个有状态的部件(StatefulWidget)
 class MyHomePage extends StatefulWidget {
@@ -9,20 +10,18 @@ class MyHomePage extends StatefulWidget {
 }
 // 小部件状态
 class _MyHomePageState extends State<MyHomePage> {
-  var _showList = false;
-  int _counter = 0;
-
-  void _addCounter() {
-    // 类似react 的setState，传递更新函数
-    // 每次setState都会重新执行 build
-    setState(() {
-      _counter++;
-    });
-  }
+  var _showList = false; // 展示列表/ka
+  var _showMenu = false; // 左侧菜单显示
 
   void _switchShowList() {
     setState(() {
       _showList = !_showList;
+    });
+  }
+
+  void _switchShowMenu() {
+    setState(() {
+      _showMenu = !_showMenu;
     });
   }
 
@@ -64,27 +63,9 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.white
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              '按钮点击次数:',
-            ),
-            Text(
-              '$_counter',
-            ),
-            const Text(
-              '展示:',
-            ),
-            Text(
-              _showList ? '列表' : '卡片',
-            ),
-          ],
-        ),
-      ),
+      body: const VideoList(),
       floatingActionButton: FloatingActionButton(
-        onPressed: _addCounter, // 点击处理函数
+        onPressed: _switchShowList, // 点击处理函数
         tooltip: '自增',
         child: const Icon(Icons.add),
       ), // 浮动按钮
