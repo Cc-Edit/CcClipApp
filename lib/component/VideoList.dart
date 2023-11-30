@@ -39,7 +39,7 @@ class _VideoListState extends State<VideoList> with TickerProviderStateMixin {
             child: const Row(
               children: [
                 Icon(Icons.movie_filter, color: Colors.amber,),
-                Text("  我的视频",
+                Text("  我的剪辑",
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w600
