@@ -9,6 +9,7 @@ class MyHomePage extends StatefulWidget {
 }
 // 小部件状态
 class _MyHomePageState extends State<MyHomePage> {
+  var _showList = false;
   int _counter = 0;
 
   void _addCounter() {
@@ -16,6 +17,12 @@ class _MyHomePageState extends State<MyHomePage> {
     // 每次setState都会重新执行 build
     setState(() {
       _counter++;
+    });
+  }
+
+  void _switchShowList() {
+    setState(() {
+      _showList = !_showList;
     });
   }
 
@@ -28,10 +35,18 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
         actions: <Widget>[
           Container(
-            padding: const EdgeInsets.fromLTRB(0, 0, 20, 0),
-            child: const Row(
+            padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+            child: Row(
               children: [
-                Icon(Icons.dashboard)
+                IconButton(
+                  padding: const EdgeInsets.all(0),
+                  alignment: Alignment.center,
+                  highlightColor: Colors.black.withOpacity(0.05),
+                  icon: (_showList
+                      ? const Icon(Icons.view_stream)
+                      : const Icon(Icons.dashboard)),
+                  onPressed: _switchShowList,
+                )
               ],
             ),
           )
@@ -54,6 +69,13 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Text(
               '$_counter',
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const Text(
+              '展示:',
+            ),
+            Text(
+              _showList ? '列表' : '卡片',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ],
