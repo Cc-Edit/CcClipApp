@@ -58,12 +58,12 @@ class _PageContainerState extends State<PageContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black,
+      color: const Color(0xFF181818),
       child: SafeArea(
         top: false,
         bottom: false,
         child: Scaffold(
-          backgroundColor: Colors.black,
+          backgroundColor: const Color(0xFF181818),
           body: DrawMenu(
             pageName: pageName, // 当前激活的页面
             drawerWidth: MediaQuery.of(context).size.width * 0.75, // 侧边栏宽度比例

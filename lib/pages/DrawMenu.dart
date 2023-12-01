@@ -110,7 +110,6 @@ class DrawMenuState extends State<DrawMenu> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black26,
       body: SingleChildScrollView(
         controller: scrollController,
         scrollDirection: Axis.horizontal,
@@ -128,7 +127,11 @@ class DrawMenuState extends State<DrawMenu> with TickerProviderStateMixin {
                   builder: (BuildContext context, Widget? child) {
                     return Transform(
                         transform: Matrix4.translationValues(scrollController!.offset, 0.0, 0.0),
-                        child: Text('123')
+                        child: Container(
+                          padding: const EdgeInsets.fromLTRB(10, 60, 10, 10),
+                          color:  const Color(0xFF171717),
+                          child: Text('123'),
+                        )
                     );
                   },
                 ),
@@ -141,8 +144,8 @@ class DrawMenuState extends State<DrawMenu> with TickerProviderStateMixin {
                     color: Colors.white,
                     boxShadow: <BoxShadow>[
                       BoxShadow(
-                          color: Colors.grey.withOpacity(0.6),
-                          blurRadius: 24),
+                          color: Colors.grey.withOpacity(0.3),
+                          blurRadius: 25),
                     ],
                   ),
                   child: Stack(
@@ -168,6 +171,7 @@ class DrawMenuState extends State<DrawMenu> with TickerProviderStateMixin {
                           child: Material(
                             color: Colors.transparent,
                             child: InkWell(
+                              highlightColor: Colors.white.withOpacity(0.05),
                               borderRadius: BorderRadius.circular(AppBar().preferredSize.height),
                               child: Center(
                                 child: AnimatedIcon(

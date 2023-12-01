@@ -23,7 +23,15 @@ class _MyHomePageState extends State<MyHomePage> {
     // Scaffold 是一个类似fixed的容器，用来实现导航栏、悬浮、侧边栏等
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0.0,
         title: Text(widget.title),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1),
+          child: Container(
+            color: Colors.grey[900],
+            height: 1.0,
+          ),
+        ),
         actions: <Widget>[
           Container(
             padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
@@ -46,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
         toolbarHeight: 45,
-        backgroundColor: Colors.black,
+        backgroundColor: const Color(0xFF181818),
         titleTextStyle: const TextStyle(
             fontSize: 21,
             fontStyle: FontStyle.normal,

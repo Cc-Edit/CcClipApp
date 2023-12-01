@@ -20,9 +20,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.white,  // seedColor 是种子颜色，由此派生相关主题下的其他颜色
+          seedColor: const Color(0xFF181818),  // seedColor 是种子颜色，由此派生相关主题下的其他颜色
           primary: Colors.white,
-          background: Colors.black
+          background: const Color(0xFF181818)
         ),
         // 文本样式
         textTheme: TextTheme(
