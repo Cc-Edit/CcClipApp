@@ -23,10 +23,6 @@ class _MyHomePageState extends State<MyHomePage> {
     // Scaffold 是一个类似fixed的容器，用来实现导航栏、悬浮、侧边栏等
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(
-            Icons.menu,
-            color: Colors.white
-        ), // 左侧icon
         title: Text(widget.title),
         actions: <Widget>[
           Container(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import  'package:cc_clip_app/pages/HomePage.dart';
+import  'package:cc_clip_app/pages/PageContainer.dart';
 
 
 // 程序入口
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
           displaySmall: GoogleFonts.lato(),
         ),
       ),
-      home: const MyHomePage(title: 'CcClip'),
+      home: const PageContainer(),
     );
   }
 }
