@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:cc_clip_app/component/VideoList.dart';
+import 'package:cc_clip_app/store/app_store.dart';
 
 // 定义一个 MyHomePage 部件，它是一个有状态的部件(StatefulWidget)
 class MyHomePage extends StatefulWidget {
@@ -10,19 +12,10 @@ class MyHomePage extends StatefulWidget {
 }
 // 小部件状态
 class _MyHomePageState extends State<MyHomePage> {
-  var _showList = false; // 展示列表/ka
-  var _showMenu = false; // 左侧菜单显示
 
-  void _switchShowList() {
-    setState(() {
-      _showList = !_showList;
-    });
-  }
-
-  void _switchShowMenu() {
-    setState(() {
-      _showMenu = !_showMenu;
-    });
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -45,10 +38,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   alignment: Alignment.center,
                   highlightColor: Colors.white.withOpacity(0.1),
                   color: Colors.white,
-                  icon: (_showList
-                      ? const Icon(Icons.view_stream)
-                      : const Icon(Icons.dashboard)),
-                  onPressed: _switchShowList,
+                  icon: Observer(
+                    builder: (_) => (appStore.showList
+                        ? const Icon(Icons.view_stream)
+                        : const Icon(Icons.dashboard))
+                  ),
+                  onPressed: appStore.changeShowList,
                 )
               ],
             ),
@@ -65,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: const VideoList(),
       floatingActionButton: FloatingActionButton(
-        onPressed: _switchShowList, // 点击处理函数
+        onPressed: appStore.changeShowList, // 点击处理函数
         tooltip: '自增',
         child: const Icon(Icons.add),
       ), // 浮动按钮
