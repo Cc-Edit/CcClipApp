@@ -23,7 +23,7 @@ class IconCardState extends State<IconCard> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+    return Padding(padding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: 218,

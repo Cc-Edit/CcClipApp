@@ -31,8 +31,12 @@ class DrawMenuState extends State<DrawMenu> with TickerProviderStateMixin {
         children: [
           const UserCard(),
           IconCard(
-            title: "常用功能",
-            menuList: MenuIconData.menuList
+              title: "常用功能",
+              menuList: MenuIconData.menuList
+          ),
+          IconCard(
+              title: "基础功能",
+              menuList: MenuIconData.baseMenu
           ),
         ],
       )

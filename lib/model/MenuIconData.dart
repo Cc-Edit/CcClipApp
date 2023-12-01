@@ -63,4 +63,49 @@ class MenuIconData {
         icon: Icons.face_retouching_natural
     ),
   ];
+
+  static List<MenuIconData> baseMenu = [
+    MenuIconData(
+        id: '1',
+        title: '我的钱包',
+        tooltip: '我的钱包',
+        icon: Icons.account_balance_wallet
+    ),
+    MenuIconData(
+        id: '1',
+        title: '我的订单',
+        tooltip: '我的订单',
+        icon: Icons.list_alt
+    ),
+    MenuIconData(
+        id: '1',
+        title: '二维码',
+        tooltip: '二维码',
+        icon: Icons.qr_code
+    ),
+    MenuIconData(
+        id: '1',
+        title: '观看历史',
+        tooltip: '观看历史',
+        icon: Icons.schedule
+    ),
+    MenuIconData(
+        id: '1',
+        title: '离线模式',
+        tooltip: '离线模式',
+        icon: Icons.wifi_off
+    ),
+    MenuIconData(
+        id: '1',
+        title: '版本升级',
+        tooltip: '版本升级',
+        icon: Icons.cloud_download
+    ),
+    MenuIconData(
+        id: '1',
+        title: '我的客服',
+        tooltip: '录屏',
+        icon: Icons.support_agent
+    ),
+  ];
 }
