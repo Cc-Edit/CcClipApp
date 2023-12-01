@@ -129,7 +129,7 @@ class DrawContainerState extends State<DrawContainer> with TickerProviderStateMi
                       return Transform(
                           transform: Matrix4.translationValues(scrollController!.offset, 0.0, 0.0),
                           child: Container(
-                            padding: const EdgeInsets.fromLTRB(10, 60, 10, 10),
+                            padding: const EdgeInsets.fromLTRB(10, 60, 10, 30),
                             color:  const Color(0xFF171717),
                             child: const DrawMenu(),
                           )
