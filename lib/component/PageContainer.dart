@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cc_clip_app/pages/HomePage.dart';
-import 'package:cc_clip_app/pages/DrawContainer.dart';
+import 'package:cc_clip_app/component/DrawContainer.dart';
 
 enum PageName {
   home

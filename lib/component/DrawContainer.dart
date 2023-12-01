@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:cc_clip_app/pages/PageContainer.dart';
-import 'package:cc_clip_app/pages/DrawMenu.dart';
+import 'package:cc_clip_app/component/PageContainer.dart';
+import 'package:cc_clip_app/component/DrawMenu.dart';
 
 // 侧边栏小组件
 class DrawContainer extends StatefulWidget {
