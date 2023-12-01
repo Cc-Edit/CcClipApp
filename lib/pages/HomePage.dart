@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../component/VideoList.dart';
+import 'package:cc_clip_app/component/VideoList.dart';
 
 // 定义一个 MyHomePage 部件，它是一个有状态的部件(StatefulWidget)
 class MyHomePage extends StatefulWidget {

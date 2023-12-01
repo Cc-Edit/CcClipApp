@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../model/VideoListData.dart';
+import 'package:cc_clip_app/model/VideoListData.dart';
 
 class VideoListItem extends StatelessWidget {
   const VideoListItem({

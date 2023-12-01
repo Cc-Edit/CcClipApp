@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../model/VideoListData.dart';
-import 'VideoListItem.dart';
+import 'package:cc_clip_app/model/VideoListData.dart';
+import 'package:cc_clip_app/component/VideoListItem.dart';
 
 class VideoList extends StatefulWidget {
   const VideoList({super.key});

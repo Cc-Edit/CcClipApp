@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import  './pages/HomePage.dart';
+import  'package:cc_clip_app/pages/HomePage.dart';
 
 
 // 程序入口
