@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cc_clip_app/pages/HomePage.dart';
-import 'package:cc_clip_app/pages/DrawMenu.dart';
+import 'package:cc_clip_app/pages/DrawContainer.dart';
 
 enum PageName {
   home
@@ -64,7 +64,7 @@ class _PageContainerState extends State<PageContainer> {
         bottom: false,
         child: Scaffold(
           backgroundColor: const Color(0xFF181818),
-          body: DrawMenu(
+          body: DrawContainer(
             pageName: pageName, // 当前激活的页面
             drawerWidth: MediaQuery.of(context).size.width * 0.75, // 侧边栏宽度比例
             onDrawerCall: (PageName newPage) {
