@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 // 用户卡片
-class UserCart extends StatefulWidget {
-  const UserCart({
+class UserCard extends StatefulWidget {
+  const UserCard({
     super.key,
   });
 
   @override
-  UserCartState createState() => UserCartState();
+  UserCardState createState() => UserCardState();
 }
 
-class UserCartState extends State<UserCart> with TickerProviderStateMixin {
+class UserCardState extends State<UserCard> with TickerProviderStateMixin {
 
   @override
   void initState() {
@@ -105,10 +105,11 @@ class UserCartState extends State<UserCart> with TickerProviderStateMixin {
                 ))),
                 Container(
                     width: 32,
-                    height: 32,
+                    height: 25,
                     transform: Matrix4.translationValues(10, 5, 0),
                     child: IconButton(
                       iconSize: 20,
+                      padding: const EdgeInsets.all(0),
                       color: Colors.grey[100],
                       icon: const Icon(Icons.more_horiz),
                       tooltip: '更多信息',

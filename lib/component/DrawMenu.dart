@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:cc_clip_app/component/UserCart.dart';
+import 'package:cc_clip_app/component/UserCard.dart';
+import 'package:cc_clip_app/component/IconCard.dart';
+import 'package:cc_clip_app/model/MenuIconData.dart';
 
 // 侧边栏小组件
 class DrawMenu extends StatefulWidget {
@@ -24,9 +26,14 @@ class DrawMenuState extends State<DrawMenu> with TickerProviderStateMixin {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-      child: const Column(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          UserCart(),
+          const UserCard(),
+          IconCard(
+            title: "常用功能",
+            menuList: MenuIconData.menuList
+          ),
         ],
       )
     );
