@@ -16,6 +16,24 @@ class _VideoListState extends State<VideoList> with TickerProviderStateMixin {
   List<VideoListData> videoListData = VideoListData.videoList;
   AnimationController? animationController; // 动画管理
 
+  // 监控 mobx 数据变化
+  // final List<ReactionDisposer> _disposers = [];
+  // Key _refreshKey = UniqueKey();
+  //
+  // void _handleLocaleChanged() => setState((){
+  //   _refreshKey = UniqueKey();
+  // });
+  //
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   _disposers.add(
+  //     reaction((_) => appStore.showList, (msg) =>
+  //       _handleLocaleChanged()
+  //     )
+  //   );
+  // }
+
   @override
   void dispose(){
     animationController?.dispose();
