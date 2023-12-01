@@ -37,15 +37,10 @@ class _VideoListState extends State<VideoList> with TickerProviderStateMixin {
         children: <Widget>[
            Container(
             padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
-            child: Row(
+            child: const Row(
               children: [
-                const Icon(Icons.movie_filter, color: Colors.amber,),
-                Observer(
-                    builder: (_) => (appStore.showList
-                        ? const Icon(Icons.view_stream, color: Colors.white,)
-                        : const Icon(Icons.dashboard, color: Colors.white,))
-                ),
-                const Text("  我的剪辑 ",
+                Icon(Icons.movie_filter, color: Colors.amber,),
+                Text("  我的剪辑 ",
                     style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w600
