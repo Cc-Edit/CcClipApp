@@ -52,7 +52,7 @@ class _MainViewState extends State<MainView> {
               Expanded(child: pageView),
               SizedBox(
                 width: MediaQuery.of(context).size.width,
-                height: 80,
+                height: 78,
                 child: const BottomBar(),
               )
             ],

@@ -57,7 +57,7 @@ class _VideoListState extends State<VideoList> with TickerProviderStateMixin {
             padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
             child: Row(
               children: [
-                Icon(Icons.movie_filter, color: Colors.amber[600]),
+                Icon(Icons.movie_filter, color: Colors.pink[400]),
                 const Text("  我的剪辑 ",
                     style: TextStyle(
                         fontSize: 15,

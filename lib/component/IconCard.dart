@@ -53,7 +53,7 @@ class IconCardState extends State<IconCard> with TickerProviderStateMixin {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  color: Colors.amber[400],
+                  color: Colors.pink[400],
                   height: 10,
                   width: 3,
                 ),
