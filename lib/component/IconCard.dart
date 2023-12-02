@@ -161,31 +161,6 @@ class IconCardState extends State<IconCard> with TickerProviderStateMixin {
                 })
               ),
             )
-            // GridView(
-            //   padding: const EdgeInsets.all(0),
-            //   scrollDirection: Axis.vertical, // 方向
-            //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            //     crossAxisCount: 3,
-            //     mainAxisSpacing: 15.0,
-            //     crossAxisSpacing: 5.0,
-            //     childAspectRatio: 1.5,
-            //   ),
-            //   children: [
-                // ...List<Widget>.generate(
-                //   widget.menuList.length,
-                //   (int index) {
-                //     return IconButton(
-                //       iconSize: 20,
-                //       padding: const EdgeInsets.all(0),
-                //       color: Colors.grey[100],
-                //       icon: const Icon(Icons.more_horiz),
-                //       tooltip: '更多',
-                //       onPressed: () {},
-                //     );
-                //   },
-                // )
-            //   ],
-            // )
           ],
         ),
       )
