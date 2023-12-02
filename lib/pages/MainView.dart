@@ -47,13 +47,18 @@ class _MainViewState extends State<MainView> {
         bottom: false,
         child: Scaffold(
           backgroundColor: const Color(0xFF181818),
-          body: Column(
-            children: [
-              Expanded(child: pageView),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 78,
-                child: const BottomBar(),
+          body: Stack(
+            children: [ // 两个层级叠加，实现底部菜单的超出区域
+              Column(
+                children: [
+                  Expanded(child: pageView),
+                ],
+              ),
+              const Column(
+                children: [
+                  Expanded(child: SizedBox()),
+                  BottomBar()
+                ],
               )
             ],
           ),

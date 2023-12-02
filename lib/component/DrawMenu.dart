@@ -51,7 +51,7 @@ class DrawMenuState extends State<DrawMenu> with TickerProviderStateMixin {
                     ),
                     const Text('退出登录', style: TextStyle(
                       fontSize: 14,
-                    ),)
+                    ))
                   ],
                 ),
               ),

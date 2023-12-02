@@ -62,12 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
             color: Colors.white
         ),
       ),
-      body: const VideoList(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: appStore.changeShowList, // 点击处理函数
-        tooltip: '自增',
-        child: const Icon(Icons.add),
-      ), // 浮动按钮
+      body: const VideoList()
     );
   }
 }

@@ -145,7 +145,7 @@ class BottomTabIconState extends State<BottomTabIcon> with TickerProviderStateMi
               builder: (_) => Text(widget.iconData.title, style: TextStyle(
                 fontSize: 13,
                 fontWeight: appStore.activeBottomTabIndex == widget.iconData.index ? FontWeight.bold : FontWeight.normal,
-                color: appStore.activeBottomTabIndex == widget.iconData.index ? Colors.white : Color(0XFFD5D5D5)
+                color: appStore.activeBottomTabIndex == widget.iconData.index ? Colors.white : const Color(0XFFD5D5D5)
               ))
             ),
           )

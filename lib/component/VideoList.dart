@@ -71,7 +71,7 @@ class _VideoListState extends State<VideoList> with TickerProviderStateMixin {
             child: Observer(
               builder: (_) => GridView(
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                physics: const BouncingScrollPhysics(), // 滚动效果
+                physics: const AlwaysScrollableScrollPhysics(), // 滚动效果
                 scrollDirection: Axis.vertical, // 方向
                 gridDelegate:
                 SliverGridDelegateWithFixedCrossAxisCount(

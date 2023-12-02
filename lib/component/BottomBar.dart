@@ -7,10 +7,11 @@ import 'package:cc_clip_app/store/app_store.dart';
 class BottomBar extends StatefulWidget {
   const BottomBar({
     super.key,
-    this.onActiveChange,
+    this.onActiveChange, this.menuClick,
   });
 
   final Function(int index)? onActiveChange;
+  final Function()? menuClick;
 
   @override
   State<BottomBar> createState() => BottomBarState();
@@ -37,34 +38,29 @@ class BottomBarState extends State<BottomBar> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    // 中心块放大动画、背景撑开动画、中心块位置动画
+    final animation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+        parent: animationController!,
+        curve: Curves.fastOutSlowIn
+    ));
     // Stack 用来堆叠元素
     return Stack(
       alignment: AlignmentDirectional.bottomCenter,
       children: [
         AnimatedBuilder(animation: animationController!, builder: (BuildContext context, Widget? child) {
-          // 初始化旋转动画
-          final animation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-                  parent: animationController!,
-                  curve: Curves.fastOutSlowIn
-          ));
-          // 匀速变宽
-          final centerBoxAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-              parent: animationController!,
-              curve: Curves.fastOutSlowIn
-          ));
           return Transform(
             transform: Matrix4.translationValues(0.0, 0.0, 0.0),
             child: PhysicalShape(
-              // backgroundColor: const Color(0xFF181818),
-              color: const Color(0xFF333333),
-              elevation: 10.0,
+              color: const Color(0xFF282828),
+              elevation: 17.0,
               clipper: TabClipper(radius: animation.value * 40.0),
-              child: Column(
+              child:
+              Column(
                 children: [
-                  Container(
-                    height: 62,
+                  SizedBox(
+                    height: 78,
                     child: Padding(
-                      padding: EdgeInsets.only(left: 8, right: 8, top: 4),
+                      padding: const EdgeInsets.only(left: 8, right: 8, top: 4),
                       child: Row(
                         children: [
                           ...List.generate(5, (index) {
@@ -74,7 +70,7 @@ class BottomBarState extends State<BottomBar> with TickerProviderStateMixin {
                               );
                             }else if (index == 2) {
                               return SizedBox(
-                                width: centerBoxAnimation.value * 64.0,
+                                width: animation.value * 64.0,
                               );
                             }else {
                               return Expanded(
@@ -85,12 +81,59 @@ class BottomBarState extends State<BottomBar> with TickerProviderStateMixin {
                         ],
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
           );
-        })
+        }),
+        Padding(
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+          child: SizedBox(
+            width: 40 * 2, // 40 为中心圆形Radius
+            height: 40 * 2,
+            child: Container(
+              alignment: Alignment.topCenter,
+              color: Colors.transparent,
+              child: SizedBox(
+                width: 40 * 2,
+                height: 40 * 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(0),
+                  child: ScaleTransition(
+                    alignment: Alignment.center,
+                    scale: animation,
+                    child: Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                              color: Colors.pink.withOpacity(0.4),
+                              offset: const Offset(2.0, 8.0),
+                              blurRadius: 26.0),
+                        ],
+                      ),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          splashColor: Colors.white.withOpacity(0.2),
+                          highlightColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          onTap: widget.menuClick,
+                          child: Container(
+                            padding: const EdgeInsets.all(0),
+                            child: Image.asset("assets/tabIcon/menu5.png"),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          )
+        )
       ],
     );
   }
