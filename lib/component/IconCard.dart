@@ -5,9 +5,12 @@ import 'package:cc_clip_app/model/MenuIconData.dart';
 class IconCard extends StatefulWidget {
   const IconCard({
     super.key,
+    this.rowCount = 4,
     required this.menuList, required this.title
   });
+
   final String title;
+  final int rowCount;
   final List<MenuIconData> menuList;
 
   @override
@@ -23,10 +26,11 @@ class IconCardState extends State<IconCard> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final int rowCount = (widget.menuList.length / widget.rowCount).ceil();
     return Padding(padding: const EdgeInsets.fromLTRB(0, 20, 4, 10),
       child: Container(
         width: MediaQuery.of(context).size.width,
-        height: 218,
+        height: 58 + (rowCount * 70) + rowCount * 10,
         padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
         decoration: BoxDecoration(
             gradient:  LinearGradient(

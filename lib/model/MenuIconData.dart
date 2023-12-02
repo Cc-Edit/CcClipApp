@@ -107,5 +107,29 @@ class MenuIconData {
         tooltip: '录屏',
         icon: Icons.support_agent
     ),
+    MenuIconData(
+        id: '1',
+        title: '版本升级',
+        tooltip: '版本升级',
+        icon: Icons.cloud_download
+    ),
+    MenuIconData(
+        id: '1',
+        title: '我的客服',
+        tooltip: '录屏',
+        icon: Icons.support_agent
+    ),
+    MenuIconData(
+        id: '1',
+        title: '版本升级',
+        tooltip: '版本升级',
+        icon: Icons.cloud_download
+    ),
+    MenuIconData(
+        id: '1',
+        title: '我的客服',
+        tooltip: '录屏',
+        icon: Icons.support_agent
+    ),
   ];
 }
