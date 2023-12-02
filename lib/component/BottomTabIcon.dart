@@ -51,85 +51,107 @@ class BottomTabIconState extends State<BottomTabIcon> with TickerProviderStateMi
             curve: const Interval(0.5, 0.6, curve: Curves.fastOutSlowIn)));
     return AspectRatio(
       aspectRatio: 1,
-      child: Center(
-        child: Observer(
-          builder: (_) => InkWell(
-            splashColor: Colors.transparent,
-            focusColor: Colors.transparent,
-            highlightColor: Colors.transparent,
-            hoverColor: Colors.transparent,
-            onTap: () {
-              // 按钮未激活执行动画
-              if (appStore.activeBottomTabIndex != widget.iconData.index) {
-                setAnimation();
-              }
-            },
-            child: IgnorePointer(
-              child: Stack(
-                alignment: AlignmentDirectional.center,
-                children: <Widget>[
-                  ScaleTransition(
-                    alignment: Alignment.center,
-                    scale: imageScaleAnimation,
-                    child: Image.asset(appStore.activeBottomTabIndex == widget.iconData.index ? widget.iconData!.activeImagePath : widget.iconData!.imagePath),
-                  ),
-                  Positioned(
-                    top: 4,
-                    left: 6,
-                    right: 0,
-                    child: ScaleTransition(
-                      alignment: Alignment.center,
-                      scale: circleAnimation,
-                      child: Container(
-                        width: 8,
-                        height: 8,
-                        decoration: const BoxDecoration(
-                          color: Colors.red,
-                          shape: BoxShape.circle,
-                        ),
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(0),
+            height: 35,
+            width: 50,
+            child: Observer(
+                  builder: (_) => InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    onTap: () {
+                      // 按钮未激活执行动画
+                      if (appStore.activeBottomTabIndex != widget.iconData.index) {
+                        setAnimation();
+                      }
+                    },
+                    child: IgnorePointer(
+                      child: Stack(
+                        alignment: AlignmentDirectional.center,
+                        children: <Widget>[
+                          ScaleTransition(
+                            alignment: Alignment.center,
+                            scale: imageScaleAnimation,
+                            child: SizedBox(
+                              height: 35,
+                              width: 33,
+                              child: Image.asset(appStore.activeBottomTabIndex == widget.iconData.index ? widget.iconData!.activeImagePath : widget.iconData!.imagePath),
+                            ),
+                          ),
+                          Positioned(
+                            top: 0,
+                            left: 6,
+                            right: 0,
+                            child: ScaleTransition(
+                              alignment: Alignment.center,
+                              scale: circleAnimation,
+                              child: Container(
+                                width: 8,
+                                height: 8,
+                                decoration: const BoxDecoration(
+                                  color: Color(0XFFE8466E),
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 0,
+                            left: 5,
+                            bottom: 8,
+                            child: ScaleTransition(
+                              alignment: Alignment.center,
+                              scale: circleAnimation1,
+                              child: Container(
+                                width: 4,
+                                height: 4,
+                                decoration: const BoxDecoration(
+                                  color: Color(0XFFE8466E),
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 10,
+                            right: 5,
+                            bottom: 0,
+                            child: ScaleTransition(
+                              alignment: Alignment.center,
+                              scale: circleAnimation2,
+                              child: Container(
+                                width: 6,
+                                height: 6,
+                                decoration: const BoxDecoration(
+                                  color: Color(0XFFE8466E),
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
-                  Positioned(
-                    top: 0,
-                    left: 6,
-                    bottom: 8,
-                    child: ScaleTransition(
-                      alignment: Alignment.center,
-                      scale: circleAnimation1,
-                      child: Container(
-                        width: 4,
-                        height: 4,
-                        decoration: const BoxDecoration(
-                          color: Colors.red,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 6,
-                    right: 8,
-                    bottom: 0,
-                    child: ScaleTransition(
-                      alignment: Alignment.center,
-                      scale: circleAnimation2,
-                      child: Container(
-                        width: 6,
-                        height: 6,
-                        decoration: const BoxDecoration(
-                          color: Colors.red,
-                          shape: BoxShape.circle,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                  )
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.only(top: 0),
+            child: Observer(
+              builder: (_) => Text(widget.iconData.title, style: TextStyle(
+                fontSize: 13,
+                fontWeight: appStore.activeBottomTabIndex == widget.iconData.index ? FontWeight.bold : FontWeight.normal,
+                color: appStore.activeBottomTabIndex == widget.iconData.index ? Colors.white : Color(0XFFD5D5D5)
+              ))
             ),
           )
-        ),
-      ),
+        ],
+      )
+      ,
     );
   }
 }
