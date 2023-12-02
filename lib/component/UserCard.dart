@@ -82,14 +82,15 @@ class UserCardState extends State<UserCard> with TickerProviderStateMixin {
               )
               ),
               Container(
-                  width: 30,
-                  height: 30,
+                  width: 32,
+                  height: 32,
                   padding: const EdgeInsets.all(0),
-                  transform: Matrix4.translationValues(10, -12, 0),
+                  transform: Matrix4.translationValues(8, -10, 0),
                   child: IconButton(
                     iconSize: 20,
+                    padding: const EdgeInsets.all(0),
                     color: Colors.grey[100],
-                    icon: const Icon(Icons.logout),
+                    icon: const Icon(Icons.settings),
                     tooltip: '退出登录',
                     onPressed: () {},
                   )

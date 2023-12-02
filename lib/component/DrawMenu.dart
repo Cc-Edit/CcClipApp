@@ -38,6 +38,25 @@ class DrawMenuState extends State<DrawMenu> with TickerProviderStateMixin {
               title: "基础功能",
               menuList: MenuIconData.baseMenu
           ),
+          Container(
+            padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
+            child: OutlinedButton(
+              onPressed: () {},
+              child: Center(
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.fromLTRB(40, 0, 10, 0),
+                      child: const Icon(Icons.logout, size: 20,),
+                    ),
+                    const Text('退出登录', style: TextStyle(
+                      fontSize: 14,
+                    ),)
+                  ],
+                ),
+              ),
+            ),
+          )
         ],
       )
     );
