@@ -59,6 +59,11 @@ class DrawContainerState extends State<DrawContainer> with TickerProviderStateMi
             duration: const Duration(milliseconds: 0),
             curve: Curves.fastOutSlowIn);
       }else if(offset > 0 && offset < widget.drawerWidth.floor()) {
+        if (scrollOffset != 1.0) {
+          setState(() {
+            scrollOffset = 1.0;
+          });
+        }
         // 设置按钮样式
         iconAnimationController?.animateTo(
             (offset * 100 / (widget.drawerWidth)) / 100,
@@ -159,6 +164,14 @@ class DrawContainerState extends State<DrawContainer> with TickerProviderStateMi
                           // 抽屉打开时，点击主屏幕关闭抽屉
                           if (scrollOffset == 1.0)
                             InkWell(
+                              child: AnimatedBuilder(
+                                animation: iconAnimationController!,
+                                builder: (BuildContext context, Widget? child) {
+                                  return Container(
+                                    color: Colors.black.withOpacity((1 - iconAnimationController!.value) * 0.7)
+                                  );
+                                },
+                              ),
                               onTap: () {
                                 onDrawerClick();
                               },
