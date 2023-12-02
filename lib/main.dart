@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import  'package:cc_clip_app/component/PageContainer.dart';
+import 'package:cc_clip_app/component/DrawContainer.dart';
 
 
 // 程序入口
@@ -47,7 +46,9 @@ class MyApp extends StatelessWidget {
           displaySmall: GoogleFonts.lato(),
         ),
       ),
-      home: const PageContainer(),
+      home: DrawContainer(
+        drawerWidth: MediaQuery.of(context).size.width * 0.75, // 侧边栏宽度比例
+    ),
     );
   }
 }

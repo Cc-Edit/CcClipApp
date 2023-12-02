@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:cc_clip_app/component/PageContainer.dart';
 import 'package:cc_clip_app/component/DrawMenu.dart';
+import 'package:cc_clip_app/pages/MainView.dart';
 
-// 侧边栏小组件
+// 带侧边栏的容器组件
 class DrawContainer extends StatefulWidget {
   const DrawContainer({
     super.key,
-    this.pageName,
     this.drawerWidth = 250,
-    this.onDrawerCall,
-    this.pageView,
     this.drawerIsOpen,
     this.animatedIconData = AnimatedIcons.arrow_menu,
   });
 
-  final PageName? pageName;
   final double drawerWidth;
-  final Function(PageName)? onDrawerCall;
-  final Widget? pageView;
   final Function(bool)? drawerIsOpen;
   final AnimatedIconData? animatedIconData;
 
@@ -159,7 +153,7 @@ class DrawContainerState extends State<DrawContainer> with TickerProviderStateMi
                           // 抽屉打开的情况下屏蔽主屏幕的事件
                           IgnorePointer(
                             ignoring: scrollOffset == 1 || false,
-                            child: widget.pageView,
+                            child: const MainView(),
                           ),
                           // 抽屉打开时，点击主屏幕关闭抽屉
                           if (scrollOffset == 1.0)
