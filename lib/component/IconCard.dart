@@ -105,6 +105,7 @@ class IconCardState extends State<IconCard> with TickerProviderStateMixin {
                 // Create a grid with 2 columns. If you change the scrollDirection to
                 // horizontal, this produces 2 rows.
                 crossAxisCount: 4,
+                physics: const ScrollPhysics(),
                 childAspectRatio: 60 / 65,
                 mainAxisSpacing: 15,
                 crossAxisSpacing: 1,
