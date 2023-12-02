@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:cc_clip_app/component/VideoList.dart';
-import 'package:cc_clip_app/store/app_store.dart';
 import 'package:cc_clip_app/pages/HomePage.dart';
 
 enum PageName {
