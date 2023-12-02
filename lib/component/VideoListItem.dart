@@ -46,7 +46,7 @@ class VideoListItem extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(4.0)),
                   child: Stack(
                     alignment: AlignmentDirectional.center,
-                    children: <Widget>[
+                    children: [
                       Positioned.fill(
                         child: Image.asset(
                           listData!.cover,

@@ -52,7 +52,7 @@ class _VideoListState extends State<VideoList> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Column(
-        children: <Widget>[
+        children: [
            Container(
             padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
             child: Row(

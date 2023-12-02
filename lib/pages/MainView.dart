@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cc_clip_app/pages/HomePage.dart';
+import 'package:cc_clip_app/component/BottomBar.dart';
 
 enum PageName {
   home
@@ -14,13 +15,11 @@ class MainView extends StatefulWidget {
 }
 // 小部件状态
 class _MainViewState extends State<MainView> {
-  Widget? pageView;
-  PageName? pageName;
+  Widget pageView = const MyHomePage(title: 'CcClip');
+  PageName pageName = PageName.home;
 
   @override
   void initState() {
-    pageName = PageName.home;
-    pageView = const MyHomePage(title: 'CcClip');
     super.initState();
   }
 
@@ -48,7 +47,17 @@ class _MainViewState extends State<MainView> {
         bottom: false,
         child: Scaffold(
           backgroundColor: const Color(0xFF181818),
-          body: pageView,
+          body: Column(
+            children: [
+              Expanded(child: pageView),
+              Container(
+                color: Colors.red,
+                width: MediaQuery.of(context).size.width,
+                height: 80,
+                child: const BottomBar(),
+              )
+            ],
+          ),
         ),
       ),
     );

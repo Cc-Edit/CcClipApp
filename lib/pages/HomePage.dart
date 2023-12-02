@@ -32,7 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
             height: 1.0,
           ),
         ),
-        actions: <Widget>[
+        actions: [
           Container(
             padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
             child: Row(

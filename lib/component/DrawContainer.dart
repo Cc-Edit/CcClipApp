@@ -118,7 +118,7 @@ class DrawContainerState extends State<DrawContainer> with TickerProviderStateMi
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width + widget.drawerWidth,
             child: Row(
-              children: <Widget>[
+              children: [
                 SizedBox( // 抽屉
                   width: widget.drawerWidth,
                   height: MediaQuery.of(context).size.height,
@@ -149,7 +149,7 @@ class DrawContainerState extends State<DrawContainer> with TickerProviderStateMi
                         ],
                       ),
                       child: Stack(
-                        children: <Widget>[
+                        children: [
                           // 抽屉打开的情况下屏蔽主屏幕的事件
                           IgnorePointer(
                             ignoring: scrollOffset == 1 || false,
