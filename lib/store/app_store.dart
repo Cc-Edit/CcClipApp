@@ -9,7 +9,10 @@ final AppStore appStore = AppStore();
 
 abstract class AppStoreBase with Store {
   @observable
-  bool showList = false;
+  bool showList = false; // 主页列表展现形式
+
+  @observable
+  int activeBottomTabIndex = 0; // 底部菜单选中下标
 
   @computed
   String get listName => '当前状态：$showList';
@@ -17,5 +20,10 @@ abstract class AppStoreBase with Store {
   @action
   void changeShowList() {
     showList = !showList;
+  }
+
+  @action
+  void changeBottomTabIndex(int index) {
+    activeBottomTabIndex = index;
   }
 }

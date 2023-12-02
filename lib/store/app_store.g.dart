@@ -32,6 +32,23 @@ mixin _$AppStore on AppStoreBase, Store {
     });
   }
 
+  late final _$activeBottomTabIndexAtom =
+      Atom(name: 'AppStoreBase.activeBottomTabIndex', context: context);
+
+  @override
+  int get activeBottomTabIndex {
+    _$activeBottomTabIndexAtom.reportRead();
+    return super.activeBottomTabIndex;
+  }
+
+  @override
+  set activeBottomTabIndex(int value) {
+    _$activeBottomTabIndexAtom.reportWrite(value, super.activeBottomTabIndex,
+        () {
+      super.activeBottomTabIndex = value;
+    });
+  }
+
   late final _$AppStoreBaseActionController =
       ActionController(name: 'AppStoreBase', context: context);
 
@@ -47,9 +64,21 @@ mixin _$AppStore on AppStoreBase, Store {
   }
 
   @override
+  void changeBottomTabIndex(int index) {
+    final _$actionInfo = _$AppStoreBaseActionController.startAction(
+        name: 'AppStoreBase.changeBottomTabIndex');
+    try {
+      return super.changeBottomTabIndex(index);
+    } finally {
+      _$AppStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 showList: ${showList},
+activeBottomTabIndex: ${activeBottomTabIndex},
 listName: ${listName}
     ''';
   }
