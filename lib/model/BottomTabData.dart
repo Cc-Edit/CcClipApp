@@ -17,29 +17,29 @@ class BottomTabData {
 
   static List<BottomTabData> tabList = <BottomTabData>[
     BottomTabData(
-      imagePath: 'assets/fitness_app/tab_1.png',
-      activeImagePath: 'assets/fitness_app/tab_1s.png',
+      imagePath: 'assets/tabIcon/tab_1.png',
+      activeImagePath: 'assets/tabIcon/tab_1s.png',
       index: 0,
       isActive: true,
       animationController: null,
     ),
     BottomTabData(
-      imagePath: 'assets/fitness_app/tab_2.png',
-      activeImagePath: 'assets/fitness_app/tab_2s.png',
+      imagePath: 'assets/tabIcon/tab_2.png',
+      activeImagePath: 'assets/tabIcon/tab_2s.png',
       index: 1,
       isActive: false,
       animationController: null,
     ),
     BottomTabData(
-      imagePath: 'assets/fitness_app/tab_3.png',
-      activeImagePath: 'assets/fitness_app/tab_3s.png',
+      imagePath: 'assets/tabIcon/tab_3.png',
+      activeImagePath: 'assets/tabIcon/tab_3s.png',
       index: 2,
       isActive: false,
       animationController: null,
     ),
     BottomTabData(
-      imagePath: 'assets/fitness_app/tab_4.png',
-      activeImagePath: 'assets/fitness_app/tab_4s.png',
+      imagePath: 'assets/tabIcon/tab_4.png',
+      activeImagePath: 'assets/tabIcon/tab_4s.png',
       index: 3,
       isActive: false,
       animationController: null,

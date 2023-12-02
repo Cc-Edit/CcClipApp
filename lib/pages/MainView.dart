@@ -50,8 +50,7 @@ class _MainViewState extends State<MainView> {
           body: Column(
             children: [
               Expanded(child: pageView),
-              Container(
-                color: Colors.red,
+              SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 80,
                 child: const BottomBar(),

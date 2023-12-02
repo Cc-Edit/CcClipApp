@@ -55,12 +55,13 @@ class BottomBarState extends State<BottomBar> with TickerProviderStateMixin {
           return Transform(
             transform: Matrix4.translationValues(0.0, 0.0, 0.0),
             child: PhysicalShape(
-              color: Colors.orange,
+              // backgroundColor: const Color(0xFF181818),
+              color: const Color(0xFF333333),
               elevation: 10.0,
               clipper: TabClipper(radius: animation.value * 40.0),
               child: Column(
                 children: [
-                  SizedBox(
+                  Container(
                     height: 62,
                     child: Padding(
                       padding: EdgeInsets.only(left: 8, right: 8, top: 4),
