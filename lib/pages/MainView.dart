@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cc_clip_app/pages/HomePage.dart';
 import 'package:cc_clip_app/pages/MessagePage.dart';
+import 'package:cc_clip_app/pages/TemplatePage.dart';
+import 'package:cc_clip_app/pages/UserPage.dart';
 import 'package:cc_clip_app/component/BottomBar.dart';
 
 List<String> pageNameList =[
@@ -40,6 +42,16 @@ class _MainViewState extends State<MainView> {
         case 'message':
           setState(() {
             pageView = const MessagePage(title: '消息');
+          });
+          break;
+        case 'template':
+          setState(() {
+            pageView = const TemplatePage(title: '模板');
+          });
+          break;
+        case 'user':
+          setState(() {
+            pageView = const UserPage(title: '模板');
           });
           break;
         default:
