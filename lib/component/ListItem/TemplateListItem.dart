@@ -81,10 +81,10 @@ class TemplateListItem extends StatelessWidget {
                                     color: Colors.grey[300]
                                 ),),
                                 const Expanded(child: SizedBox()),
-                                Text(listData!.author, style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey[400]
-                                ),),
+                                // Text(listData!.author, style: TextStyle(
+                                //     fontSize: 12,
+                                //     color: Colors.grey[400]
+                                // ),),
                               ],
                             ),
                           )

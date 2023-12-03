@@ -88,7 +88,7 @@ class BottomBarState extends State<BottomBar> with TickerProviderStateMixin {
           );
         }),
         Padding(
-          padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+          padding: const EdgeInsets.only(bottom: 33),
           child: SizedBox(
             width: 40 * 2, // 40 为中心圆形Radius
             height: 40 * 2,
