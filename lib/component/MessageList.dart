@@ -1,38 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:cc_clip_app/model/VideoListData.dart';
-import 'package:cc_clip_app/component/ListItem/VideoListItem.dart';
-import 'package:cc_clip_app/store/app_store.dart';
 
-class VideoList extends StatefulWidget {
-  const VideoList({super.key});
+import 'package:cc_clip_app/model/MessageListData.dart';
+import 'package:cc_clip_app/component/ListItem/MessageListItem.dart';
+
+class MessageList extends StatefulWidget {
+  const MessageList({super.key});
 
   @override
-  State<VideoList> createState() => _VideoListState();
+  State<MessageList> createState() => MessageListState();
 }
 // TickerProviderStateMixin 用来实现动画
-class _VideoListState extends State<VideoList> with TickerProviderStateMixin {
+class MessageListState extends State<MessageList> with TickerProviderStateMixin {
 
-  List<VideoListData> videoListData = VideoListData.videoList;
+  List<MessageListData> messageListData = MessageListData.messageList;
   AnimationController? animationController; // 动画管理
-
-  // 监控 mobx 数据变化
-  // final List<ReactionDisposer> _disposers = [];
-  // Key _refreshKey = UniqueKey();
-  //
-  // void _handleLocaleChanged() => setState((){
-  //   _refreshKey = UniqueKey();
-  // });
-  //
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   _disposers.add(
-  //     reaction((_) => appStore.showList, (msg) =>
-  //       _handleLocaleChanged()
-  //     )
-  //   );
-  // }
 
   @override
   void dispose(){
@@ -68,23 +49,22 @@ class _VideoListState extends State<VideoList> with TickerProviderStateMixin {
             ),
           ),
           Expanded(
-            child: Observer(
-              builder: (_) => GridView(
+            child: GridView(
                 padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
                 physics: const AlwaysScrollableScrollPhysics(), // 滚动效果
                 scrollDirection: Axis.vertical, // 方向
                 gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: appStore.showList ? 1 : 3,
+                const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
                   mainAxisSpacing: 15.0,
                   crossAxisSpacing: 5.0,
                   childAspectRatio: 1.5,
                 ),
                 children: [
                   ...List<Widget>.generate(
-                    videoListData.length,
+                    messageListData.length,
                         (int index) {
-                      final int count = videoListData.length;
+                      final int count = messageListData.length;
                       final Animation<double> animation =
                       Tween<double>(begin: 0.0, end: 1.0).animate(
                         CurvedAnimation(
@@ -97,10 +77,10 @@ class _VideoListState extends State<VideoList> with TickerProviderStateMixin {
                         ),
                       );
                       animationController?.forward();
-                      return VideoListItem(
+                      return MessageListItem(
                         animation: animation,
                         animationController: animationController,
-                        listData: videoListData[index],
+                        listData: messageListData[index],
                         callBack: () {},
                       );
                     },
@@ -108,7 +88,6 @@ class _VideoListState extends State<VideoList> with TickerProviderStateMixin {
                 ],
               )
             ),
-          ),
         ]
     );
   }

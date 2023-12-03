@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cc_clip_app/component/VideoList.dart';
+import 'package:cc_clip_app/component/MessageList.dart';
 
 class MessagePage extends StatefulWidget {
   const MessagePage({super.key, required this.title});
@@ -56,7 +56,7 @@ class MessagePageState extends State<MessagePage> {
             color: Colors.white
         ),
       ),
-      body: const VideoList()
+      body: const MessageList()
     );
   }
 }
