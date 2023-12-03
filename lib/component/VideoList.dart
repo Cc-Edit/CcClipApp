@@ -46,7 +46,7 @@ class _VideoListState extends State<VideoList> with TickerProviderStateMixin {
   @override
   void initState() {
     animationController = AnimationController(
-        duration: const Duration(milliseconds: 2000), vsync: this);
+        duration: const Duration(milliseconds: 1000), vsync: this);
     super.initState();
   }
 
@@ -63,69 +63,79 @@ class _VideoListState extends State<VideoList> with TickerProviderStateMixin {
                 children: [
                   Icon(Icons.local_fire_department, color: Colors.pink[400]),
                   const Text("  热门活动 ",
-                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600))
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.w600))
                 ],
               ),
             ),
-            Expanded(child: Container(
-              padding: const EdgeInsets.only(left: 10, right: 10),
-              child: Container(
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(
-                        color: Colors.grey[800] as Color
-                    )
-                ),
-                child: Swiper(
-                  itemCount: homeBanner.length,
-                  autoplay: true,
-                  autoplayDelay: 5000,
-                  duration: 800,
-                  itemBuilder: (BuildContext context,int index){
-                    return Stack(
-                      children: [
-                        Container(
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-                          width: MediaQuery.of(context).size.width - 20,
-                          child: Image.asset(homeBanner[index].cover,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Column(
-                          children: [
-                            const Expanded(child: SizedBox()),
-                            Container(
-                              width: MediaQuery.of(context).size.width - 20,
-                              padding: const EdgeInsets.fromLTRB(15, 2, 0, 2),
-                              color: Colors.grey[800]!.withOpacity(0.6),
-                              child: Text(homeBanner[index].title, style: TextStyle(
-                                fontSize: 13,
-                                color: Colors.grey[200],
-                                letterSpacing: 1
-                              ),),
-                            )
-                          ] ,
-                        )
-                      ],
-                    );
-                    // return Image.network("https://via.placeholder.com/350x150",fit: BoxFit.fill,);
-                  },
-                  pagination: SwiperPagination(
-                    alignment: Alignment.topRight,
-                    builder: DotSwiperPaginationBuilder(
-                      activeColor: Colors.pink[400] as Color,
-                      color: Colors.grey[800]!.withOpacity(0.2),
-                      activeSize: 8,
-                      size: 6
-                    )
-                  ),
-                ),
-              ),
-            ))
+            Expanded(
+              child: FadeTransition(
+                  opacity: animationController!,
+                  child: Container(
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    child: Container(
+                      clipBehavior: Clip.antiAliasWithSaveLayer,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(
+                              color: Colors.grey[800] as Color)),
+                      child: Swiper(
+                        itemCount: homeBanner.length,
+                        autoplay: true,
+                        autoplayDelay: 5000,
+                        duration: 800,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Stack(
+                            children: [
+                              Container(
+                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(14),
+                                ),
+                                width: MediaQuery.of(context).size.width -
+                                    20,
+                                child: Image.asset(
+                                  homeBanner[index].cover,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Column(
+                                children: [
+                                  const Expanded(child: SizedBox()),
+                                  Container(
+                                    width: MediaQuery.of(context)
+                                        .size
+                                        .width -
+                                        20,
+                                    padding: const EdgeInsets.fromLTRB(
+                                        15, 2, 0, 2),
+                                    color: Colors.grey[800]!
+                                        .withOpacity(0.6),
+                                    child: Text(
+                                      homeBanner[index].title,
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          color: Colors.grey[200],
+                                          letterSpacing: 1),
+                                    ),
+                                  )
+                                ],
+                              )
+                            ],
+                          );
+                          // return Image.network("https://via.placeholder.com/350x150",fit: BoxFit.fill,);
+                        },
+                        pagination: SwiperPagination(
+                            alignment: Alignment.topRight,
+                            builder: DotSwiperPaginationBuilder(
+                                activeColor: Colors.pink[400] as Color,
+                                color: Colors.grey[800]!.withOpacity(0.2),
+                                activeSize: 8,
+                                size: 6)),
+                      ),
+                    ),
+                  )),
+            )
           ],
         ),
       ),
