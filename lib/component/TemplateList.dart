@@ -128,8 +128,8 @@ class _VideoListState extends State<TemplateList> with TickerProviderStateMixin 
         padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
         child: Row(
           children: [
-            Icon(Icons.movie_filter, color: Colors.pink[400]),
-            const Text("  模板列表 ",
+            Icon(Icons.auto_awesome, color: Colors.pink[400]),
+            const Text("  精选模板 ",
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600))
           ],
         ),
