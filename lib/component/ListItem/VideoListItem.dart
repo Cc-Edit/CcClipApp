@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cc_clip_app/model/VideoListData.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:cc_clip_app/store/app_store.dart';
 
 class VideoListItem extends StatelessWidget {
   const VideoListItem({
@@ -53,6 +55,46 @@ class VideoListItem extends StatelessWidget {
                           fit: BoxFit.cover,
                         ),
                       ),
+                      Observer(
+                        builder: (_) => Column(
+                          children: [
+                            Container(
+                              height: appStore.showList ? 28 : 16,
+                              padding: const EdgeInsets.fromLTRB(6, 0, 4, 0),
+                              color: Colors.grey[800]!.withOpacity(0.7),
+                              child: Row(
+                                children: [
+                                  Text(listData!.title, style: TextStyle(
+                                    fontSize: appStore.showList ? 14 : 11,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.grey[100],
+                                  ),)
+                                ],
+                              ),
+                            ),
+                            const Expanded(child: SizedBox()),
+                            Container(
+                              height: appStore.showList ? 24 : 12,
+                              padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
+                              color: Colors.grey[800]!.withOpacity(0.6),
+                              child: Row(
+                                children: [
+                                  Text(listData!.time, style: TextStyle(
+                                      fontSize: appStore.showList ? 12 : 9,
+                                      color: Colors.grey[300]
+                                  ),),
+                                  const Expanded(child: SizedBox()),
+                                  Text(listData!.size, style: TextStyle(
+                                      fontSize: appStore.showList ? 12 : 9,
+                                      color: Colors.grey[400]
+                                  ),),
+                                ],
+                              ),
+                            )
+                          ],
+                        )
+                      ),
+
                     ],
                   ),
                 ),
