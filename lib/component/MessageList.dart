@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -91,12 +93,14 @@ class MessageListState extends State<MessageList> with TickerProviderStateMixin 
                             children: <Widget>[
                               ...List.generate(messageListData.length, (index) {
                                 final int count = messageListData.length;
+                                final int animationCount = min(count, 5);
+                                final int animationIndex = min(index, 5);
                                 final Animation<double> animation =
                                 Tween<double>(begin: 0.0, end: 1.0).animate(
                                   CurvedAnimation(
                                     parent: animationController!,
                                     curve: Interval(
-                                        (1 / (count > 5 ? 5 : count)) * index,
+                                        (1 / animationCount) * animationIndex,
                                         // 可视区域内执行动画
                                         1.0,
                                         curve: Curves.fastOutSlowIn
