@@ -13,22 +13,22 @@ class BannerListData {
     BannerListData(
       cover: 'assets/banner/banner5.png',
       id: '1',
-      title: 'AI智能扩图功能上线🔥',
+      title: '圣诞主题模板集合 🔥',
     ),
     BannerListData(
       cover: 'assets/banner/banner6.png',
       id: '1',
-      title: 'AI智能扩图功能上线🔥',
+      title: '浪漫圣诞在路途 ☃️',
     ),
     BannerListData(
       cover: 'assets/banner/banner7.png',
       id: '1',
-      title: 'AI智能扩图功能上线🔥',
+      title: '铃声叮叮当当 🔔',
     ),
     BannerListData(
       cover: 'assets/banner/banner8.png',
       id: '1',
-      title: 'AI智能扩图功能上线🔥',
+      title: '悠扬的圣诞旋律 🪇',
     ),
   ];
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cc_clip_app/model/TemplateListData.dart';
 
-class TemplateListItem extends StatelessWidget {
+class TemplateListItem extends StatefulWidget {
   const TemplateListItem({
     super.key,
     this.listData,
@@ -16,82 +16,128 @@ class TemplateListItem extends StatelessWidget {
   final Animation<double>? animation;
 
   @override
+  State<StatefulWidget> createState() => TemplateListItemState();
+}
+class TemplateListItemState extends State<TemplateListItem> {
+
+
+  @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: animationController!,
+      animation: widget.animationController!,
       builder: (BuildContext context, Widget? child) {
         return FadeTransition(
-          opacity: animation!,
+          opacity: widget.animation!,
           child: Transform(
             transform: Matrix4.translationValues(
-                0.0, 50 * (1.0 - animation!.value), 0.0),
-            child: AspectRatio(
-              aspectRatio: 16 / 9,
-              child: Container(
-                decoration: BoxDecoration(
+                0.0, 50 * (1.0 - widget.animation!.value), 0.0),
+            child:Container(
+              decoration: BoxDecoration(
                   gradient: const LinearGradient(
-                    begin: Alignment.bottomLeft,
-                    end: Alignment.topRight,
-                    colors: <Color>[
-                      Color(0xFF333030),
-                      Color(0x563A3733),
-                    ]
+                      begin: Alignment.bottomLeft,
+                      end: Alignment.topRight,
+                      colors: <Color>[
+                        Color(0xFF333030),
+                        Color(0x563A3733),
+                      ]
                   ),
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
                       color: const Color(0x5644413D)
                   )
-                ),
-                child: ClipRRect(
-                  borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-                  child: Stack(
-                    alignment: AlignmentDirectional.center,
-                    children: [
-                      Positioned.fill(
-                        child: Image.asset(
-                          listData!.cover,
-                          fit: BoxFit.cover,
-                        ),
+              ),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                child: Stack(
+                  alignment: AlignmentDirectional.center,
+                  children: [
+                    Positioned.fill(
+                      child: Image.asset(
+                        widget.listData!.cover,
+                        fit: BoxFit.cover,
                       ),
-                      Column(
-                        children: [
-                          Container(
-                            height: 28,
-                            padding: const EdgeInsets.fromLTRB(6, 0, 4, 0),
-                            color: Colors.grey[800]!.withOpacity(0.7),
-                            child: Row(
-                              children: [
-                                Text(listData!.title, style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
+                    ),
+                    Column(
+                      children: [
+                        Container(
+                          height: 28,
+                          padding: const EdgeInsets.fromLTRB(6, 0, 0, 0),
+                          color: Colors.grey[800]!.withOpacity(0.7),
+                          child: Row(
+                            children: [
+                              Text(widget.listData!.title, style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey[100],
+                              ),),
+                              const Expanded(child: SizedBox()),
+                              SizedBox(
+                                width: 30,
+                                child: IconButton(
+                                  iconSize: 24,
+                                  padding: const EdgeInsets.all(0),
                                   color: Colors.grey[100],
-                                ),)
-                              ],
-                            ),
+                                  icon: const Icon(Icons.add),
+                                  tooltip: '使用模板',
+                                  onPressed: () {},
+                                ),
+                              ),
+                            ],
                           ),
-                          const Expanded(child: SizedBox()),
-                          Container(
-                            height: 24,
-                            padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
-                            color: Colors.grey[800]!.withOpacity(0.6),
-                            child: Row(
-                              children: [
-                                Text(listData!.time, style: TextStyle(
+                        ),
+                        const Expanded(child: SizedBox()),
+                        Container(
+                          height: 40,
+                          padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
+                          color: Colors.grey[800]!.withOpacity(0.6),
+                          child: Row(
+                            children: [
+                              Expanded(child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(
+                                    height: 5,
+                                    child: null,
+                                  ),
+                                  Text(widget.listData!.flag, style: TextStyle(
+                                    overflow: TextOverflow.ellipsis,
                                     fontSize: 12,
                                     color: Colors.grey[300]
-                                ),),
-                                const Expanded(child: SizedBox()),
-                                // Text(listData!.author, style: TextStyle(
-                                //     fontSize: 12,
-                                //     color: Colors.grey[400]
-                                // ),),
-                              ],
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  ),
+                                  ),),
+                                  const SizedBox(
+                                    height: 2,
+                                    child: null,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text('使用:${widget.listData!.use.toString()}   点赞:${widget.listData!.star.toString()}', style: TextStyle(
+                                          overflow: TextOverflow.ellipsis,
+                                          fontSize: 12,
+                                          color: Colors.grey[300]
+                                      ),),
+                                    ],
+                                  )
+
+                                ],
+                              )),
+                              SizedBox(
+                                width: 26,
+                                child: Image.asset(
+                                  widget.listData!.author,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                              // Text(listData!.author, style: TextStyle(
+                              //     fontSize: 12,
+                              //     color: Colors.grey[400]
+                              // ),),
+                            ],
+                          ),
+                        )
+                      ],
+                    )
+                  ],
                 ),
               ),
             ),
