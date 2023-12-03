@@ -132,4 +132,30 @@ class MenuIconData {
         icon: Icons.support_agent
     ),
   ];
+  static List<MenuIconData> userMenu = [
+    MenuIconData(
+        id: '1',
+        title: '模板商城',
+        tooltip: '美好生活触手可得',
+        icon: Icons.store
+    ),
+    MenuIconData(
+        id: '1',
+        title: '我的钱包',
+        tooltip: '查看余额与账单',
+        icon: Icons.payment
+    ),
+    MenuIconData(
+        id: '1',
+        title: '放映厅',
+        tooltip: '海量经典影视',
+        icon: Icons.smart_display
+    ),
+    MenuIconData(
+        id: '1',
+        title: '我的小程序',
+        tooltip: '最近使用',
+        icon: Icons.widgets
+    ),
+  ];
 }

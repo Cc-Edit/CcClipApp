@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cc_clip_app/model/MenuIconData.dart';
+import 'package:cc_clip_app/component/ListItem/UserMenuListItem.dart';
 
 class UserContainer extends StatefulWidget {
   const UserContainer({super.key});
@@ -32,10 +34,6 @@ class UserContainerState extends State<UserContainer> with TickerProviderStateMi
           Container(
             width: MediaQuery.of(context).size.width,
             height: 245,
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-            ),
             child: Image.asset('assets/image/bg1.png', fit: BoxFit.cover),
           ),
           Container(
@@ -98,7 +96,14 @@ class UserContainerState extends State<UserContainer> with TickerProviderStateMi
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: 29,
-                  color: Colors.black.withOpacity(0.4),
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  decoration: const BoxDecoration(
+                      color: Color(0xff181818),
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0),
+                      ),
+                  ),
                   padding: const EdgeInsets.only(left: 10),
                   child: Row(
                     children: [
@@ -117,7 +122,106 @@ class UserContainerState extends State<UserContainer> with TickerProviderStateMi
           )
         ],
       ),
-      Text('123')
+      Column(
+        children: [
+          Row(
+            children: [
+              Padding(padding: EdgeInsets.only(left: 15, top: 2), child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text('9', style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[100]
+                  ),),
+                  Padding(padding: EdgeInsets.only(left: 6), child: Text('获赞', style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey[100]
+                  ),),),
+                ],
+              ),),
+              Padding(padding: EdgeInsets.only(left: 20, top: 2), child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text('29', style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[100]
+                  ),),
+                  Padding(padding: EdgeInsets.only(left: 6), child: Text('朋友', style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey[100]
+                  ),),),
+                ],
+              ),),
+              Padding(padding: EdgeInsets.only(left: 20, top: 2), child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text('1098', style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[100]
+                  ),),
+                  Padding(padding: EdgeInsets.only(left: 6), child: Text('关注', style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey[100]
+                  ),),),
+                ],
+              ),),
+              Padding(padding: EdgeInsets.only(left: 20, top: 2), child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text('7998', style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[100]
+                  ),),
+                  Padding(padding: EdgeInsets.only(left: 6), child: Text('粉丝', style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey[100]
+                  ),),),
+                ],
+              ),)
+            ],
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: 80,
+            child: ListView(
+                scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
+                    children: <Widget>[
+                      ...List.generate(MenuIconData.userMenu.length, (index) {
+                        final Animation<double> animation =
+                        Tween<double>(begin: 0.0, end: 1.0).animate(
+                          CurvedAnimation(
+                            parent: animationController!,
+                            curve: Interval(
+                                (1 / MenuIconData.userMenu.length) * index,
+                                // 可视区域内执行动画
+                                1.0,
+                                curve: Curves.fastOutSlowIn
+                            ),
+                          ),
+                        );
+                        animationController?.forward();
+                        return UserMenuListItem(
+                          listData: MenuIconData.userMenu[index],
+                          animation: animation,
+                          animationController: animationController,
+                          callBack: () {},
+                        );
+                      }),
+                      const SizedBox(
+                        height: 80,
+                      )
+                    ]
+                )
+            ),
+          Container(color: Colors.yellow, height: 20, width: MediaQuery.of(context).size.width,)
+        ],
+      )
+
     ]);
   }
 }
