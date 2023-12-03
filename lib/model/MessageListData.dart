@@ -13,6 +13,8 @@ class MessageListData {
   String id;
   String time;
 
+  static List<MessageListData> emptyList = [];
+
   static List<MessageListData> messageList = [
     MessageListData(
       cover: 'assets/image/dazzle-line-video-blogger.png',
