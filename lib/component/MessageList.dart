@@ -23,8 +23,6 @@ class MessageListState extends State<MessageList> with TickerProviderStateMixin 
     Tab(text: '点赞'),
   ];
 
-  late TabController _tabController;
-
   @override
   void dispose(){
     animationController?.dispose();
@@ -33,20 +31,19 @@ class MessageListState extends State<MessageList> with TickerProviderStateMixin 
 
   @override
   void initState() {
-    _tabController = TabController(vsync: this, length: myTabs.length);
     animationController = AnimationController(
-        duration: const Duration(milliseconds: 1600),
+        duration: const Duration(milliseconds: 1000),
         vsync: this
     );
     super.initState();
   }
 
-  Future<bool> getData(int index) async {
-    await Future<dynamic>.delayed(const Duration(milliseconds: 600));
+  void getData(int index) {
+    // await Future<dynamic>.delayed(const Duration(milliseconds: 600));
+
     setState(() {
-      messageListData: index == 0 ? MessageListData.messageList : MessageListData.emptyList;
+      messageListData = (index == 0 ? MessageListData.messageList : MessageListData.emptyList);
     });
-    return true;
   }
 
   @override
@@ -57,8 +54,7 @@ class MessageListState extends State<MessageList> with TickerProviderStateMixin 
         final TabController tabController = DefaultTabController.of(context);
         tabController.addListener(() {
           if (!tabController.indexIsChanging) {
-            // Your code goes here.
-            // To get index of current tab use tabController.index
+            getData(tabController.index);
           }
         });
         return Column(
@@ -66,7 +62,7 @@ class MessageListState extends State<MessageList> with TickerProviderStateMixin 
             TabBar(
               overlayColor: MaterialStateProperty.resolveWith((states) => Colors.grey[900]),
               indicatorColor: Colors.pink[400],
-              controller: _tabController,
+              controller: tabController,
               indicatorSize: TabBarIndicatorSize.label,
               labelStyle: const TextStyle(
                 fontSize: 15,
@@ -84,44 +80,47 @@ class MessageListState extends State<MessageList> with TickerProviderStateMixin 
             Expanded(
               child: Container(
                 padding: const EdgeInsets.only(bottom: 30),
-                color: Colors.red[100],
                 child: TabBarView(
                   physics: const NeverScrollableScrollPhysics(),
-                  controller: _tabController,
-                  children: myTabs.map((Tab tab) {
-                    return ListView(
-                      padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
-                      children: <Widget>[
-                        if(messageListData.isEmpty)
-                          const Center(child: Text('暂时没有更多消息'),),
-                        ...List.generate(messageListData.length, (index) {
-                          final int count = messageListData.length;
-                          final Animation<double> animation =
-                          Tween<double>(begin: 0.0, end: 1.0).animate(
-                            CurvedAnimation(
-                              parent: animationController!,
-                              curve: Interval(
-                                  (1 / (count > 5 ? 5 : count)) * index,
-                                  // 可视区域内执行动画
-                                  1.0,
-                                  curve: Curves.fastOutSlowIn
-                              ),
-                            ),
-                          );
-                          animationController?.forward();
-                          return MessageListItem(
-                            listData: messageListData[index],
-                            animation: animation,
-                            animationController: animationController,
-                            callBack: () {},
-                          );
-                        }),
-                        const SizedBox(
-                          height: 80,
-                        )
-                      ]
-                    );
-                  }).toList(),
+                  controller: tabController,
+                  children:  [
+                    ...List.generate(myTabs.length, (index) {
+                      if(index == 0){
+                        return ListView(
+                            padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
+                            children: <Widget>[
+                              ...List.generate(messageListData.length, (index) {
+                                final int count = messageListData.length;
+                                final Animation<double> animation =
+                                Tween<double>(begin: 0.0, end: 1.0).animate(
+                                  CurvedAnimation(
+                                    parent: animationController!,
+                                    curve: Interval(
+                                        (1 / (count > 5 ? 5 : count)) * index,
+                                        // 可视区域内执行动画
+                                        1.0,
+                                        curve: Curves.fastOutSlowIn
+                                    ),
+                                  ),
+                                );
+                                animationController?.forward();
+                                return MessageListItem(
+                                  listData: messageListData[index],
+                                  animation: animation,
+                                  animationController: animationController,
+                                  callBack: () {},
+                                );
+                              }),
+                              const SizedBox(
+                                height: 80,
+                              )
+                            ]
+                        );
+                      }else{
+                        return  const Center(child: Text('暂时没有更多消息'));
+                      }
+                    }),
+                  ],
                 ),
               ),
             )

@@ -39,7 +39,6 @@ class DrawContainerState extends State<DrawContainer> with TickerProviderStateMi
     // 滑动控制
     scrollController = ScrollController(initialScrollOffset: widget.drawerWidth);
     scrollController!.addListener(() {
-      debugPrint('$appStore');
       final double offset = scrollController!.offset;
       // 打开侧边栏
       if (offset <= 0) {
