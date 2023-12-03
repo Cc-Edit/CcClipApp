@@ -17,6 +17,9 @@ abstract class AppStoreBase with Store {
   @computed
   String get listName => '当前状态：$showList';
 
+  @computed
+  bool get showDraw => activeBottomTabIndex == 0;
+
   @action
   void changeShowList() {
     showList = !showList;

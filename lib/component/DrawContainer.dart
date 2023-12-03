@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:cc_clip_app/component/DrawMenu.dart';
 import 'package:cc_clip_app/pages/MainView.dart';
+import 'package:cc_clip_app/store/app_store.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 // 带侧边栏的容器组件
 class DrawContainer extends StatefulWidget {
@@ -37,6 +39,7 @@ class DrawContainerState extends State<DrawContainer> with TickerProviderStateMi
     // 滑动控制
     scrollController = ScrollController(initialScrollOffset: widget.drawerWidth);
     scrollController!.addListener(() {
+      debugPrint('$appStore');
       final double offset = scrollController!.offset;
       // 打开侧边栏
       if (offset <= 0) {
@@ -78,7 +81,7 @@ class DrawContainerState extends State<DrawContainer> with TickerProviderStateMi
             curve: Curves.fastOutSlowIn);
       }
     });
-    WidgetsBinding.instance.addPostFrameCallback((_) => getInitState());
+    // WidgetsBinding.instance.addPostFrameCallback((_) => getInitState());
     super.initState();
   }
 
@@ -110,10 +113,11 @@ class DrawContainerState extends State<DrawContainer> with TickerProviderStateMi
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
+      body: Observer(
+        builder: (_) => SingleChildScrollView(
           controller: scrollController,
           scrollDirection: Axis.horizontal,
-          physics: const PageScrollPhysics(parent: ClampingScrollPhysics()),
+          physics: appStore.showDraw ? const PageScrollPhysics(parent: ClampingScrollPhysics()) : const NeverScrollableScrollPhysics(), // 弹性和禁用滚动
           child: SizedBox(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width + widget.drawerWidth,
@@ -162,7 +166,7 @@ class DrawContainerState extends State<DrawContainer> with TickerProviderStateMi
                                 animation: iconAnimationController!,
                                 builder: (BuildContext context, Widget? child) {
                                   return Container(
-                                    color: Colors.black.withOpacity((1 - iconAnimationController!.value) * 0.7)
+                                      color: Colors.black.withOpacity((1 - iconAnimationController!.value) * 0.7)
                                   );
                                 },
                               ),
@@ -171,6 +175,7 @@ class DrawContainerState extends State<DrawContainer> with TickerProviderStateMi
                               },
                             ),
                           // 菜单按钮动画
+                          if(appStore.showDraw)
                           Padding(
                             padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 4, left: 4),
                             child: SizedBox(
@@ -204,6 +209,7 @@ class DrawContainerState extends State<DrawContainer> with TickerProviderStateMi
               ],
             ),
           )
+        )
       ),
     );
   }

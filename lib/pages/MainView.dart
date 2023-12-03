@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:cc_clip_app/pages/HomePage.dart';
+import 'package:cc_clip_app/pages/MessagePage.dart';
 import 'package:cc_clip_app/component/BottomBar.dart';
 
-enum PageName {
-  home
-}
+List<String> pageNameList =[
+  'home',
+  'message',
+  'template',
+  'user'
+];
 
 // 定义一个 MyHomePage 部件，它是一个有状态的部件(StatefulWidget)
 class MainView extends StatefulWidget {
@@ -16,20 +20,26 @@ class MainView extends StatefulWidget {
 // 小部件状态
 class _MainViewState extends State<MainView> {
   Widget pageView = const MyHomePage(title: 'CcClip');
-  PageName pageName = PageName.home;
+  String pageName = pageNameList[0];
 
   @override
   void initState() {
     super.initState();
   }
 
-  void changePageView(PageName name) {
+  void changePageView(int index) {
+    String name = pageNameList[index];
     if (pageName != name) {
       pageName = name;
       switch (pageName) {
-        case PageName.home:
+        case 'home':
           setState(() {
             pageView = const MyHomePage(title: 'CcClip');
+          });
+          break;
+        case 'message':
+          setState(() {
+            pageView = const MessagePage(title: '消息');
           });
           break;
         default:
@@ -54,10 +64,12 @@ class _MainViewState extends State<MainView> {
                   Expanded(child: pageView),
                 ],
               ),
-              const Column(
+              Column(
                 children: [
-                  Expanded(child: SizedBox()),
-                  BottomBar()
+                  const Expanded(child: SizedBox()),
+                  BottomBar(
+                    onActiveChange: changePageView
+                  )
                 ],
               )
             ],
