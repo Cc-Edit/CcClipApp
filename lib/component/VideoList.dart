@@ -58,13 +58,13 @@ class _VideoListState extends State<VideoList> with TickerProviderStateMixin {
         child: Column(
           children: [
             Container(
-              padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
+              padding: const EdgeInsets.fromLTRB(10, 5, 10, 10),
               child: Row(
                 children: [
                   Icon(Icons.local_fire_department, color: Colors.pink[400]),
                   const Text("  热门活动 ",
                       style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.w600))
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w600))
                 ],
               ),
             ),
@@ -140,19 +140,19 @@ class _VideoListState extends State<VideoList> with TickerProviderStateMixin {
         ),
       ),
       Container(
-        padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
+        padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
         child: Row(
           children: [
             Icon(Icons.movie_filter, color: Colors.pink[400]),
             const Text("  我的剪辑 ",
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600))
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600))
           ],
         ),
       ),
       Expanded(
         child: Observer(
             builder: (_) => GridView(
-                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                  padding: const EdgeInsets.fromLTRB(10, 0, 10, 120),
                   physics: const AlwaysScrollableScrollPhysics(),
                   // 滚动效果
                   scrollDirection: Axis.vertical,
