@@ -146,7 +146,7 @@ class _VideoListState extends State<TemplateList> with TickerProviderStateMixin 
             childAspectRatio: 80 / 120,
             crossAxisCount: 2,
             mainAxisSpacing: 15.0,
-            crossAxisSpacing: 5.0,
+            crossAxisSpacing: 15.0,
           ),
           children: [
             ...List<Widget>.generate(
