@@ -94,7 +94,6 @@ class VideoListItem extends StatelessWidget {
                           ],
                         )
                       ),
-
                     ],
                   ),
                 ),
