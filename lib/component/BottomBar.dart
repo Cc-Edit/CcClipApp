@@ -22,12 +22,12 @@ class BottomBarState extends State<BottomBar> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    super.initState();
     animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1000),
     );
     animationController?.forward();
-    super.initState();
   }
 
   // tab 选中事件

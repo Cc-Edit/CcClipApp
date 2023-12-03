@@ -45,9 +45,9 @@ class _VideoListState extends State<VideoList> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    super.initState();
     animationController = AnimationController(
         duration: const Duration(milliseconds: 1000), vsync: this);
-    super.initState();
   }
 
   @override

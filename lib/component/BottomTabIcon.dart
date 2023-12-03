@@ -15,6 +15,7 @@ class BottomTabIcon extends StatefulWidget {
 class BottomTabIconState extends State<BottomTabIcon> with TickerProviderStateMixin {
   @override
   void initState() {
+    super.initState();
     // 向按钮添加动画
     widget.iconData?.animationController =  AnimationController(
       vsync: this,
@@ -26,7 +27,6 @@ class BottomTabIconState extends State<BottomTabIcon> with TickerProviderStateMi
         widget.iconData?.animationController?.reverse();
       }
     });
-    super.initState();
   }
 
   void setAnimation() {

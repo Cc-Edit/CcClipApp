@@ -31,6 +31,7 @@ class DrawContainerState extends State<DrawContainer> with TickerProviderStateMi
 
   @override
   void initState() {
+    super.initState();
     // 动画
     animationController = AnimationController(duration: const Duration(milliseconds: 2000), vsync: this);
     // icon 动画
@@ -81,7 +82,6 @@ class DrawContainerState extends State<DrawContainer> with TickerProviderStateMi
       }
     });
     // WidgetsBinding.instance.addPostFrameCallback((_) => getInitState());
-    super.initState();
   }
 
   // 帧渲染回调，类比requestAnimationFrame

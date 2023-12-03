@@ -33,11 +33,11 @@ class MessageListState extends State<MessageList> with TickerProviderStateMixin 
 
   @override
   void initState() {
+    super.initState();
     animationController = AnimationController(
         duration: const Duration(milliseconds: 1000),
         vsync: this
     );
-    super.initState();
   }
 
   void getData(int index) {

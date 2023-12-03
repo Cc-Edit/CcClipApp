@@ -10,10 +10,12 @@ class TemplatePage extends StatefulWidget {
 
 // 小部件状态
 class TemplatePageState extends State<TemplatePage> {
+  late TextEditingController textController;
 
   @override
   void initState() {
     super.initState();
+    textController = TextEditingController(text: 'initial text');
   }
 
   @override
@@ -22,7 +24,13 @@ class TemplatePageState extends State<TemplatePage> {
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0.0,
-        title: Text(widget.title),
+        title: Container(
+          child: Row(
+            children: [
+
+            ],
+          ),
+        ),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(1),
           child: Container(

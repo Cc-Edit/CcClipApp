@@ -19,9 +19,9 @@ class UserContainerState extends State<UserContainer> with TickerProviderStateMi
 
   @override
   void initState() {
+    super.initState();
     animationController = AnimationController(
         duration: const Duration(milliseconds: 1000), vsync: this);
-    super.initState();
   }
 
   @override
