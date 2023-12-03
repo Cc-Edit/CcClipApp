@@ -98,6 +98,15 @@ class MessageListItem extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
+                            Container(
+                              width: 100,
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Text(listData!.time, style: TextStyle(
+                                color: Colors.grey[400],
+                                fontSize: 13,
+                              ),)
+                            ),
+                            const Expanded(child: SizedBox()),
                             ElevatedButton(
                               onPressed: () => {},
                               style: ButtonStyle(
