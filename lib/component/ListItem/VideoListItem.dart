@@ -9,13 +9,15 @@ class VideoListItem extends StatelessWidget {
     this.listData,
     this.callBack,
     this.animationController,
-    this.animation
+    this.animation,
+    this.rowCount = 3
   });
 
   final VideoListData? listData;
   final VoidCallback? callBack;
   final AnimationController? animationController;
   final Animation<double>? animation;
+  final int? rowCount;
 
   @override
   Widget build(BuildContext context) {
@@ -59,13 +61,13 @@ class VideoListItem extends StatelessWidget {
                         builder: (_) => Column(
                           children: [
                             Container(
-                              height: appStore.showList ? 28 : 16,
+                              height: appStore.showList ? 28 : (rowCount == 2 ? 22 : 16),
                               padding: const EdgeInsets.fromLTRB(6, 0, 4, 0),
                               color: Colors.grey[800]!.withOpacity(0.7),
                               child: Row(
                                 children: [
                                   Text(listData!.title, style: TextStyle(
-                                    fontSize: appStore.showList ? 14 : 11,
+                                    fontSize: appStore.showList ? 14 : (rowCount == 2 ? 13 : 11),
                                     fontWeight: FontWeight.bold,
                                     color: Colors.grey[100],
                                   ),)
@@ -74,18 +76,18 @@ class VideoListItem extends StatelessWidget {
                             ),
                             const Expanded(child: SizedBox()),
                             Container(
-                              height: appStore.showList ? 24 : 12,
+                              height: appStore.showList ? 24 : (rowCount == 2 ? 18 : 12),
                               padding: const EdgeInsets.fromLTRB(4, 0, 4, 0),
                               color: Colors.grey[800]!.withOpacity(0.6),
                               child: Row(
                                 children: [
                                   Text(listData!.time, style: TextStyle(
-                                      fontSize: appStore.showList ? 12 : 9,
+                                      fontSize: appStore.showList ? 12 : (rowCount == 2 ? 11 : 9),
                                       color: Colors.grey[300]
                                   ),),
                                   const Expanded(child: SizedBox()),
                                   Text(listData!.size, style: TextStyle(
-                                      fontSize: appStore.showList ? 12 : 9,
+                                      fontSize: appStore.showList ? 12 : (rowCount == 2 ? 11 : 9),
                                       color: Colors.grey[400]
                                   ),),
                                 ],

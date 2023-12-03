@@ -12,7 +12,7 @@ class VideoListData {
   String id;
   String size;
   String time;
-
+  static List<VideoListData> emptyList = [];
   static List<VideoListData> videoList = [
     VideoListData(
       cover: 'assets/image/cover3.png',

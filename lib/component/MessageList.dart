@@ -42,7 +42,6 @@ class MessageListState extends State<MessageList> with TickerProviderStateMixin 
 
   void getData(int index) {
     // await Future<dynamic>.delayed(const Duration(milliseconds: 600));
-
     setState(() {
       messageListData = (index == 0 ? MessageListData.messageList : MessageListData.emptyList);
     });
