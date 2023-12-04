@@ -1,16 +1,39 @@
-# cc_clip_app
+## [【求职中】北京公司请联系我 😊(点击查看微信👉🏻)](https://github.com/Cc-Edit/Cc-Edit/blob/main/public/wechat.png)
 
-A new Flutter project.
+|                                      学习讨论小组🍻                                      |   打赏（赠送学习资料：[webNote](https://github.com/Cc-Edit/webNote)） :confetti_ball:    | 
+|:----------------------------------------------------------------------------------:|:---------------------------------------------------------------------:| 
+| ![wechat.png](https://github.com/Cc-Edit/Cc-Edit/blob/main/public/CcClip.png) |     ![img.png](https://github.com/Cc-Edit/Cc-Edit/blob/main/public/img.png)  |
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
+# CcClipApp
 
-A few resources to get you started if this is your first Flutter project:
+## 简介
+基于 Flutter 实现音视频编辑App <br/>
+是一个上手 Flutter 的学习项目，没有具体功能实现 <br/>
+如果有用请 🌟 Star 🌟 支持一下哟 🫣 <br/>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## 预览
+![wechat.png](https://github.com/Cc-Edit/CcClipApp/blob/main/preview.png)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 功能
+- 首页列表
+- 首页轮播图
+- 列表展现形式切换
+- 全局状态管理 MobX
+- 侧边栏
+- 用户信息小卡片
+- icon列表小卡片
+- 动画
+- 底部全局菜单
+- 页面切换
+- 消息页面
+- 模板商城页面
+- 个人信息页面
+- 不同展现形式的 AppBar
+
+## 版权相关
+  开源前已对项目进行版权过滤，将个人使用范围的素材替换为公共免费的素材。
+  - icon、插图来自 [iconpark](https://iconpark.oceanengine.com/official)
+
+
+如需帮助请联系： ccedit@126.com
