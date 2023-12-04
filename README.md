@@ -13,7 +13,7 @@
 
 ## 预览
 [视频](https://www.bilibili.com/video/BV1Ua4y1o7X3/)    
-![wechat.png](https://github.com/Cc-Edit/CcClipApp/blob/main/preview.png)
+![preview.png](https://github.com/Cc-Edit/CcClipApp/blob/main/preview.png)
 
 ## 功能
 - 首页列表
