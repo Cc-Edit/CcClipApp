@@ -1,6 +1,4 @@
 import 'dart:math';
-
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cc_clip_app/model/MessageListData.dart';
@@ -12,18 +10,14 @@ class MessageList extends StatefulWidget {
   @override
   State<MessageList> createState() => MessageListState();
 }
+
 // TickerProviderStateMixin 用来实现动画
 class MessageListState extends State<MessageList> with TickerProviderStateMixin {
 
   List<MessageListData> messageListData = MessageListData.messageList;
   AnimationController? animationController; // 动画管理
 
-  static const List<Tab> myTabs = <Tab>[
-    Tab(text: '官方'),
-    Tab(text: '评论'),
-    Tab(text: '粉丝'),
-    Tab(text: '点赞'),
-  ];
+  final List<String> tabs = <String>['官方', '评论', '粉丝', '点赞'];
 
   @override
   void dispose(){
@@ -50,86 +44,155 @@ class MessageListState extends State<MessageList> with TickerProviderStateMixin 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: myTabs.length,
-      child: Builder(builder: (BuildContext context) {
-        final TabController tabController = DefaultTabController.of(context);
-        tabController.addListener(() {
-          if (!tabController.indexIsChanging) {
-            getData(tabController.index);
-          }
-        });
-        return Column(
-          children: [
-            TabBar(
-              overlayColor: MaterialStateProperty.resolveWith((states) => Colors.grey[900]),
-              indicatorColor: Colors.pink[400],
-              controller: tabController,
-              indicatorSize: TabBarIndicatorSize.label,
-              labelStyle: const TextStyle(
-                fontSize: 15,
-                color: Colors.white,
-                fontWeight: FontWeight.bold
-              ),
-              unselectedLabelStyle: TextStyle(
-                  fontSize: 15,
-                  color: Colors.grey[300],
-                  fontWeight: FontWeight.normal
-              ),
-              dividerColor: Colors.grey[900],
-              tabs: myTabs,
-            ),
-            Expanded(
-              child: Container(
-                padding: const EdgeInsets.only(bottom: 30),
-                child: TabBarView(
-                  physics: const NeverScrollableScrollPhysics(),
-                  controller: tabController,
-                  children:  [
-                    ...List.generate(myTabs.length, (index) {
-                      if(index == 0){
-                        return ListView(
-                            padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
-                            children: <Widget>[
-                              ...List.generate(messageListData.length, (index) {
-                                final int count = messageListData.length;
-                                final int animationCount = min(count, 5);
-                                final int animationIndex = min(index, 5);
-                                final Animation<double> animation =
-                                Tween<double>(begin: 0.0, end: 1.0).animate(
-                                  CurvedAnimation(
-                                    parent: animationController!,
-                                    curve: Interval(
-                                        (1 / animationCount) * animationIndex,
-                                        // 可视区域内执行动画
-                                        1.0,
-                                        curve: Curves.fastOutSlowIn
-                                    ),
+        length: tabs.length,
+        child: Builder(builder: (BuildContext context) {
+          final TabController tabController = DefaultTabController.of(context);
+          tabController.addListener(() {
+            if (!tabController.indexIsChanging) {
+              getData(tabController.index);
+            }
+          });
+          return  Scaffold(
+              body:NestedScrollView(
+                  headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+                    return <Widget>[
+                      SliverOverlapAbsorber(
+                        handle:
+                        NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                        sliver: SliverAppBar(
+                          scrolledUnderElevation: 0.0,
+                          title: const SizedBox(
+                            height: 30,
+                            child: Text('消息'),
+                          ),
+                          bottom: PreferredSize(
+                            preferredSize: const Size.fromHeight(1),
+                            child: Column(
+                              children: [
+                                Container(
+                                  color: const Color(0xFF181818),
+                                  child: TabBar(
+                                      overlayColor: MaterialStateProperty.resolveWith((states) => Colors.grey[900]),
+                                      indicatorColor: Colors.pink[400],
+                                      controller: tabController,
+                                      indicatorSize: TabBarIndicatorSize.label,
+                                      labelStyle: const TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold
+                                      ),
+                                      unselectedLabelStyle: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.grey[300],
+                                          fontWeight: FontWeight.normal
+                                      ),
+                                      dividerColor: Colors.grey[900],
+                                      tabs: tabs.map((String name) => Tab(text: name)).toList()
                                   ),
+                                ),
+                                Container(
+                                  color: Colors.grey[900],
+                                  height: 1.0,
+                                ),
+                              ],
+                            ),
+
+                          ),
+                          actions: [
+                            Container(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    padding: const EdgeInsets.all(0),
+                                    alignment: Alignment.center,
+                                    highlightColor: Colors.white.withOpacity(1),
+                                    color: Colors.white,
+                                    icon: const Icon(Icons.question_answer),
+                                    onPressed: () => {},
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                          forceElevated: innerBoxIsScrolled,
+                          expandedHeight: 100,
+                          toolbarHeight: 48,
+                          collapsedHeight: 48,
+                          backgroundColor: const Color(0xFF181818),
+                          titleTextStyle: const TextStyle(
+                              fontSize: 18,
+                              fontStyle: FontStyle.normal,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white
+                          ),
+                          floating: false,
+                          pinned: true,
+                          snap: false,
+                        ),
+                      ),
+                    ];
+                  },
+                  body: TabBarView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    controller: tabController,
+                    children: tabs.map((String name) {
+                      return SafeArea(
+                          top: false,
+                          bottom: false,
+                          child: Builder(
+                              builder: (BuildContext context) {
+                                if(tabController.index != 0) {
+                                  return  const Center(child: Text('暂时没有更多消息'));
+                                }
+                                return CustomScrollView(
+                                    key: PageStorageKey<String>(name),
+                                    slivers: <Widget>[
+                                      SliverOverlapInjector(
+                                        handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+                                      ),
+                                      SliverPadding(
+                                        padding: const EdgeInsets.only(top: 8.0, bottom: 80),
+                                        sliver: SliverFixedExtentList(
+                                          itemExtent: 140.0,
+                                          delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+                                            if(tabController.index != 0) {
+                                              return const Center(child: Text('暂时没有更多消息'));
+                                            }
+                                            final int count = messageListData.length;
+                                            final int animationCount = min(count, 5);
+                                            final int animationIndex = min(index, 5);
+                                            final Animation<double> animation =
+                                            Tween<double>(begin: 0.0, end: 1.0).animate(
+                                              CurvedAnimation(
+                                                parent: animationController!,
+                                                curve: Interval(
+                                                    (1 / animationCount) * animationIndex,
+                                                    // 可视区域内执行动画
+                                                    1.0,
+                                                    curve: Curves.fastOutSlowIn
+                                                ),
+                                              ),
+                                            );
+                                            animationController?.forward();
+                                            return MessageListItem(
+                                              listData: messageListData[index],
+                                              animation: animation,
+                                              animationController: animationController,
+                                              callBack: () {},
+                                            );
+                                          }, childCount: messageListData.length,),
+                                        ),
+                                      )
+                                    ]
                                 );
-                                animationController?.forward();
-                                return MessageListItem(
-                                  listData: messageListData[index],
-                                  animation: animation,
-                                  animationController: animationController,
-                                  callBack: () {},
-                                );
-                              }),
-                              const SizedBox(
-                                height: 80,
-                              )
-                            ]
-                        );
-                      }else{
-                        return  const Center(child: Text('暂时没有更多消息'));
-                      }
-                    }),
-                  ],
-                ),
-              ),
-            )
-          ]
-        );
-      }),
+                              }
+                          )
+                      );
+                    }).toList(),
+                  )
+              ));
+        }),
     );
   }
 }

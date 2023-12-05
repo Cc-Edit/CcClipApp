@@ -97,10 +97,12 @@ class MessageListItem extends StatelessWidget {
                         height: 35,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Container(
                               width: 100,
-                              padding: const EdgeInsets.only(left: 10),
+                              height: 20,
+                              padding: const EdgeInsets.only(left: 10, bottom: 0),
                               child: Text(listData!.time, style: TextStyle(
                                 color: Colors.grey[400],
                                 fontSize: 13,
