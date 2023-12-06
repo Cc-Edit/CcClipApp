@@ -46,10 +46,12 @@ class MyApp extends StatelessWidget {
           displaySmall: GoogleFonts.lato(),
         ),
       ),
+      routes: {
+        '/MainPage': (ctx) =>  DrawContainer(
+          drawerWidth: MediaQuery.of(context).size.width * 0.75, // 侧边栏宽度比例
+        ),
+      },
       home: GuidePage(),
-      // home: DrawContainer(
-      //   drawerWidth: MediaQuery.of(context).size.width * 0.75, // 侧边栏宽度比例
-      // ),
     );
   }
 }

@@ -44,7 +44,7 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
         curve: const Interval(0.0, 0.2,  curve: Curves.fastOutSlowIn ),
       ));
     });
-    Timer(const Duration(seconds: 3), () => print('done'));
+    Timer(const Duration(seconds: 2), () => Navigator.of(context).pushReplacementNamed('/MainPage'));
   }
 
   @override
