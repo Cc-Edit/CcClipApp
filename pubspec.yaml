@@ -39,6 +39,7 @@ dependencies:
   mobx_codegen: ^2.4.0
   flutter_mobx: ^2.2.0
   card_swiper: ^3.0.1
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
