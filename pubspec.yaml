@@ -41,6 +41,7 @@ dependencies:
   card_swiper: ^3.0.1
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
 
@@ -51,6 +52,14 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
   build_runner: ^2.4.7
+
+# launcher icons plugin
+flutter_launcher_icons:
+  ios: true
+  android: "launcher_icon"
+  image_path: "assets/launcher/icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
