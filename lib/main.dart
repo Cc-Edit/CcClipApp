@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
           drawerWidth: MediaQuery.of(context).size.width * 0.75, // 侧边栏宽度比例
         ),
       },
-      home: GuidePage(),
+      home: const GuidePage(),
     );
   }
 }
