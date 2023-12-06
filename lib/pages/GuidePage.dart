@@ -19,11 +19,8 @@ class GuidePage extends StatefulWidget {
 // 小部件状态
 class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
   AnimationController? baseAnimationController; // 标题动画
-  AnimationController? pageOneAnimationController; // 第一屏幕动画
-  AnimationController? pageTwoAnimationController; // 第二屏幕动画
-  AnimationController? pageThreeAnimationController; // 第三屏幕动画
+  AnimationController? pageAnimationController; // 屏幕动画
   bool showColor = false; // 点击完成后的礼花
-  bool isEnd = false; // 动画全部完成
   int activePage = 1; // 当前激活页面
 
   late Animation<double> titleAnim;
@@ -33,24 +30,10 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
   late Animation<double> descAnim1;
   late Animation<double> descAnim2;
 
-  late Animation<AlignmentGeometry> logoAnim_1;
-  late Animation<double> logoFadeAnim_1;
-  late Animation<double> descAnim_1;
-  late Animation<double> descAnim1_1;
-  late Animation<double> descAnim2_1;
-
-  late Animation<AlignmentGeometry> logoAnim_2;
-  late Animation<double> logoFadeAnim_2;
-  late Animation<double> descAnim_2;
-  late Animation<double> descAnim1_2;
-  late Animation<double> descAnim2_2;
-
   @override
   void dispose(){
     baseAnimationController?.dispose();
-    pageOneAnimationController?.dispose();
-    pageTwoAnimationController?.dispose();
-    pageThreeAnimationController?.dispose();
+    pageAnimationController?.dispose();
     super.dispose();
   }
   // 主要维护标题动画
@@ -68,97 +51,37 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
     // 标题动画结束后开始首屏进入
     titleAnim.addStatusListener((AnimationStatus status) {
       if(status == AnimationStatus.completed){
-        pageOneAnimationController?.forward();
+        pageAnimationController?.forward();
       }
     });
     baseAnimationController?.forward();
   }
   // 首屏动画初始化
-  void initPageOneAnim(){
-    pageOneAnimationController = AnimationController(
+  void initPageAnim(){
+    pageAnimationController = AnimationController(
         duration: const Duration(milliseconds: 1500),
         vsync: this
     );
     // 中间图片
     logoAnim = Tween<AlignmentGeometry>(begin: Alignment.bottomCenter, end: Alignment.center,).animate(CurvedAnimation(
-      parent: pageOneAnimationController!,
+      parent: pageAnimationController!,
       curve: const Interval(0.0, 0.5,  curve: Curves.fastOutSlowIn ),
     ));
     logoFadeAnim = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: pageOneAnimationController!,
+      parent: pageAnimationController!,
       curve: const Interval(0.0, 0.5,  curve: Curves.fastOutSlowIn ),
     ));
     // 下方文字
     descAnim = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: pageOneAnimationController!,
+      parent: pageAnimationController!,
       curve: const Interval(0.5, 0.6,  curve: Curves.fastOutSlowIn ),
     ));
     descAnim1 = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: pageOneAnimationController!,
+      parent: pageAnimationController!,
       curve: const Interval(0.6, 0.7,  curve: Curves.fastOutSlowIn ),
     ));
     descAnim2 = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: pageOneAnimationController!,
-      curve: const Interval(0.7, 1,  curve: Curves.fastOutSlowIn ),
-    ));
-  }
-
-  // 第二屏动画初始化
-  void initPageTwoAnim(){
-    pageTwoAnimationController = AnimationController(
-        duration: const Duration(milliseconds: 1500),
-        vsync: this
-    );
-    // 中间图片
-    logoAnim_1 = Tween<AlignmentGeometry>(begin: Alignment.bottomCenter, end: Alignment.center,).animate(CurvedAnimation(
-      parent: pageTwoAnimationController!,
-      curve: const Interval(0.0, 0.5,  curve: Curves.fastOutSlowIn ),
-    ));
-    logoFadeAnim_1 = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: pageTwoAnimationController!,
-      curve: const Interval(0.0, 0.5,  curve: Curves.fastOutSlowIn ),
-    ));
-    // 下方文字
-    descAnim_1 = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: pageTwoAnimationController!,
-      curve: const Interval(0.5, 0.6,  curve: Curves.fastOutSlowIn ),
-    ));
-    descAnim1_1 = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: pageTwoAnimationController!,
-      curve: const Interval(0.6, 0.7,  curve: Curves.fastOutSlowIn ),
-    ));
-    descAnim2_1 = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: pageTwoAnimationController!,
-      curve: const Interval(0.7, 1,  curve: Curves.fastOutSlowIn ),
-    ));
-  }
-
-  // 第三屏动画初始化
-  void initPageThreeAnim(){
-    pageThreeAnimationController = AnimationController(
-        duration: const Duration(milliseconds: 1500),
-        vsync: this
-    );
-    // 中间图片
-    logoAnim_2 = Tween<AlignmentGeometry>(begin: Alignment.bottomCenter, end: Alignment.center,).animate(CurvedAnimation(
-      parent: pageThreeAnimationController!,
-      curve: const Interval(0.0, 0.5,  curve: Curves.fastOutSlowIn ),
-    ));
-    logoFadeAnim_2 = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: pageThreeAnimationController!,
-      curve: const Interval(0.0, 0.5,  curve: Curves.fastOutSlowIn ),
-    ));
-    // 下方文字
-    descAnim_2 = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: pageThreeAnimationController!,
-      curve: const Interval(0.5, 0.6,  curve: Curves.fastOutSlowIn ),
-    ));
-    descAnim1_2 = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: pageThreeAnimationController!,
-      curve: const Interval(0.6, 0.7,  curve: Curves.fastOutSlowIn ),
-    ));
-    descAnim2_2 = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: pageThreeAnimationController!,
+      parent: pageAnimationController!,
       curve: const Interval(0.7, 1,  curve: Curves.fastOutSlowIn ),
     ));
   }
@@ -167,37 +90,20 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
   @override
   void initState() {
     initBaseAnim();
-    initPageOneAnim();
-    initPageTwoAnim();
-    initPageThreeAnim();
+    initPageAnim();
     super.initState();
   }
 
-  // 根据页标获取页面controller
-  AnimationController? getPageController (int index){
-    switch (index) {
-      case 1:
-        return pageOneAnimationController!;
-      case 2:
-        return pageTwoAnimationController!;
-      case 3:
-        return pageThreeAnimationController!;
-      default: {
-        return baseAnimationController!;
-      }
-    }
-  }
-
   void nextPage(){
-    AnimationController? prePage = getPageController(activePage);
-    AnimationController? nextPage = getPageController(activePage + 1);
-
+    AnimationController? prePage = pageAnimationController;
     prePage?.addStatusListener((AnimationStatus status) {
       debugPrint('$status');
       if(status == AnimationStatus.dismissed){
         setState(() {
           activePage = activePage + 1;
-          nextPage?.forward();
+          prePage.dispose();
+          initPageAnim();
+          pageAnimationController?.forward();
         });
       }
     });
@@ -231,7 +137,7 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
                     sizeFactor: titleAnim,
                     axis: Axis.horizontal,
                     axisAlignment: -1,
-                    child: Text('Cc Clip', style: GoogleFonts.whisper(
+                    child: Text('Cc Clip', style: GoogleFonts.akayaKanadaka(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
                       color: Colors.grey[100],
@@ -363,9 +269,9 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 child:FadeTransition(
-                    opacity: logoFadeAnim_1,
+                    opacity: logoFadeAnim,
                     child: AlignTransition(
-                        alignment: logoAnim_1,
+                        alignment: logoAnim,
                         child: Container(
                           width: MediaQuery.of(context).size.width,
                           padding: const EdgeInsets.only(top: 100),
@@ -398,7 +304,7 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
                       alignment: Alignment.center,
                       height: 30,
                       child: FadeTransition(
-                          opacity: descAnim_1,
+                          opacity: descAnim,
                           child: Text('只有克服阻碍，才能体验到成功的喜悦', style: GoogleFonts.zcoolKuaiLe(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -411,7 +317,7 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
                       height: 70,
                       padding: const EdgeInsets.only(top: 30),
                       child: FadeTransition(
-                          opacity: descAnim1_1,
+                          opacity: descAnim1,
                           child: Text('一起勇往直前，突破重重难关', style: GoogleFonts.zcoolKuaiLe(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -424,7 +330,7 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
                       alignment: Alignment.center,
                       height: 140,
                       child: FadeTransition(
-                          opacity: descAnim2_1,
+                          opacity: descAnim2,
                           child: activePage == 3 ? OutlinedButton(
                             style:  const ButtonStyle(
                               backgroundColor: MaterialStatePropertyAll<Color>(Colors.transparent),
@@ -480,9 +386,9 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 child:FadeTransition(
-                    opacity: logoFadeAnim_2,
+                    opacity: logoFadeAnim,
                     child: AlignTransition(
-                        alignment: logoAnim_2,
+                        alignment: logoAnim,
                         child: Container(
                           width: MediaQuery.of(context).size.width,
                           padding: const EdgeInsets.only(top: 100),
@@ -515,7 +421,7 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
                       alignment: Alignment.center,
                       height: 30,
                       child: FadeTransition(
-                          opacity: descAnim_2,
+                          opacity: descAnim,
                           child: Text('如果相遇，我会更懂得如何珍惜', style: GoogleFonts.zcoolKuaiLe(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -528,7 +434,7 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
                       height: 70,
                       padding: const EdgeInsets.only(top: 30),
                       child: FadeTransition(
-                          opacity: descAnim1_2,
+                          opacity: descAnim1,
                           child: Text('做一个懂你的视频剪辑工具', style: GoogleFonts.zcoolKuaiLe(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
@@ -541,7 +447,7 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
                       alignment: Alignment.center,
                       height: 140,
                       child: FadeTransition(
-                          opacity: descAnim2_2,
+                          opacity: descAnim2,
                           child: activePage == 3 ? OutlinedButton(
                             style:  const ButtonStyle(
                               backgroundColor: MaterialStatePropertyAll<Color>(Colors.transparent),
