@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cc_clip_app/component/DrawContainer.dart';
-
+import 'package:cc_clip_app/pages/GuidePage.dart';
 
 // 程序入口
 void main() => runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // 创建一个materialApp
     return MaterialApp(
-      title: 'Clip',
+      title: 'Cc Clip',
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
@@ -46,9 +46,10 @@ class MyApp extends StatelessWidget {
           displaySmall: GoogleFonts.lato(),
         ),
       ),
-      home: DrawContainer(
-        drawerWidth: MediaQuery.of(context).size.width * 0.75, // 侧边栏宽度比例
-    ),
+      home: GuidePage(),
+      // home: DrawContainer(
+      //   drawerWidth: MediaQuery.of(context).size.width * 0.75, // 侧边栏宽度比例
+      // ),
     );
   }
 }

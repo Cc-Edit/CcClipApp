@@ -10,11 +10,11 @@ class VideoList extends StatefulWidget {
   const VideoList({super.key});
 
   @override
-  State<VideoList> createState() => _VideoListState();
+  State<VideoList> createState() => VideoListState();
 }
 
 // TickerProviderStateMixin 用来实现动画
-class _VideoListState extends State<VideoList> with TickerProviderStateMixin {
+class VideoListState extends State<VideoList> with TickerProviderStateMixin {
   List<VideoListData> videoListData = VideoListData.videoList;
   List<BannerListData> homeBanner = BannerListData.homeBanner;
   AnimationController? animationController; // 动画管理
