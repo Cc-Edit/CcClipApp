@@ -2,6 +2,11 @@
   "name": "cc_clip_app",
   "version": "1.0.0",
   "scripts": {
-    "generate": "flutter packages pub run build_runner watch --delete-conflicting-outputs"
+    "generate": "flutter packages pub run build_runner watch --delete-conflicting-outputs",
+    "genNativeSplash": "dart run flutter_native_splash:create",
+    "genAppIcon": "flutter pub run flutter_launcher_icons",
+    "upgrade": "flutter pub upgrade",
+    "getPackage": "flutter pub get",
+    "cleanIos": "rm -rf ios & flutter create -i swift . && yarn getPackage && yarn genAppIcon && yarn genNativeSplash && cd ios && pod install"
   }
 }
