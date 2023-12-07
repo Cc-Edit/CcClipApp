@@ -1,10 +1,14 @@
 // 数据存储 key
-class Keys {
-  String showGuide = 'showGuide';
-}
+class StoreKeys {
+  static String showGuide = 'showGuide';
+  static String isInitDefault = 'isInitDefault';
 
-class Config {
-  Config();
-
-  static Keys keys = Keys();
+  // 默认值
+  static Map<String, dynamic> defaultValue = {
+    StoreKeys.showGuide: true,
+  };
 }
+// 默认值
+Map<String, dynamic> defaultValue = {
+  StoreKeys.showGuide: true
+};
