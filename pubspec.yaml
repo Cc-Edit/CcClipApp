@@ -43,6 +43,7 @@ dependencies:
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.7
   flutter_test:
     sdk: flutter
 
@@ -79,6 +80,7 @@ flutter:
     - assets/image/
     - assets/tabIcon/
     - assets/guide/
+    - assets/splash/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -105,3 +107,7 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_native_splash:
+  color: "#181818"
+  background_image: "assets/splash/background.png"
+  image: "assets/splash/background.png"
