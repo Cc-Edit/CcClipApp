@@ -1,9 +1,11 @@
+import 'package:cc_clip_app/pages/LoginPage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cc_clip_app/component/DrawContainer.dart';
 import 'package:cc_clip_app/pages/GuidePage.dart';
 import 'package:cc_clip_app/util/Storage.dart';
 import 'package:cc_clip_app/config/Config.dart';
+
 // 程序入口
 void main() => runApp(const MyApp());
 
@@ -55,6 +57,7 @@ class MyApp extends StatelessWidget {
             ),
             routes: {
               '/MainPage': (ctx) => mainContainer,
+              '/LoginPage': (ctx) => const LoginPage(),
             },
             home: snapshot.data ? const GuidePage() : mainContainer,
           );

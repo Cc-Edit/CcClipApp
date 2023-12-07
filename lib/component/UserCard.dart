@@ -35,7 +35,7 @@ class UserCardState extends State<UserCard> with TickerProviderStateMixin {
           ),
           borderRadius: BorderRadius.circular(6),
           border: Border.all(
-              color: Color(0xff93918f),
+              color: const Color(0xff93918f),
               width: 1
           )
       ),
@@ -56,8 +56,16 @@ class UserCardState extends State<UserCard> with TickerProviderStateMixin {
                         width: 1
                     )
                 ),
-                child: Image.asset('assets/image/head.png',
-                  fit: BoxFit.contain,
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  onTap: () => {
+                    Navigator.of(context).pushReplacementNamed('/LoginPage')
+                  },
+                  child: Image.asset('assets/image/head.png',
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
               Expanded(child: Container(
