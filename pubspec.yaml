@@ -109,4 +109,3 @@ flutter:
 
 flutter_native_splash:
   background_image: "assets/splash/background.png"
-  image: "assets/splash/background.png"
