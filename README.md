@@ -13,7 +13,7 @@
 
 ## 预览
 [视频](https://www.bilibili.com/video/BV1Ua4y1o7X3/)    
-![preview.png](https://github.com/Cc-Edit/CcClipApp/blob/main/preview.png)
+![preview.jpg](https://github.com/Cc-Edit/CcClipApp/blob/main/preview.jpg)
 
 ## 功能
 - 首页列表
@@ -30,6 +30,8 @@
 - 模板商城页面
 - 个人信息页面
 - 不同展现形式的 AppBar
+- 动画引导页
+- 闪屏页
 
 ## 版权相关
   开源前已对项目进行版权过滤，将个人使用范围的素材替换为公共免费的素材。
