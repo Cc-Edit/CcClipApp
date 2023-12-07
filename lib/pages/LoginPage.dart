@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
+import 'package:google_fonts/google_fonts.dart';
+
 class LoginPage extends StatefulWidget{
   const LoginPage({super.key});
 
@@ -11,6 +13,7 @@ class LoginPage extends StatefulWidget{
 
 class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   ScrollController? scrollController;
+  AnimationController? pageAnimationController;
   AnimationController? animationController;
 
   @override
@@ -22,7 +25,9 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       // final double offset = scrollController!.offset;
     });
     // 动画
-    animationController = AnimationController(duration: const Duration(milliseconds: 1600), vsync: this);
+    pageAnimationController = AnimationController(duration: const Duration(milliseconds: 1200), vsync: this);
+    animationController = AnimationController(duration: const Duration(milliseconds: 1000), vsync: this);
+    pageAnimationController?.forward();
     animationController?.forward();
     // 渲染完成后
     WidgetsBinding.instance.addPostFrameCallback((_) => startAnimation());
@@ -40,16 +45,23 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   void dispose(){
     scrollController?.dispose();
     animationController?.dispose();
+    pageAnimationController?.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     final animation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+      parent: pageAnimationController!,
+      curve: const Interval(0, 1,  curve: Curves.fastOutSlowIn ),
+    ));
+
+    final textAnimation = Tween<double>(begin: 0.1, end: 1).animate(CurvedAnimation(
       parent: animationController!,
       curve: const Interval(0, 1,  curve: Curves.fastOutSlowIn ),
     ));
-    return AnimatedBuilder(animation: animationController!, builder: (BuildContext context, Widget? child) {
       return Stack(
         children: [
           SingleChildScrollView(
@@ -57,21 +69,21 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
               scrollDirection: Axis.vertical,
               physics: const NeverScrollableScrollPhysics(),
               child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 2,
+                  width: width,
+                  height: height * 2,
                   child: Column(
                     children: [
                       // 第一屏
                       Container(
                         color: const Color(0XFF181818),
-                        height: MediaQuery.of(context).size.height,
-                        width: MediaQuery.of(context).size.width,
+                        height: height,
+                        width: width,
                       ),
                       // 第二屏
                       Container(
                         color: Colors.grey[800],
-                        height: MediaQuery.of(context).size.height,
-                        width: MediaQuery.of(context).size.width,
+                        height: height,
+                        width: width,
                       )
                     ],
                   )
@@ -79,20 +91,40 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 120),
-            child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 200,
-                child: PhysicalShape(
-                  // color: Colors.yellow,
-                    color: const Color(0XFF181818),
-                    clipper: TabClipper(radius: animation.value * 80.0),
-                    child: const SizedBox()
-                )
-            ),
+            child:  AnimatedBuilder(animation: pageAnimationController!, builder: (BuildContext context, Widget? child) {
+              return SizedBox(
+                  width: width,
+                  height: 200,
+                  child: PhysicalShape(
+                    // color: Colors.yellow,
+                      color: const Color(0XFF181818),
+                      clipper: TabClipper(radius: animation.value * 80.0),
+                      child: const SizedBox()
+                  )
+              );
+            })
+          ),
+          SizedBox(
+            width: width,
+            height: height,
+            child: AnimatedBuilder(animation: animationController!, builder: (BuildContext context, Widget? child) {
+              return Transform(
+                  transform: Matrix4.translationValues(0, 0 - (textAnimation.value * 260), 0.0),
+                  child: Center(
+                    child: Text('Cc Clip', style: GoogleFonts.akayaKanadaka(
+                      fontSize: 100 - (textAnimation.value * 50),
+                      fontWeight: FontWeight.bold,
+                      fontStyle: FontStyle.normal,
+                      decoration: TextDecoration.none,
+                      color: Colors.grey[100],
+                    ),
+                    ),
+                  )
+              );
+            })
           )
         ],
       );
-    });
   }
 }
 
