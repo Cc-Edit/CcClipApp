@@ -120,7 +120,6 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         body: Stack(
           children: [
