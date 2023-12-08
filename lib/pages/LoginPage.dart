@@ -155,7 +155,6 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                                     Expanded(
                                       child: TextField(
                                         autocorrect: false,
-                                        cursorHeight: 19,
                                         cursorColor: Colors.grey[100],
                                         obscureText: true,
                                         style: TextStyle(
