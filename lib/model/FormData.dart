@@ -17,6 +17,7 @@ class FormData {
     this.key = '',
     this.type = InputType.string,
     this.hintText,
+    this.defaultValue,
     this.helperText,
     this.errorText,
     this.buttonText,
@@ -29,6 +30,7 @@ class FormData {
   String key;
   InputType type;
   String? hintText;
+  String? defaultValue;
   String? helperText;
   String? errorText;
   String? buttonText;
@@ -42,6 +44,7 @@ class FormData {
       type: InputType.string,
       icon: Icons.person_outline,
       key: 'userName',
+      defaultValue: 'guest',
       hintText: '请输入用户名',
       validator: [
         RequiredValidator(errorText: '用户名不能为空'),
@@ -55,6 +58,7 @@ class FormData {
       type: InputType.password,
       icon: Icons.lock_outline_rounded,
       key: 'password',
+      defaultValue: 'aA@123456789',
       hintText: '请输入密码',
       validator: [
         RequiredValidator(errorText: '密码不能为空'),
@@ -67,6 +71,7 @@ class FormData {
       id: '4',
       type: InputType.piCode,
       icon: Icons.image,
+      defaultValue: 'aysr',
       key: 'imageCode',
       hintText: '请输入验证码',
       validator: [

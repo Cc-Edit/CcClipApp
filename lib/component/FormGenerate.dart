@@ -112,8 +112,9 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
               children: [
                 Expanded(
                   child: TextFormField(
+                    initialValue: formItem.defaultValue,
                     validator: (value) {
-                      String? result = FormData().customValidator(value);
+                      String? result = FormData().customValidator(value, formItem.validator);
                       if (result == null || result.isEmpty) {
                         return null;
                       }else{
@@ -157,6 +158,7 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                         return result;
                       }
                     },
+                    initialValue: formItem.defaultValue,
                     focusNode: formItemNodeMap[formItem.key],
                     autocorrect: false,
                     cursorColor: Colors.grey[100],
@@ -182,7 +184,6 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                             switchPasswordVisible();
                           },
                         )
-
                     ),
                   ),
                 )
@@ -202,8 +203,9 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                 children: [
                   Expanded(
                     child: TextFormField(
+                      initialValue: formItem.defaultValue,
                       validator: (value) {
-                        String? result = FormData().customValidator(value);
+                        String? result = FormData().customValidator(value, formItem.validator);
                         if (result == null || result.isEmpty) {
                           return null;
                         }else{
@@ -214,7 +216,6 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                       autocorrect: false,
                       cursorHeight: 19,
                       cursorColor: Colors.grey[100],
-                      obscureText: true,
                       style: TextStyle(
                           fontSize: 15,
                           color: Colors.grey[200]
@@ -225,7 +226,6 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                           ),
                           hintText: formItem.hintText,
                           helperText: formItem.helperText,
-                          errorText: formItem.errorText,
                           // suffixIcon: Icon(Icons.visibility_off_outlined, color: Colors.grey[100], size: 24,)
                           suffixIcon: Icon(Icons.refresh, color: Colors.grey[100], size: 24,)
                       ),
@@ -235,7 +235,7 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                     padding: const EdgeInsets.fromLTRB(4, 0, 0, 0),
                     width: 110,
                     height: 46,
-                    child: Image.asset('assets/image/flame-40.png', fit: BoxFit.fill,),
+                    child: Image.asset('assets/image/imageCode.png', fit: BoxFit.fill,),
                   )
                 ],
               ),
