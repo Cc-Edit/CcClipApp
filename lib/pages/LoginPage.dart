@@ -16,6 +16,7 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   AnimationController? starAnimationController;
   AnimationController? pageAnimationController;
   AnimationController? animationController;
+  late Timer _timer;
 
   @override
   void initState(){
@@ -51,6 +52,9 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
     await showDialog(
       context: context,
       builder: (BuildContext context) {
+        _timer = Timer(const Duration(milliseconds: 1600), () {
+          Navigator.of(context).pushNamedAndRemoveUntil('/MainPage', (Route<dynamic> route) => false);
+        });
         return SimpleDialog(
           alignment: Alignment.center,
           backgroundColor: Colors.grey[900],
@@ -87,6 +91,9 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         );
       }
     ).then((val){
+      if (_timer.isActive) {
+        _timer.cancel();
+      }
       Navigator.of(context).pushNamedAndRemoveUntil('/MainPage', (Route<dynamic> route) => false);
     });
   }
@@ -96,6 +103,7 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
     animationController?.dispose();
     pageAnimationController?.dispose();
     starAnimationController?.dispose();
+    _timer.cancel();
     super.dispose();
   }
 
