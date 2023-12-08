@@ -1,9 +1,7 @@
 import 'dart:async';
-
-import 'package:flutter/material.dart';
 import 'dart:math';
-
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget{
   const LoginPage({super.key});
@@ -113,14 +111,134 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                     ),
                     // 第二屏
                     Container(
-                      color: Colors.grey[900],
+                      color: Colors.grey[100],
                       height: height,
                       width: width,
+                      child: Scaffold(
+                        body: Container(
+                          padding: const EdgeInsets.only(left: 30, right: 30),
+                          width: width,
+                          height: height,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              const Padding(padding: EdgeInsets.only(top: 160), child: SizedBox()),
+                              Container(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                width: width,
+                                height: 80,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: TextField(
+                                        autocorrect: false,
+                                        cursorColor: Colors.grey[100],
+                                        decoration: InputDecoration(
+                                          icon: Padding(padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                            child: Icon(Icons.person_outline, color: Colors.grey[100], size: 28,),
+                                          ),
+                                          hintText: '请输入用户名',
+                                          helperText: '帮助文案',
+                                          errorText: '错误文案',
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                width: width,
+                                height: 80,
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: TextField(
+                                        autocorrect: false,
+                                        cursorHeight: 19,
+                                        cursorColor: Colors.grey[100],
+                                        obscureText: true,
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            color: Colors.grey[200]
+                                        ),
+                                        decoration: InputDecoration(
+                                            icon: Padding(padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                              child: Icon(Icons.lock_outline_rounded, color: Colors.grey[100], size: 28,),
+                                            ),
+                                            hintText: '请输入密码',
+                                            helperText: '帮助文案',
+                                            // suffixIcon: Icon(Icons.visibility_off_outlined, color: Colors.grey[100], size: 24,)
+                                            suffixIcon: Icon(Icons.visibility_outlined, color: Colors.grey[100], size: 24,)
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                width: width,
+                                height: 80,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: TextField(
+                                        autocorrect: false,
+                                        cursorHeight: 19,
+                                        cursorColor: Colors.grey[100],
+                                        obscureText: true,
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            color: Colors.grey[200]
+                                        ),
+                                        decoration: InputDecoration(
+                                            icon: Padding(padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                              child: Icon(Icons.image, color: Colors.grey[100], size: 28,),
+                                            ),
+                                            hintText: '请输入验证码',
+                                            helperText: '',
+                                            // suffixIcon: Icon(Icons.visibility_off_outlined, color: Colors.grey[100], size: 24,)
+                                            suffixIcon: Icon(Icons.refresh, color: Colors.grey[100], size: 24,)
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.fromLTRB(4, 0, 0, 0),
+                                      width: 110,
+                                      height: 46,
+                                      child: Image.asset('assets/image/flame-40.png', fit: BoxFit.fill,),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                padding: const EdgeInsets.only(top: 20, bottom: 10, left: 40, right: 40),
+                                width: width,
+                                height: 80,
+                                child: Center(
+                                  child: OutlinedButton(
+                                    onPressed: () {},
+                                    child: const Center(
+                                      child: Text('立即登录', style: TextStyle(
+                                        fontSize: 14,
+                                      ))
+                                    ),
+                                  ),
+                                )
+                              ),
+                            ]
+                          ),
+                        ),
+                      )
                     )
                   ],
                 )
             )
         ),
+        // 背景
         Padding(
             padding: const EdgeInsets.only(top: 0),
             child:  AnimatedBuilder(animation: pageAnimationController!, builder: (BuildContext context, Widget? child) {
@@ -150,6 +268,7 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
               );
             })
         ),
+        // 星星
         Container(
           width: width,
           height: 400,
@@ -247,7 +366,7 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
             );
           })
         ),
-
+        // 标题
         SizedBox(
           width: width,
           height: height,
