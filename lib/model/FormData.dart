@@ -6,6 +6,7 @@ enum InputType {
   number,
   password,
   piCode,
+  button,
 }
 
 class FormData {
@@ -14,9 +15,10 @@ class FormData {
     this.icon = Icons.person_outline,
     this.key = '',
     this.type = InputType.string,
-    this.hintText = '',
-    this.helperText = '',
-    this.errorText = '',
+    this.hintText,
+    this.helperText,
+    this.errorText,
+    this.buttonText,
   });
 
   String id;
@@ -26,6 +28,7 @@ class FormData {
   String? hintText;
   String? helperText;
   String? errorText;
+  String? buttonText;
 
   static List<FormData> loginForm = [
     FormData(
@@ -43,11 +46,17 @@ class FormData {
       hintText: '请输入密码',
     ),
     FormData(
-      id: '3',
+      id: '4',
       type: InputType.piCode,
       icon: Icons.image,
       key: 'imageCode',
       hintText: '请输入验证码',
+    ),
+    FormData(
+      id: '3',
+      type: InputType.button,
+      key: 'submit',
+      buttonText: '登录',
     ),
   ];
 
