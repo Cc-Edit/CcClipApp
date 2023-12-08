@@ -112,7 +112,7 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                     ),
                     // 第二屏
                     Container(
-                      color: Colors.grey[100],
+                      color: Colors.grey[900],
                       height: height,
                       width: width,
                       child: Column(
