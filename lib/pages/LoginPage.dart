@@ -48,7 +48,6 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   }
   // 登录成功
   Future<void> showLoginDialog() async {
-    Timer(const Duration(microseconds: 1300), () => Navigator.of(context).pushNamedAndRemoveUntil('/MainPage', (Route<dynamic> route) => false));
     await showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -87,7 +86,9 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
           ],
         );
       }
-    );
+    ).then((val){
+      Navigator.of(context).pushNamedAndRemoveUntil('/MainPage', (Route<dynamic> route) => false);
+    });
   }
   @override
   void dispose(){
