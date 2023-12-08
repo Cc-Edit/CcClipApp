@@ -83,21 +83,27 @@ class MyApp extends StatelessWidget {
                 // fillColor: const Color(0xFF181818),
                 border: OutlineInputBorder(
                   borderSide: BorderSide(width: 1.0, color: Colors.grey[200] as Color),
+                  borderRadius: const BorderRadius.all(Radius.circular(10))
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(width: 1.0, color: Colors.grey[200] as Color),
+                  borderRadius: const BorderRadius.all(Radius.circular(10))
                 ),
                 disabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(width: 1.0, color: Colors.grey[400] as Color),
+                  borderRadius: const BorderRadius.all(Radius.circular(10))
                 ),
                 errorBorder:  OutlineInputBorder(
                   borderSide: BorderSide(width: 1.0, color: Colors.red[400] as Color),
+                  borderRadius: const BorderRadius.all(Radius.circular(10))
                 ),
                 focusedBorder:OutlineInputBorder(
                   borderSide: BorderSide(width: 1.0, color: Colors.grey[100] as Color),
+                  borderRadius: const BorderRadius.all(Radius.circular(10))
                 ),
                 focusedErrorBorder: OutlineInputBorder(
                   borderSide: BorderSide(width: 1.0, color: Colors.red[800] as Color),
+                  borderRadius: const BorderRadius.all(Radius.circular(10))
                 ),
                 contentPadding: const EdgeInsets.fromLTRB(10, 0, 4, 0),
               ),
