@@ -22,6 +22,7 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
   late AnimationController? scrollAnimationController; // 聚焦时居中元素
   late Animation<double> scrollAnim; // 聚焦时居中元素
   late Tween<double> scrollTween; // 居中要做的位移距离
+  bool showPassword = false;
   double middleHeight = 400;
   EdgeInsets? paddingObj;
 
@@ -87,7 +88,11 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
     scrollTween.end = newDiffHeight; // 设置新的位置
     scrollAnimationController!.forward(); // 再次执行
   }
-
+  void switchPasswordVisible() {
+    setState(() {
+      showPassword = !showPassword;
+    });
+  }
   // 获取表单结构
   List<Widget> genFormItem(double width) {
     List<Widget> result = [];
@@ -155,7 +160,7 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                     focusNode: formItemNodeMap[formItem.key],
                     autocorrect: false,
                     cursorColor: Colors.grey[100],
-                    obscureText: true,
+                    obscureText: !showPassword,
                     style: TextStyle(
                         fontSize: 15,
                         color: Colors.grey[200]
@@ -168,7 +173,16 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                         helperText: formItem.helperText,
                         errorText: formItem.errorText,
                         // suffixIcon: Icon(Icons.visibility_off_outlined, color: Colors.grey[100], size: 24,)
-                        suffixIcon: Icon(Icons.visibility_outlined, color: Colors.grey[100], size: 24,)
+                        suffixIcon: InkWell(
+                          splashColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          child: Icon(showPassword ? Icons.visibility_outlined : Icons.visibility_off_outlined, color: Colors.grey[100], size: 24,),
+                          onTap: () {
+                            switchPasswordVisible();
+                          },
+                        )
+
                     ),
                   ),
                 )
