@@ -8,10 +8,12 @@ class FormGenerate extends StatefulWidget {
   FormGenerate({
     super.key,
     required this.formData,
-    this.padding = const EdgeInsets.only(left: 30, right: 30)
+    this.padding = const EdgeInsets.only(left: 30, right: 30),
+    this.onSubmit
   });
   final List<FormData> formData;
   EdgeInsetsGeometry? padding;
+  Function? onSubmit;
 
   @override
   State<StatefulWidget> createState()  => FormGenerateState();
@@ -260,6 +262,9 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                       if (_formKey.currentState!.validate()) {
                         if (formItem.callback is Function) {
                           formItem.callback!(context);
+                        }
+                        if (widget.onSubmit is Function) {
+                          widget.onSubmit!();
                         }
                       }
                     },

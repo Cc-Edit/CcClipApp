@@ -46,7 +46,49 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       curve: Curves.fastOutSlowIn,
     );
   }
-
+  // 登录成功
+  Future<void> showLoginDialog() async {
+    Timer(const Duration(microseconds: 1300), () => Navigator.of(context).pushNamedAndRemoveUntil('/MainPage', (Route<dynamic> route) => false));
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          alignment: Alignment.center,
+          backgroundColor: Colors.grey[900],
+          shadowColor: Colors.grey[900],
+          surfaceTintColor: Colors.grey[900],
+          elevation:99,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          contentPadding: const EdgeInsets.all(0),
+          titlePadding: const EdgeInsets.fromLTRB(0, 20, 0, 10),
+          children: [
+            const Padding(padding: EdgeInsets.only(top: 20)),
+            Center(
+              child: SizedBox(
+                width: 150,
+                height: 150,
+                child:  Image.asset('assets/image/casual-life-3d-check-mark-pink.png', fit: BoxFit.contain,),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.only(top: 20, bottom: 20),
+              child: Center(
+                child: Text('登录成功', style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Colors.grey[100]
+                  ),
+                ),
+              ),
+            ),
+            const Padding(padding: EdgeInsets.only(bottom: 0)),
+          ],
+        );
+      }
+    );
+  }
   @override
   void dispose(){
     scrollController?.dispose();
@@ -119,6 +161,7 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                         children: [
                           Expanded(child: FormGenerate(
                             formData: FormData.loginForm,
+                            onSubmit: showLoginDialog,
                             padding: const EdgeInsets.only(top: 120, left: 30, right: 30),
                           ))
                         ],

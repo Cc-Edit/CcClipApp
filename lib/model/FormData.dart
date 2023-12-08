@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 // 支持的类型
 enum InputType {
@@ -86,11 +87,7 @@ class FormData {
       type: InputType.button,
       key: 'submit',
       buttonText: '登录',
-      callback: (context) => {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Processing Data')),
-        )
-      }
+      callback: (context) => {}
     ),
   ];
 

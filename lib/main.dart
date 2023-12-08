@@ -113,6 +113,12 @@ class MyApp extends StatelessWidget {
               '/LoginPage': (ctx) => const LoginPage(),
             },
             home: snapshot.data ? const GuidePage() : const LoginPage(),
+            builder: (context, child) {
+              return GestureDetector(
+                onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+                child: child,
+              );
+            },
           );
         });
   }
