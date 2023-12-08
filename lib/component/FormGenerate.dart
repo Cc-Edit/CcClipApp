@@ -18,6 +18,7 @@ class FormGenerate extends StatefulWidget {
 }
 class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixin {
   late Map<String, FocusNode> formItemNodeMap = {};
+  final _formKey = GlobalKey<FormState>(); // 表单key
   late AnimationController? scrollAnimationController; // 聚焦时居中元素
   late Animation<double> scrollAnim; // 聚焦时居中元素
   late Tween<double> scrollTween; // 居中要做的位移距离
@@ -105,7 +106,15 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  child: TextField(
+                  child: TextFormField(
+                    validator: (value) {
+                      String? result = FormData().customValidator(value);
+                      if (result == null || result.isEmpty) {
+                        return null;
+                      }else{
+                        return result;
+                      }
+                    },
                     focusNode: formItemNodeMap[formItem.key],
                     autocorrect: false,
                     cursorColor: Colors.grey[100],
@@ -134,7 +143,15 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  child: TextField(
+                  child: TextFormField(
+                    validator: (value) {
+                      String? result = FormData().customValidator(value, formItem.validator);
+                      if (result == null || result.isEmpty) {
+                        return null;
+                      }else{
+                        return result;
+                      }
+                    },
                     focusNode: formItemNodeMap[formItem.key],
                     autocorrect: false,
                     cursorColor: Colors.grey[100],
@@ -170,7 +187,15 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: TextField(
+                    child: TextFormField(
+                      validator: (value) {
+                        String? result = FormData().customValidator(value);
+                        if (result == null || result.isEmpty) {
+                          return null;
+                        }else{
+                          return result;
+                        }
+                      },
                       focusNode: formItemNodeMap[formItem.key],
                       autocorrect: false,
                       cursorHeight: 19,
@@ -209,7 +234,7 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                 width: width,
                 height: 80,
                 child: Center(
-                  child: OutlinedButton(
+                  child: ElevatedButton(
                     focusNode: formItemNodeMap[formItem.key],
                     style: ButtonStyle(
                       overlayColor: MaterialStateProperty.resolveWith((states) => Colors.grey[800] as Color),
@@ -217,7 +242,13 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                       foregroundColor: MaterialStateProperty.resolveWith((states) => Colors.grey[200] as Color),
                       side: MaterialStateProperty.resolveWith((states) => BorderSide(width: 1.0, color: Colors.grey[200] as Color)),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        if (formItem.callback is Function) {
+                          formItem.callback!(context);
+                        }
+                      }
+                    },
                     child: Center(
                         child: Text('${formItem.buttonText}', style: TextStyle(
                           fontSize: 16,
@@ -248,11 +279,14 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
             color: Colors.grey[900],
             width: width,
             height: height,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   ...genFormItem(width)
                 ]
+              )
             ),
           );
         }),
