@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -28,10 +27,9 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       // final double offset = scrollController!.offset;
     });
     // 动画
-    pageAnimationController = AnimationController(duration: const Duration(milliseconds: 1200), vsync: this);
+    pageAnimationController = AnimationController(duration: const Duration(milliseconds: 1800), vsync: this);
     starAnimationController = AnimationController(duration: const Duration(milliseconds: 3000), vsync: this);
-    pageAnimationController = AnimationController(duration: const Duration(milliseconds: 1200), vsync: this);
-    animationController = AnimationController(duration: const Duration(milliseconds: 1000), vsync: this);
+    animationController = AnimationController(duration: const Duration(milliseconds: 1600), vsync: this);
 
     Timer(const Duration(milliseconds: 600), () => {
       starAnimationController?.repeat(reverse: true),
@@ -92,6 +90,10 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
         parent:starAnimationController!,
         curve: const Interval(0.7, 0.9, curve: Curves.fastOutSlowIn)
     ));
+    final circleAnimation5 = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
+        parent:starAnimationController!,
+        curve: const Interval(0.1, 0.3, curve: Curves.fastOutSlowIn)
+    ));
     return Stack(
       children: [
         SingleChildScrollView(
@@ -111,7 +113,7 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                     ),
                     // 第二屏
                     Container(
-                      color: Colors.grey[800],
+                      color: Colors.grey[900],
                       height: height,
                       width: width,
                     )
@@ -120,16 +122,30 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
             )
         ),
         Padding(
-            padding: const EdgeInsets.only(top: 120),
+            padding: const EdgeInsets.only(top: 0),
             child:  AnimatedBuilder(animation: pageAnimationController!, builder: (BuildContext context, Widget? child) {
-              return SizedBox(
+              return Container(
                   width: width,
-                  height: 200,
+                  height: 280,
                   child: PhysicalShape(
-                    // color: Colors.yellow,
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
                       color: const Color(0XFF181818),
                       clipper: HeadClipper(radius: animation.value * 80.0),
-                      child: const SizedBox()
+                      child: Stack(
+                        children: [
+                          SizedBox(
+                            width: width,
+                            height: 310,
+                            child: Image.asset('assets/image/space-background-blue-pink-planet.png', fit: BoxFit.cover,),
+                          ),
+                          Container(
+                            color: const Color(0XFF181818).withOpacity(1 - (0.35 * animation.value)),
+                            width: width,
+                            height: 310,
+                            child: SizedBox(),
+                          )
+                        ],
+                      )
                   )
               );
             })
@@ -149,13 +165,10 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                     child: ScaleTransition(
                       alignment: Alignment.center,
                       scale: circleAnimation,
-                      child: Container(
-                        width: 6,
-                        height: 6,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          shape: BoxShape.circle,
-                        ),
+                      child: SizedBox(
+                        width: 10,
+                        height: 10,
+                        child: Image.asset('assets/image/icons8-star-96.png', fit: BoxFit.contain,),
                       ),
                     ),
                   ),
@@ -166,13 +179,10 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                     child: ScaleTransition(
                       alignment: Alignment.center,
                       scale: circleAnimation1,
-                      child: Container(
-                        width: 6,
-                        height: 6,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          shape: BoxShape.circle,
-                        ),
+                      child: SizedBox(
+                        width: 7,
+                        height: 7,
+                        child: Image.asset('assets/image/icons8-star-96.png', fit: BoxFit.contain,),
                       ),
                     ),
                   ),
@@ -183,13 +193,10 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                     child: ScaleTransition(
                       alignment: Alignment.center,
                       scale: circleAnimation2,
-                      child: Container(
-                        width: 6,
-                        height: 6,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          shape: BoxShape.circle,
-                        ),
+                      child: SizedBox(
+                        width: 12,
+                        height: 12,
+                        child: Image.asset('assets/image/icons8-star-96.png', fit: BoxFit.contain,),
                       ),
                     ),
                   ),
@@ -200,30 +207,38 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                     child: ScaleTransition(
                       alignment: Alignment.center,
                       scale: circleAnimation3,
-                      child: Container(
-                        width: 6,
-                        height: 6,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          shape: BoxShape.circle,
-                        ),
+                      child: SizedBox(
+                        width: 16,
+                        height: 16,
+                        child: Image.asset('assets/image/icons8-star-96.png', fit: BoxFit.contain,),
                       ),
                     ),
                   ),
                   Positioned(
-                    top: -120,
+                    top: 0,
+                    left: 120,
+                    bottom: 80,
+                    child: ScaleTransition(
+                      alignment: Alignment.center,
+                      scale: circleAnimation4,
+                      child: SizedBox(
+                        width: 9,
+                        height: 9,
+                        child: Image.asset('assets/image/icons8-star-96.png', fit: BoxFit.contain,),
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    top: -20,
                     left: 20,
                     bottom: 0,
                     child: ScaleTransition(
                       alignment: Alignment.center,
-                      scale: circleAnimation4,
-                      child: Container(
-                        width: 6,
-                        height: 6,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          shape: BoxShape.circle,
-                        ),
+                      scale: circleAnimation5,
+                      child: SizedBox(
+                        width: 9,
+                        height: 9,
+                        child: Image.asset('assets/image/icons8-star-96.png', fit: BoxFit.contain,),
                       ),
                     ),
                   ),
@@ -268,7 +283,11 @@ class HeadClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     final Path path = Path();
     final double v = radius * 2;
-    path.arcTo(Rect.fromLTWH(0, 0, size.width, v), degreeToRadians(0), degreeToRadians(180), true);
+    path.lineTo(0, size.height - v);
+    path.lineTo(0, 0);
+    path.lineTo(size.width, 0);
+    path.lineTo(size.width, size.height - v);
+    path.arcTo(Rect.fromLTWH(0, size.height - v, size.width, v), degreeToRadians(0), degreeToRadians(180), false);
     path.close();
     return path;
   }

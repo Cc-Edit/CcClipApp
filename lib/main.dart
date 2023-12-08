@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
               '/MainPage': (ctx) => mainContainer,
               '/LoginPage': (ctx) => const LoginPage(),
             },
-            home: snapshot.data ? const GuidePage() : mainContainer,
+            home: snapshot.data ? const GuidePage() : const LoginPage(),
           );
         });
   }
