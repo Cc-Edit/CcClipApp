@@ -15,7 +15,7 @@
 [视频](https://www.bilibili.com/video/BV1Ua4y1o7X3/)    
 ![preview.jpg](https://github.com/Cc-Edit/CcClipApp/blob/main/preview.jpg)
 
-## 功能
+## 基础功能
 - [x]  首页列表
 - [x]  首页轮播图
 - [x]  列表展现形式切换
@@ -35,6 +35,11 @@
 - [x]  form 表单配置
 - [x]  登录页面与动画
 - [x]  登录接口流程
+- [x]  退出流程
+- [x]  应用重启
+- [x]  非登录状态页面
+
+## 高级功能（gl 视频特效处理）
 - [ ] 新建项目 
 - [ ] 相机权限 
 - [ ] 视频编辑 
@@ -42,7 +47,7 @@
 
 ## 版权相关
   开源前已对项目进行版权过滤，将个人使用范围的素材替换为公共免费的素材。
-  - icon、插图来自 [iconpark](https://iconpark.oceanengine.com/official)
-
+  - icon、插图来自 [Illustration by Icons 8 from Ouch!](https://icons8.com/)
+    
 
 如需帮助请联系： ccedit@126.com
