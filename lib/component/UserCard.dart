@@ -98,9 +98,11 @@ class UserCardState extends State<UserCard> with TickerProviderStateMixin {
                     iconSize: 20,
                     padding: const EdgeInsets.all(0),
                     color: Colors.grey[100],
-                    icon: const Icon(Icons.settings),
-                    tooltip: '退出登录',
-                    onPressed: () {},
+                    icon: const Icon(Icons.login),
+                    tooltip: '去登录',
+                    onPressed: () {
+                      Navigator.of(context).pushReplacementNamed('/LoginPage');
+                    },
                   )
               )
             ],
