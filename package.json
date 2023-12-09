@@ -1,6 +1,7 @@
 {
   "name": "cc_clip_app",
   "version": "1.0.0",
+  "license": "Apache-2.0",
   "scripts": {
     "generate": "flutter packages pub run build_runner watch --delete-conflicting-outputs",
     "genNativeSplash": "dart run flutter_native_splash:create",
