@@ -4,8 +4,8 @@ import 'dart:ui';
 import 'package:cc_clip_app/model/FormData.dart';
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import '../api/ApiAuth.dart';
-import '../api/ApiBase.dart';
+import 'package:cc_clip_app/api/ApiAuth.dart';
+import 'package:cc_clip_app/api/ApiBase.dart';
 
 class FormGenerate extends StatefulWidget {
   FormGenerate({
@@ -32,19 +32,8 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
   bool showPassword = false;
   double middleHeight = 400;
   EdgeInsets? paddingObj;
-  Map<String, dynamic> formData = {};
+  Map<String, dynamic> formObject = {};
   Image? image; // 验证码
-
-
-  void getCaptureImage() async{
-    CustomResponse response = await getCaptcha(220, 92);
-    if(response.success && !response.hasError ){
-      formData['captureEncode'] = response.data['captureEncode'];
-      setState(() {
-        image = Image.memory(base64Decode(response.data['image']));
-      });
-    }
-  }
 
   @override
   void initState() {
@@ -80,6 +69,17 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
     }
     scrollAnimationController!.dispose();
     super.dispose();
+  }
+
+  // 获取图形验证码
+  void getCaptureImage() async{
+    CustomResponse response = await getCaptcha(220, 92);
+    if(response.success && !response.hasError ){
+      formObject['captureEncode'] = response.data['captureEncode'];
+      setState(() {
+        image = Image.memory(base64Decode(response.data['image']));
+      });
+    }
   }
 
   // 初始化节点关联
@@ -137,6 +137,7 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                 Expanded(
                   child: TextFormField(
                     initialValue: formItem.defaultValue,
+                    onSaved: (value) { formObject[formItem.key] = value; },
                     validator: (value) {
                       String? result = FormData().customValidator(value, formItem.validator);
                       if (result == null || result.isEmpty) {
@@ -174,6 +175,8 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
               children: [
                 Expanded(
                   child: TextFormField(
+                    initialValue: formItem.defaultValue,
+                    onSaved: (value) { formObject[formItem.key] = value; },
                     validator: (value) {
                       String? result = FormData().customValidator(value, formItem.validator);
                       if (result == null || result.isEmpty) {
@@ -182,7 +185,6 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                         return result;
                       }
                     },
-                    initialValue: formItem.defaultValue,
                     focusNode: formItemNodeMap[formItem.key],
                     autocorrect: false,
                     cursorColor: Colors.grey[100],
@@ -228,6 +230,7 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                   Expanded(
                     child: TextFormField(
                       initialValue: formItem.defaultValue,
+                      onSaved: (value) { formObject[formItem.key] = value; },
                       validator: (value) {
                         String? result = FormData().customValidator(value, formItem.validator);
                         if (result == null || result.isEmpty) {
@@ -294,14 +297,14 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                       side: MaterialStateProperty.resolveWith((states) => BorderSide(width: 1.0, color: Colors.grey[widget.showLoading ? 600 : 200] as Color)),
                     ),
                     onPressed: () {
+                      FocusManager.instance.primaryFocus?.unfocus();
                       if(widget.showLoading) return;
                       if (_formKey.currentState!.validate()) {
                         if (formItem.callback is Function) {
                           formItem.callback!(context);
                         }
-                        if (widget.onSubmit is Function) {
-                          widget.onSubmit!();
-                        }
+                        _formKey.currentState!.save();
+                        widget.onSubmit!(formObject);
                       }
                     },
                     child: Stack(

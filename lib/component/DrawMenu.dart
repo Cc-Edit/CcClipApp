@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cc_clip_app/component/UserCard.dart';
 import 'package:cc_clip_app/component/IconCard.dart';
 import 'package:cc_clip_app/model/MenuIconData.dart';
-import 'package:cc_clip_app/util/Storage.dart';
+import 'package:cc_clip_app/util/UserStorage.dart';
 
 // 侧边栏小组件
 class DrawMenu extends StatefulWidget {
@@ -43,7 +43,7 @@ class DrawMenuState extends State<DrawMenu> with TickerProviderStateMixin {
             padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
             child: OutlinedButton(
               onPressed: () {
-                Storage().clear();
+                UserStorage().clear();
               },
               child: Center(
                 child: Row(

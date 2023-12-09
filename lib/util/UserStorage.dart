@@ -1,13 +1,12 @@
-import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cc_clip_app/config/Config.dart';
 
-class Storage {
+class UserStorage {
   // 存储实例
-  static final _instance = Storage._init();
+  static final _instance = UserStorage._init();
   bool isInitDefault = false;
   // 工厂实例
-  factory Storage() => _instance;
+  factory UserStorage() => _instance;
 
   // 存储实例
   static late SharedPreferences _storage;
@@ -32,7 +31,7 @@ class Storage {
     await _initDefault();
   }
 
-  Storage._init() {
+  UserStorage._init() {
     _initShared();
   }
 
@@ -46,16 +45,16 @@ class Storage {
     // 根据value不同的类型 用不同的方法进行存储
     switch (type) {
       case 'String':
-        _storage.setString(key, value);
+        await _storage.setString(key, value);
         break;
       case 'int':
-        _storage.setInt(key, value);
+        await _storage.setInt(key, value);
         break;
       case 'double':
-        _storage.setDouble(key, value);
+        await _storage.setDouble(key, value);
         break;
       case 'bool':
-        _storage.setBool(key, value);
+        await _storage.setBool(key, value);
         break;
     }
   }

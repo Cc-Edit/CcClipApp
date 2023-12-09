@@ -4,6 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:cc_clip_app/component/FormGenerate.dart';
 import 'package:cc_clip_app/model/FormData.dart';
+import 'package:cc_clip_app/api/ApiAuth.dart';
+import 'package:cc_clip_app/api/ApiBase.dart';
+import 'package:cc_clip_app/api/ApiUser.dart';
+import 'package:cc_clip_app/config/Config.dart';
+import 'package:cc_clip_app/util/UserStorage.dart';
+
 
 class LoginPage extends StatefulWidget{
   const LoginPage({super.key});
@@ -18,7 +24,7 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   AnimationController? pageAnimationController;
   AnimationController? animationController;
   late Timer _timer;
-  bool showLoading = true;
+  bool showLoading = false;
 
   @override
   void initState(){
@@ -50,8 +56,40 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
       curve: Curves.fastOutSlowIn,
     );
   }
+  void login(Map<String, dynamic> formData) async {
+    setState(() {
+      showLoading = true;
+    });
+    CustomResponse loginRes = await userLogin(formData);
+    if(loginRes.success && !loginRes.hasError) {
+      String token = loginRes.data['access_token'];
+      await UserStorage().setStorage(StoreKeys.accessToken, token);
+      _timer = Timer(const Duration(milliseconds: 600), () {
+        getUserData(token);
+      });
+    }else{
+      setState(() {
+        showLoading = false;
+      });
+    }
+  }
+  void getUserData(String token) async{
+    CustomResponse userRes = await getUserInfo();
+    setState(() {
+      showLoading = false;
+    });
+    if(userRes.success && !userRes.hasError) {
+      await UserStorage().setStorage(StoreKeys.userName, userRes.data['name']);
+      await UserStorage().setStorage(StoreKeys.userPhone, userRes.data['phone']);
+      await UserStorage().setStorage(StoreKeys.userEmail, userRes.data['email']);
+      await UserStorage().setStorage(StoreKeys.userUuid, userRes.data['uuid']);
+      await UserStorage().setStorage(StoreKeys.userRole, userRes.data['role']);
+      await UserStorage().setStorage(StoreKeys.userStatus, userRes.data['status']);
+      showLoginDialog();
+    }
+  }
   // 登录成功
-  Future<void> showLoginDialog() async {
+  void showLoginDialog() async {
     await showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -173,7 +211,7 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                         children: [
                           Expanded(child: FormGenerate(
                             formData: FormData.loginForm,
-                            onSubmit: showLoginDialog,
+                            onSubmit: login,
                             showLoading:showLoading,
                             padding: const EdgeInsets.only(top: 120, left: 30, right: 30),
                           ))

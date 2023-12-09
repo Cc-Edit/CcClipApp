@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
 
+import 'package:cc_clip_app/util/UserStorage.dart';
+import 'package:cc_clip_app/config/Config.dart';
+
 class CustomResponse {
   CustomResponse({
     required this.success,
@@ -34,6 +37,13 @@ class ApiBase {
         hasError = false;
         data = decodedResponse['data'];
         data??={};
+      }else if(decodedResponse['code'] == 400){
+        hasError = true;
+        String error = decodedResponse['error'][0];
+        msg = error.isNotEmpty ? error : "参数错误";
+      }else if(decodedResponse['code'] == 500){
+        hasError = true;
+        msg??="服务器异常";
       }else{
         hasError = true;
         msg = decodedResponse['msg'];
@@ -57,5 +67,13 @@ class ApiBase {
       );
     }
     return resp;
+  }
+
+  static Future<Map<String, String>> getBaseHeader() async {
+    String? token = await UserStorage().getStorage(StoreKeys.accessToken);
+    return {
+      "Content-Type": "application/json",
+      "t": token ?? ''
+    };
   }
 }

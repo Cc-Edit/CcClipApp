@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:async';
 import 'package:cc_clip_app/config/Config.dart';
-import 'package:cc_clip_app/util/Storage.dart';
+import 'package:cc_clip_app/util/UserStorage.dart';
 
 enum GuideType {
   start,
@@ -111,7 +111,7 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
     prePage?.reverse();
   }
   void setData() async {
-    await Storage().setStorage(StoreKeys.showGuide, false);
+    await UserStorage().setStorage(StoreKeys.showGuide, false);
     Timer(const Duration(seconds: 2), () => Navigator.of(context).pushReplacementNamed('/MainPage'));
   }
   // 回到应用

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cc_clip_app/component/DrawContainer.dart';
 import 'package:cc_clip_app/pages/GuidePage.dart';
-import 'package:cc_clip_app/util/Storage.dart';
+import 'package:cc_clip_app/util/UserStorage.dart';
 import 'package:cc_clip_app/config/Config.dart';
 
 // 程序入口
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       drawerWidth: MediaQuery.of(context).size.width * 0.75, // 侧边栏宽度比例
     );
     return FutureBuilder<dynamic>(
-        future: Storage().getStorage(StoreKeys.showGuide), // a previously-obtained Future<String> or null
+        future: UserStorage().getStorage(StoreKeys.showGuide), // a previously-obtained Future<String> or null
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if(snapshot.data == null) return const SizedBox();
           return MaterialApp(
@@ -112,7 +112,7 @@ class MyApp extends StatelessWidget {
               '/MainPage': (ctx) => mainContainer,
               '/LoginPage': (ctx) => const LoginPage(),
             },
-            home: snapshot.data ? const GuidePage() : const LoginPage(),
+            home: snapshot.data ? const GuidePage() : mainContainer,
             builder: (context, child) {
               return GestureDetector(
                 onTap: () => FocusManager.instance.primaryFocus?.unfocus(),

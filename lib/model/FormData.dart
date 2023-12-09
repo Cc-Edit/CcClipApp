@@ -44,8 +44,8 @@ class FormData {
       id: '1',
       type: InputType.string,
       icon: Icons.person_outline,
-      key: 'userName',
-      defaultValue: 'Guest01',
+      key: 'username',
+      defaultValue: 'Cc-Edit',
       hintText: '请输入用户名',
       validator: [
         RequiredValidator(errorText: '用户名不能为空'),
@@ -72,7 +72,7 @@ class FormData {
       id: '4',
       type: InputType.piCode,
       icon: Icons.image,
-      key: 'imageCode',
+      key: 'captcha',
       hintText: '请输入验证码',
       validator: [
         RequiredValidator(errorText: '验证码不能为空'),
