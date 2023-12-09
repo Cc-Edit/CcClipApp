@@ -45,7 +45,7 @@ class FormData {
       type: InputType.string,
       icon: Icons.person_outline,
       key: 'userName',
-      defaultValue: 'guest',
+      defaultValue: 'Guest01',
       hintText: '请输入用户名',
       validator: [
         RequiredValidator(errorText: '用户名不能为空'),

@@ -247,14 +247,18 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                           hintText: formItem.hintText,
                           helperText: formItem.helperText,
                           // suffixIcon: Icon(Icons.visibility_off_outlined, color: Colors.grey[100], size: 24,)
-                          suffixIcon: InkWell(
-                            splashColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            child: Icon(Icons.refresh, color: Colors.grey[100], size: 24,),
-                            onTap: () {
-                              getCaptureImage();
-                            },
+                          suffixIcon: Material(
+                            color: Colors.transparent,
+                            child: Padding(
+                              padding: const EdgeInsets.all(3),
+                              child: InkWell(
+                                splashColor: Colors.grey[800],
+                                child: Icon(Icons.refresh, color: Colors.grey[100], size: 24,),
+                                onTap: () {
+                                  getCaptureImage();
+                                },
+                              ),
+                            ),
                           )
                       ),
                     ),
