@@ -291,7 +291,7 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                       overlayColor: MaterialStateProperty.resolveWith((states) => Colors.grey[800] as Color),
                       backgroundColor: MaterialStateProperty.resolveWith((states) => Colors.grey[900] as Color),
                       foregroundColor: MaterialStateProperty.resolveWith((states) => Colors.grey[200] as Color),
-                      side: MaterialStateProperty.resolveWith((states) => BorderSide(width: 1.0, color: Colors.grey[200] as Color)),
+                      side: MaterialStateProperty.resolveWith((states) => BorderSide(width: 1.0, color: Colors.grey[widget.showLoading ? 600 : 200] as Color)),
                     ),
                     onPressed: () {
                       if(widget.showLoading) return;
@@ -319,7 +319,7 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                             width: 110,
                             padding: const EdgeInsets.only(left: 0, right: 0),
                             child: LoadingAnimationWidget.hexagonDots(
-                              color: Colors.grey[400] as Color,
+                              color: Colors.grey[500] as Color,
                               size: 24,
                             ),
                           ),
