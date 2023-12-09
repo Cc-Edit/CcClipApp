@@ -10,6 +10,8 @@ import 'package:cc_clip_app/api/ApiUser.dart';
 import 'package:cc_clip_app/config/Config.dart';
 import 'package:cc_clip_app/util/UserStorage.dart';
 
+import 'package:cc_clip_app/store/app_store.dart';
+
 
 class LoginPage extends StatefulWidget{
   const LoginPage({super.key});
@@ -29,7 +31,7 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   @override
   void initState(){
     super.initState();
-
+    appStore.changeBottomTabIndex(0);
     // 滑动控制
     scrollController = ScrollController(initialScrollOffset: 0);
     scrollController!.addListener(() {
