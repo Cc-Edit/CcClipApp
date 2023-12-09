@@ -37,7 +37,6 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
 
 
   void getCaptureImage() async{
-    if(widget.showLoading) return; // 加载中时不要切换图形验证码
     CustomResponse response = await getCaptcha(220, 92);
     if(response.success && !response.hasError ){
       formData['captureEncode'] = response.data['captureEncode'];
@@ -260,6 +259,7 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                                 splashColor: Colors.grey[800],
                                 child: Icon(Icons.refresh, color: Colors.grey[100], size: 24,),
                                 onTap: () {
+                                  if(widget.showLoading) return;
                                   getCaptureImage();
                                 },
                               ),
