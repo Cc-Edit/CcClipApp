@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:cc_clip_app/model/MessageListData.dart';
 import 'package:cc_clip_app/component/ListItem/MessageListItem.dart';
 
+import 'package:cc_clip_app/config/Config.dart';
+import 'package:cc_clip_app/util/UserStorage.dart';
+
 class MessageList extends StatefulWidget {
   const MessageList({super.key});
 
@@ -14,10 +17,19 @@ class MessageList extends StatefulWidget {
 // TickerProviderStateMixin 用来实现动画
 class MessageListState extends State<MessageList> with TickerProviderStateMixin {
 
-  List<MessageListData> messageListData = MessageListData.messageList;
+  List<MessageListData> messageListData =  MessageListData.emptyList;
   AnimationController? animationController; // 动画管理
 
   final List<String> tabs = <String>['官方', '评论', '粉丝', '点赞'];
+  String userUuid = '';
+
+  // 获取用户信息
+  Future<void> initUserInfo() async {
+    String? uuid= await UserStorage().getStorage(StoreKeys.userUuid);
+    setState(() {
+      userUuid = uuid ?? '';
+    });
+  }
 
   @override
   void dispose(){
@@ -28,6 +40,8 @@ class MessageListState extends State<MessageList> with TickerProviderStateMixin 
   @override
   void initState() {
     super.initState();
+    initUserInfo();
+    getData(0);
     animationController = AnimationController(
         duration: const Duration(milliseconds: 1000),
         vsync: this
@@ -37,7 +51,7 @@ class MessageListState extends State<MessageList> with TickerProviderStateMixin 
   void getData(int index) {
     // await Future<dynamic>.delayed(const Duration(milliseconds: 600));
     setState(() {
-      messageListData = (index == 0 ? MessageListData.messageList : MessageListData.emptyList);
+      messageListData = ((index == 0 && userUuid.isNotEmpty) ? MessageListData.messageList : MessageListData.emptyList);
     });
   }
 
@@ -142,8 +156,25 @@ class MessageListState extends State<MessageList> with TickerProviderStateMixin 
                           bottom: false,
                           child: Builder(
                               builder: (BuildContext context) {
-                                if(tabController.index != 0) {
-                                  return  const Center(child: Text('暂时没有更多消息'));
+                                if(messageListData.isEmpty) {
+                                  return Center(
+                                    child: Column(
+                                      children: [
+                                        const Padding(padding: EdgeInsets.only(top: 200)),
+                                        SizedBox(
+                                          width: MediaQuery.of(context).size.width / 2,
+                                          child: Image.asset('assets/image/arabica-1127.png',
+                                            fit: BoxFit.contain,
+                                          ),
+                                        ),
+                                        const Padding(padding: EdgeInsets.only(top: 30)),
+                                        Text('暂时没有更多消息', style: TextStyle(
+                                            fontSize: 15,
+                                            color: Colors.grey[500]
+                                        ),)
+                                      ],
+                                    ),
+                                  );
                                 }
                                 return CustomScrollView(
                                     key: PageStorageKey<String>(name),
@@ -156,9 +187,6 @@ class MessageListState extends State<MessageList> with TickerProviderStateMixin 
                                         sliver: SliverFixedExtentList(
                                           itemExtent: 140.0,
                                           delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
-                                            if(tabController.index != 0) {
-                                              return const Center(child: Text('暂时没有更多消息'));
-                                            }
                                             final int count = messageListData.length;
                                             final int animationCount = min(count, 5);
                                             final int animationIndex = min(index, 5);

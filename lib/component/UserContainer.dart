@@ -5,6 +5,8 @@ import 'package:cc_clip_app/model/MenuIconData.dart';
 import 'package:cc_clip_app/component/ListItem/UserMenuListItem.dart';
 import 'package:cc_clip_app/model/VideoListData.dart';
 
+import 'package:cc_clip_app/config/Config.dart';
+import 'package:cc_clip_app/util/UserStorage.dart';
 import 'ListItem/VideoListItem.dart';
 
 class UserContainer extends StatefulWidget {
@@ -18,7 +20,7 @@ class UserContainer extends StatefulWidget {
 class UserContainerState extends State<UserContainer>
     with TickerProviderStateMixin {
   AnimationController? animationController; // 动画管理
-  List<VideoListData> listData = VideoListData.videoList;
+  List<VideoListData> listData = VideoListData.emptyList;
 
   static const List<Tab> homeTabs = <Tab>[
     Tab(text: '作品'),
@@ -27,6 +29,15 @@ class UserContainerState extends State<UserContainer>
     Tab(text: '被@'),
     Tab(text: '喜欢')
   ];
+  String userUuid = '';
+
+  // 获取用户信息
+  Future<void> initUserInfo() async {
+    String? uuid= await UserStorage().getStorage(StoreKeys.userUuid);
+    setState(() {
+      userUuid = uuid ?? '';
+    });
+  }
 
   @override
   void dispose() {
@@ -37,6 +48,8 @@ class UserContainerState extends State<UserContainer>
   @override
   void initState() {
     super.initState();
+    initUserInfo();
+    getData(0);
     animationController = AnimationController(
         duration: const Duration(milliseconds: 1000), vsync: this);
   }
@@ -45,7 +58,7 @@ class UserContainerState extends State<UserContainer>
     // await Future<dynamic>.delayed(const Duration(milliseconds: 600));
     setState(() {
       listData =
-          (index == 0 ? VideoListData.videoList : VideoListData.emptyList);
+          ((index == 0 && userUuid.isNotEmpty) ? VideoListData.videoList : VideoListData.emptyList);
     });
   }
 
@@ -63,9 +76,9 @@ class UserContainerState extends State<UserContainer>
           return Column(children: [
             Stack(
               children: [
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width,
-                  height: 245,
+                  height: 250,
                   child: Image.asset('assets/image/bg1.png', fit: BoxFit.cover),
                 ),
                 Container(
@@ -74,7 +87,62 @@ class UserContainerState extends State<UserContainer>
                   height: 250,
                   padding: const EdgeInsets.all(0),
                 ),
-                Container(
+                if(userUuid.isEmpty)
+                  Container(
+                    padding: const EdgeInsets.fromLTRB(100, 60, 100, 0),
+                    child:  Column(
+                      children: [
+                        Container(
+                          width: 90,
+                          height: 90,
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          decoration: BoxDecoration(
+                              color: const Color(0xfff1e7eb),
+                              borderRadius: BorderRadius.circular(60),
+                              border: Border.all(
+                                  color: const Color(0xfff1e7eb),
+                                  width: 1
+                              )
+                          ),
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            onTap: () => {
+                              Navigator.of(context).pushReplacementNamed('/LoginPage')
+                            },
+                            child: Image.asset('assets/image/icons8-user.png',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ),
+                        const Padding(padding: EdgeInsets.all(10)),
+                        ElevatedButton(
+                          style: ButtonStyle(
+                            padding: MaterialStateProperty.resolveWith((states) => const EdgeInsets.only(left: 20, right: 20)),
+                            backgroundColor: MaterialStateProperty.resolveWith((states) => Colors.grey[800]?.withOpacity(0.5)),
+                            foregroundColor: MaterialStateProperty.resolveWith((states) => Colors.grey[100] as Color),
+                            side: MaterialStateProperty.resolveWith((states) => BorderSide(width: 1, color: Colors.grey[500]!.withOpacity(0.5))),
+                          ),
+                          onPressed: () => Navigator.of(context).pushReplacementNamed('/LoginPage'),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.only(right: 10),
+                                child: const Icon(Icons.login_outlined, size: 20,),
+                              ),
+                              const Text('立即登录', style: TextStyle(
+                                fontSize: 17,
+                              ))
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                if(userUuid.isNotEmpty)
+                  Container(
                     height: 250,
                     padding: const EdgeInsets.only(top: 75, bottom: 0),
                     child: Column(
@@ -175,6 +243,26 @@ class UserContainerState extends State<UserContainer>
                     ))
               ],
             ),
+            if(userUuid.isEmpty)
+              Center(
+                child: Column(
+                  children: [
+                    const Padding(padding: EdgeInsets.only(top: 60)),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 2,
+                      child: Image.asset('assets/image/arabica-summer-time.png',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                    const Padding(padding: EdgeInsets.only(top: 30)),
+                    Text('还没有登录，登录后查看更多数据~', style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.grey[500]
+                    ),)
+                  ],
+                ),
+              ),
+            if(userUuid.isNotEmpty)
             Column(
               children: [
                 Row(
@@ -333,6 +421,26 @@ class UserContainerState extends State<UserContainer>
                       children: [
                         ...List.generate(homeTabs.length, (index) {
                           if (index == 0) {
+                            if(listData.isEmpty) {
+                              return Center(
+                                child: Column(
+                                  children: [
+                                    const Padding(padding: EdgeInsets.only(top: 60)),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width / 2,
+                                      child: Image.asset('assets/image/arabica-camping.png',
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                    const Padding(padding: EdgeInsets.only(top: 30)),
+                                    Text('这里空空的，去丰富一下吧', style: TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.grey[500]
+                                    ),)
+                                  ],
+                                ),
+                              );
+                            }
                             return GridView(
                               padding: const EdgeInsets.fromLTRB(10, 10, 10, 120),
                               physics: const AlwaysScrollableScrollPhysics(),
@@ -371,7 +479,24 @@ class UserContainerState extends State<UserContainer>
                               ],
                             );
                           } else {
-                            return const Center(child: Text('暂时没有更多'));
+                            return Center(
+                              child: Column(
+                                children: [
+                                  const Padding(padding: EdgeInsets.only(top: 60)),
+                                  SizedBox(
+                                    width: MediaQuery.of(context).size.width / 2,
+                                    child: Image.asset('assets/image/arabica-camping.png',
+                                      fit: BoxFit.contain,
+                                    ),
+                                  ),
+                                  const Padding(padding: EdgeInsets.only(top: 30)),
+                                  Text('这里空空的，去丰富一下吧', style: TextStyle(
+                                      fontSize: 15,
+                                      color: Colors.grey[500]
+                                  ),)
+                                ],
+                              ),
+                            );
                           }
                         }),
                       ],

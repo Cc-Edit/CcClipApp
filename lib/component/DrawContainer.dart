@@ -3,6 +3,8 @@ import 'package:cc_clip_app/component/DrawMenu.dart';
 import 'package:cc_clip_app/pages/MainView.dart';
 import 'package:cc_clip_app/store/app_store.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:cc_clip_app/config/Config.dart';
+import 'package:cc_clip_app/util/UserStorage.dart';
 
 // 带侧边栏的容器组件
 class DrawContainer extends StatefulWidget {
@@ -28,10 +30,20 @@ class DrawContainerState extends State<DrawContainer> with TickerProviderStateMi
   AnimationController? animationController;
 
   double scrollOffset = 0.0;// 标识抽屉是否打开
+  String userUuid = '';
+
+  // 获取用户信息
+  Future<void> initUserInfo() async {
+    String? uuid= await UserStorage().getStorage(StoreKeys.userUuid);
+    setState(() {
+      userUuid = uuid ?? '';
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+    initUserInfo();
     // 动画
     animationController = AnimationController(duration: const Duration(milliseconds: 2000), vsync: this);
     // icon 动画

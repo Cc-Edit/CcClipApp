@@ -3,6 +3,9 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:cc_clip_app/component/VideoList.dart';
 import 'package:cc_clip_app/store/app_store.dart';
 
+import 'package:cc_clip_app/config/Config.dart';
+import 'package:cc_clip_app/util/UserStorage.dart';
+
 // 定义一个 MyHomePage 部件，它是一个有状态的部件(StatefulWidget)
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -12,10 +15,20 @@ class MyHomePage extends StatefulWidget {
 }
 // 小部件状态
 class MyHomePageState extends State<MyHomePage> {
+  String userUuid = '';
+
+  // 获取用户信息
+  Future<void> initUserInfo() async {
+    String? uuid= await UserStorage().getStorage(StoreKeys.userUuid);
+    setState(() {
+      userUuid = uuid ?? '';
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+    initUserInfo();
   }
 
   @override

@@ -5,6 +5,9 @@ import 'package:cc_clip_app/pages/TemplatePage.dart';
 import 'package:cc_clip_app/pages/UserPage.dart';
 import 'package:cc_clip_app/component/BottomBar.dart';
 
+import 'package:cc_clip_app/config/Config.dart';
+import 'package:cc_clip_app/util/UserStorage.dart';
+
 List<String> pageNameList =[
   'home',
   'message',
@@ -23,10 +26,20 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView> {
   Widget pageView = const MyHomePage(title: 'CcClip');
   String pageName = pageNameList[0];
+  String userUuid = '';
+
+  // 获取用户信息
+  Future<void> initUserInfo() async {
+    String? uuid= await UserStorage().getStorage(StoreKeys.userUuid);
+    setState(() {
+      userUuid = uuid ?? '';
+    });
+  }
 
   @override
   void initState() {
     super.initState();
+    initUserInfo();
   }
 
   void changePageView(int index) {

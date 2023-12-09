@@ -6,6 +6,9 @@ import 'package:cc_clip_app/component/ListItem/VideoListItem.dart';
 import 'package:cc_clip_app/store/app_store.dart';
 import 'package:card_swiper/card_swiper.dart';
 
+import 'package:cc_clip_app/config/Config.dart';
+import 'package:cc_clip_app/util/UserStorage.dart';
+
 class VideoList extends StatefulWidget {
   const VideoList({super.key});
 
@@ -18,6 +21,16 @@ class VideoListState extends State<VideoList> with TickerProviderStateMixin {
   List<VideoListData> videoListData = VideoListData.videoList;
   List<BannerListData> homeBanner = BannerListData.homeBanner;
   AnimationController? animationController; // 动画管理
+  AnimationController? swiperAnimationController; // swiper动画管理
+  String userUuid = '';
+
+  // 获取用户信息
+  Future<void> initUserInfo() async {
+    String? uuid= await UserStorage().getStorage(StoreKeys.userUuid);
+    setState(() {
+      userUuid = uuid ?? '';
+    });
+  }
 
   // 监控 mobx 数据变化
   // final List<ReactionDisposer> _disposers = [];
@@ -40,14 +53,19 @@ class VideoListState extends State<VideoList> with TickerProviderStateMixin {
   @override
   void dispose() {
     animationController?.dispose();
+    swiperAnimationController?.dispose();
     super.dispose();
   }
 
   @override
   void initState() {
     super.initState();
+    initUserInfo();
     animationController = AnimationController(
         duration: const Duration(milliseconds: 1000), vsync: this);
+    swiperAnimationController = AnimationController(
+        duration: const Duration(milliseconds: 1000), vsync: this);
+    swiperAnimationController?.forward();
   }
 
   @override
@@ -63,14 +81,13 @@ class VideoListState extends State<VideoList> with TickerProviderStateMixin {
                 children: [
                   Icon(Icons.local_fire_department, color: Colors.pink[400]),
                   const Text("  热门活动 ",
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w600))
+                      style:TextStyle(fontSize: 14, fontWeight: FontWeight.w600))
                 ],
               ),
             ),
             Expanded(
               child: FadeTransition(
-                  opacity: animationController!,
+                  opacity: swiperAnimationController!,
                   child: Container(
                     padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Container(
@@ -149,6 +166,31 @@ class VideoListState extends State<VideoList> with TickerProviderStateMixin {
           ],
         ),
       ),
+      if(userUuid.isEmpty)
+        Expanded(
+          child: FadeTransition(
+            opacity: swiperAnimationController!,
+            child: Center(
+              child: Column(
+                children: [
+                  const Padding(padding: EdgeInsets.only(top: 30)),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2,
+                    child: Image.asset('assets/image/arabica-animal-watering-a-growing-plant.png',
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  const Padding(padding: EdgeInsets.only(top: 30)),
+                  Text('还没有作品，快去创建一个吧', style: TextStyle(
+                      fontSize: 15,
+                      color: Colors.grey[500]
+                  ),)
+                ],
+              ),
+            ),
+          )
+        ),
+      if(userUuid.isNotEmpty)
       Expanded(
         child: Observer(
             builder: (_) => GridView(

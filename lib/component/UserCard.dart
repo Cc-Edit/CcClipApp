@@ -27,10 +27,10 @@ class UserCardState extends State<UserCard> with TickerProviderStateMixin {
   // 获取用户信息
   Future<void> initUserInfo() async {
     String? name = await UserStorage().getStorage(StoreKeys.userName);
-    int role= await UserStorage().getStorage(StoreKeys.userRole);
+    int? role= await UserStorage().getStorage(StoreKeys.userRole);
     setState(() {
       userName = name ?? '';
-      roleName = StoreKeys.roleNameMap[role] ?? '';
+      roleName = role != null ? StoreKeys.roleNameMap[role] : '';
     });
   }
 
