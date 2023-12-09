@@ -26,6 +26,7 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
   bool showColor = false; // 点击完成后的礼花
   int activePage = 1; // 当前激活页面
   int pageCount = 3; // 总页数
+  late AssetImage image;// color 礼花图片
 
   late Animation<double> titleAnim;
   late Animation<AlignmentGeometry> logoAnim;
@@ -38,6 +39,7 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
   void dispose(){
     baseAnimationController?.dispose();
     pageAnimationController?.dispose();
+    image.evict();
     super.dispose();
   }
   // 主要维护标题动画
@@ -100,6 +102,7 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
   void initState() {
     initBaseAnim();
     initPageAnim();
+    image = const AssetImage('assets/guide/arabica-colorful.gif');
     super.initState();
   }
 
@@ -120,7 +123,7 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
     prePage?.reverse();
   }
   void setData() async {
-    await UserStorage().setStorage(StoreKeys.showGuide, false);
+    UserStorage().setStorage(StoreKeys.showGuide, false);
     Timer(const Duration(seconds: 2), () => Navigator.of(context).pushReplacementNamed('/MainPage'));
   }
   // 回到应用
@@ -518,7 +521,8 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
                     child: Container(
                         padding: const EdgeInsets.only(top: 100),
                         width: MediaQuery.of(context).size.width,
-                        child: Image.asset('assets/guide/arabica-colorful.gif',
+                        child: Image(
+                          image: image,
                           fit: BoxFit.contain,
                         )
                     )
