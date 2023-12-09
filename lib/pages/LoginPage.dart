@@ -40,7 +40,7 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
     starAnimationController = AnimationController(duration: const Duration(milliseconds: 3000), vsync: this);
     animationController = AnimationController(duration: const Duration(milliseconds: 1600), vsync: this);
 
-    Timer(const Duration(milliseconds: 600), () => {
+    Timer(const Duration(milliseconds: 1000), () => {
       starAnimationController?.repeat(reverse: true),
       pageAnimationController?.forward(),
       animationController?.forward(),
@@ -60,7 +60,7 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
     setState(() {
       showLoading = true;
     });
-    CustomResponse loginRes = await userLogin(formData);
+    CustomResponse loginRes = await ApiAuth.userLogin(formData);
     if(loginRes.success && !loginRes.hasError) {
       String token = loginRes.data['access_token'];
       await UserStorage().setStorage(StoreKeys.accessToken, token);
@@ -74,7 +74,7 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
     }
   }
   void getUserData(String token) async{
-    CustomResponse userRes = await getUserInfo();
+    CustomResponse userRes = await ApiUser.getUserInfo();
     setState(() {
       showLoading = false;
     });

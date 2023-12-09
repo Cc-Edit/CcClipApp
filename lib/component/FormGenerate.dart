@@ -73,7 +73,7 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
 
   // 获取图形验证码
   void getCaptureImage() async{
-    CustomResponse response = await getCaptcha(220, 92);
+    CustomResponse response = await ApiAuth.getCaptcha(220, 92);
     if(response.success && !response.hasError ){
       formObject['captureEncode'] = response.data['captureEncode'];
       setState(() {

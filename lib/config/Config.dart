@@ -15,6 +15,10 @@ class StoreKeys {
   static String userRole = 'userRole';
   static String userStatus = 'userStatus';
 
+  // 用户角色
+  static List<String> roleNameMap = ['管理员', '会员用户'];
+  static List<String> userStatusMap = ['已删除', '已禁用', '正常'];
+
   // 默认值
   static Map<String, dynamic> defaultValue = {
     StoreKeys.showGuide: true,
