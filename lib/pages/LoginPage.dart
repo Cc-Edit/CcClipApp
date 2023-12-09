@@ -18,7 +18,7 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   AnimationController? pageAnimationController;
   AnimationController? animationController;
   late Timer _timer;
-
+  bool showLoading = true;
 
   @override
   void initState(){
@@ -174,6 +174,7 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                           Expanded(child: FormGenerate(
                             formData: FormData.loginForm,
                             onSubmit: showLoginDialog,
+                            showLoading:showLoading,
                             padding: const EdgeInsets.only(top: 120, left: 30, right: 30),
                           ))
                         ],

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:cc_clip_app/model/FormData.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import '../api/ApiAuth.dart';
 import '../api/ApiBase.dart';
 
@@ -11,11 +12,13 @@ class FormGenerate extends StatefulWidget {
     super.key,
     required this.formData,
     this.padding = const EdgeInsets.only(left: 30, right: 30),
-    this.onSubmit
+    this.showLoading = false,
+    this.onSubmit,
   });
   final List<FormData> formData;
   EdgeInsetsGeometry? padding;
   Function? onSubmit;
+  bool showLoading; // 登录loading
 
   @override
   State<StatefulWidget> createState()  => FormGenerateState();
@@ -32,7 +35,9 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
   Map<String, dynamic> formData = {};
   Image? image; // 验证码
 
+
   void getCaptureImage() async{
+    if(widget.showLoading) return; // 加载中时不要切换图形验证码
     CustomResponse response = await getCaptcha(220, 92);
     if(response.success && !response.hasError ){
       formData['captureEncode'] = response.data['captureEncode'];
@@ -289,6 +294,7 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                       side: MaterialStateProperty.resolveWith((states) => BorderSide(width: 1.0, color: Colors.grey[200] as Color)),
                     ),
                     onPressed: () {
+                      if(widget.showLoading) return;
                       if (_formKey.currentState!.validate()) {
                         if (formItem.callback is Function) {
                           formItem.callback!(context);
@@ -298,13 +304,26 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                         }
                       }
                     },
-                    child: Center(
-                        child: Text('${formItem.buttonText}', style: TextStyle(
-                          fontSize: 16,
-                          letterSpacing: 2,
-                          color: Colors.grey[100],
-                          fontWeight: FontWeight.bold
-                        ))
+                    child: Stack(
+                      children: [
+                        Center(
+                          child: Text('${formItem.buttonText}${widget.showLoading ? '中...' : ''}', style: TextStyle(
+                              fontSize: 16,
+                              letterSpacing: 2,
+                              color: Colors.grey[widget.showLoading ? 600 : 100],
+                              fontWeight: FontWeight.bold
+                          )),
+                        ),
+                        if(widget.showLoading)
+                          Container(
+                            width: 110,
+                            padding: const EdgeInsets.only(left: 0, right: 0),
+                            child: LoadingAnimationWidget.hexagonDots(
+                              color: Colors.grey[400] as Color,
+                              size: 24,
+                            ),
+                          ),
+                      ],
                     ),
                   ),
                 )
