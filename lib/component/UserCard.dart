@@ -177,8 +177,8 @@ class UserCardState extends State<UserCard> with TickerProviderStateMixin {
               ),
             ),
             Container(
-              height: 50,
-              padding: const EdgeInsets.only(top: 10, left: 30),
+              height: 45,
+              padding: const EdgeInsets.only(top: 13, left: 30),
               child: ElevatedButton(
                 style: ButtonStyle(
                   padding: MaterialStateProperty.resolveWith((states) => const EdgeInsets.only(left: 20, right: 20)),
