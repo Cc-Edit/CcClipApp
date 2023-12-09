@@ -44,6 +44,7 @@ dependencies:
   fluttertoast: ^8.2.4
   http: ^1.1.2
   loading_animation_widget: ^1.2.0+4
+  flutter_phoenix: ^1.1.1
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1

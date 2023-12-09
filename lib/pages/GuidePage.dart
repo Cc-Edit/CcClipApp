@@ -22,8 +22,10 @@ class GuidePage extends StatefulWidget {
 class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
   AnimationController? baseAnimationController; // 标题动画
   AnimationController? pageAnimationController; // 屏幕动画
+  bool canTap = false; // 展示完成后允许点击
   bool showColor = false; // 点击完成后的礼花
   int activePage = 1; // 当前激活页面
+  int pageCount = 3; // 总页数
 
   late Animation<double> titleAnim;
   late Animation<AlignmentGeometry> logoAnim;
@@ -86,6 +88,11 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
       parent: pageAnimationController!,
       curve: const Interval(0.7, 1,  curve: Curves.fastOutSlowIn ),
     ));
+    pageAnimationController?.addStatusListener((AnimationStatus status) {
+      if(status == AnimationStatus.completed){
+        canTap = true;
+      }
+    });
   }
 
 
@@ -97,6 +104,8 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
   }
 
   void nextPage(){
+    if(!canTap || pageCount == activePage) return;
+    canTap = false;
     AnimationController? prePage = pageAnimationController;
     prePage?.addStatusListener((AnimationStatus status) {
       if(status == AnimationStatus.dismissed){
@@ -125,394 +134,397 @@ class GuidePageState extends State<GuidePage>  with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Stack(
-          children: [
-            Container(
-              color: const Color(0xFF181818),
-              padding: const EdgeInsets.fromLTRB(20, 80, 10, 80),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizeTransition(
-                    sizeFactor: titleAnim,
-                    axis: Axis.horizontal,
-                    axisAlignment: -1,
-                    child: Text('Cc Clip', style: GoogleFonts.akayaKanadaka(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey[100],
-                    ),
-                    ),),
-                ],
-              ),
-            ),
-            if(activePage == 1)
+        body: GestureDetector(
+          onTap: nextPage,
+          child: Stack(
+            children: [
               Container(
-              padding: const EdgeInsets.only(bottom: 260),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child:FadeTransition(
-                  opacity: logoFadeAnim,
-                  child: AlignTransition(
-                      alignment: logoAnim,
-                      child: Container(
+                color: const Color(0xFF181818),
+                padding: const EdgeInsets.fromLTRB(20, 80, 10, 80),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizeTransition(
+                      sizeFactor: titleAnim,
+                      axis: Axis.horizontal,
+                      axisAlignment: -1,
+                      child: Text('Cc Clip', style: GoogleFonts.akayaKanadaka(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[100],
+                      ),
+                      ),),
+                  ],
+                ),
+              ),
+              if(activePage == 1)
+                Container(
+                  padding: const EdgeInsets.only(bottom: 260),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child:FadeTransition(
+                      opacity: logoFadeAnim,
+                      child: AlignTransition(
+                          alignment: logoAnim,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            padding: const EdgeInsets.only(top: 100),
+                            height: 400,
+                            child: Padding(padding: EdgeInsets.all(8),
+                                child: SizedBox(
+                                  width: 200,
+                                  height: 200,
+                                  child: Image.asset('assets/guide/flame-space-adventures.gif',
+                                    fit: BoxFit.contain,
+                                  ),
+                                )
+                            ),
+                          )
+                      )
+                  ),
+                ),
+              if(activePage == 1)
+                Container(
+                  padding: const EdgeInsets.only(top: 540),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child:
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
                         width: MediaQuery.of(context).size.width,
-                        padding: const EdgeInsets.only(top: 100),
-                        height: 400,
-                        child: Padding(padding: EdgeInsets.all(8),
-                            child: SizedBox(
-                              width: 200,
-                              height: 200,
-                              child: Image.asset('assets/guide/flame-space-adventures.gif',
-                                fit: BoxFit.contain,
+                        alignment: Alignment.center,
+                        height: 30,
+                        child: FadeTransition(
+                            opacity: descAnim,
+                            child: Text('不断的尝试着去探索未知的领域', style: GoogleFonts.zcoolKuaiLe(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[100],
+                            ))
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        height: 70,
+                        padding: const EdgeInsets.only(top: 30),
+                        child: FadeTransition(
+                            opacity: descAnim1,
+                            child: Text('把一个又一个的未知变为已知', style: GoogleFonts.zcoolKuaiLe(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[100],
+                            ))
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        alignment: Alignment.center,
+                        height: 140,
+                        child: FadeTransition(
+                            opacity: descAnim2,
+                            child: activePage == 3 ? OutlinedButton(
+                              style:  const ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll<Color>(Colors.transparent),
+                                padding: MaterialStatePropertyAll<EdgeInsets>(EdgeInsets.fromLTRB(40, 6, 40, 6)),
+                              ),
+                              onPressed: () {
+                                goMainHome();
+                              },
+                              child: Text('一起出发', style: GoogleFonts.zcoolKuaiLe(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey[100],
+                              )),
+                            ) : Container(
+                              height: 60,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ...List.generate(3, (index) => InkWell(
+                                    highlightColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    onTap: () => {
+                                      nextPage()
+                                    },
+                                    child: Padding(padding: const EdgeInsets.all(5),
+                                      child: Container(
+                                        width: 28,
+                                        height: 28,
+                                        decoration: ShapeDecoration(
+                                          color: activePage == (index + 1) ? Colors.brown[700] : Colors.grey[800],
+                                          shape: const CircleBorder(),
+                                        ),
+                                        alignment: Alignment.center,
+                                        child: Text('${index + 1}',
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight:  activePage == (index + 1) ? FontWeight.bold : FontWeight.normal,
+                                              color: activePage == (index + 1) ? Colors.grey[100] : Colors.grey[600]
+                                          ),),
+                                      ),),
+                                  )),
+                                ],
                               ),
                             )
                         ),
-                      )
-                  )
-              ),
-            ),
-            if(activePage == 1)
-              Container(
-              padding: const EdgeInsets.only(top: 540),
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child:
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    alignment: Alignment.center,
-                    height: 30,
-                    child: FadeTransition(
-                        opacity: descAnim,
-                        child: Text('不断的尝试着去探索未知的领域', style: GoogleFonts.zcoolKuaiLe(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[100],
-                        ))
-                    ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    alignment: Alignment.center,
-                    height: 70,
-                    padding: const EdgeInsets.only(top: 30),
-                    child: FadeTransition(
-                        opacity: descAnim1,
-                        child: Text('把一个又一个的未知变为已知', style: GoogleFonts.zcoolKuaiLe(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey[100],
-                        ))
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    alignment: Alignment.center,
-                    height: 140,
-                    child: FadeTransition(
-                        opacity: descAnim2,
-                        child: activePage == 3 ? OutlinedButton(
-                          style:  const ButtonStyle(
-                            backgroundColor: MaterialStatePropertyAll<Color>(Colors.transparent),
-                            padding: MaterialStatePropertyAll<EdgeInsets>(EdgeInsets.fromLTRB(40, 6, 40, 6)),
-                          ),
-                          onPressed: () {
-                            goMainHome();
-                          },
-                          child: Text('一起出发', style: GoogleFonts.zcoolKuaiLe(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[100],
-                          )),
-                        ) : Container(
-                          height: 60,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ...List.generate(3, (index) => InkWell(
-                                highlightColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                onTap: () => {
-                                  nextPage()
-                                },
-                                child: Padding(padding: const EdgeInsets.all(5),
-                                  child: Container(
-                                    width: 28,
-                                    height: 28,
-                                    decoration: ShapeDecoration(
-                                      color: activePage == (index + 1) ? Colors.brown[700] : Colors.grey[800],
-                                      shape: const CircleBorder(),
-                                    ),
-                                    alignment: Alignment.center,
-                                    child: Text('${index + 1}',
-                                      style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight:  activePage == (index + 1) ? FontWeight.bold : FontWeight.normal,
-                                          color: activePage == (index + 1) ? Colors.grey[100] : Colors.grey[600]
-                                      ),),
-                                  ),),
-                              )),
-                            ],
-                          ),
-                        )
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            if(activePage == 2)
-              Container(
-                padding: const EdgeInsets.only(bottom: 260),
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child:FadeTransition(
-                    opacity: logoFadeAnim,
-                    child: AlignTransition(
-                        alignment: logoAnim,
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          padding: const EdgeInsets.only(top: 100),
-                          height: 400,
-                          child: Padding(padding: EdgeInsets.all(8),
-                              child: SizedBox(
-                                width: 200,
-                                height: 200,
-                                child: Image.asset('assets/guide/arabica-29.gif',
-                                  fit: BoxFit.contain,
-                                ),
-                              )
-                          ),
-                        )
-                    )
                 ),
-              ),
-            if(activePage == 2)
-              Container(
-                padding: const EdgeInsets.only(top: 540),
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child:
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      alignment: Alignment.center,
-                      height: 30,
-                      child: FadeTransition(
-                          opacity: descAnim,
-                          child: Text('只有克服阻碍，才能体验到成功的喜悦', style: GoogleFonts.zcoolKuaiLe(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[100],
-                          ))
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      height: 70,
-                      padding: const EdgeInsets.only(top: 30),
-                      child: FadeTransition(
-                          opacity: descAnim1,
-                          child: Text('一起勇往直前，突破重重难关', style: GoogleFonts.zcoolKuaiLe(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[100],
-                          ))
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      alignment: Alignment.center,
-                      height: 140,
-                      child: FadeTransition(
-                          opacity: descAnim2,
-                          child: activePage == 3 ? OutlinedButton(
-                            style:  const ButtonStyle(
-                              backgroundColor: MaterialStatePropertyAll<Color>(Colors.transparent),
-                              padding: MaterialStatePropertyAll<EdgeInsets>(EdgeInsets.fromLTRB(40, 6, 40, 6)),
-                            ),
-                            onPressed: () {
-                              goMainHome();
-                            },
-                            child: Text('一起出发', style: GoogleFonts.zcoolKuaiLe(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[100],
-                            )),
-                          ) : Container(
-                            height: 60,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ...List.generate(3, (index) => InkWell(
-                                  highlightColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  onTap: () => {
-                                    nextPage()
-                                  },
-                                  child: Padding(padding: const EdgeInsets.all(5),
-                                    child: Container(
-                                      width: 28,
-                                      height: 28,
-                                      decoration: ShapeDecoration(
-                                        color: activePage == (index + 1) ? Colors.brown[700] : Colors.grey[800],
-                                        shape: const CircleBorder(),
-                                      ),
-                                      alignment: Alignment.center,
-                                      child: Text('${index + 1}',
-                                        style: TextStyle(
-                                            fontSize: 13,
-                                            fontWeight:  activePage == (index + 1) ? FontWeight.bold : FontWeight.normal,
-                                            color: activePage == (index + 1) ? Colors.grey[100] : Colors.grey[600]
-                                        ),),
-                                    ),),
-                                )),
-                              ],
-                            ),
-                          )
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            if(activePage == 3)
-              Container(
-                padding: const EdgeInsets.only(bottom: 260),
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child:FadeTransition(
-                    opacity: logoFadeAnim,
-                    child: AlignTransition(
-                        alignment: logoAnim,
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          padding: const EdgeInsets.only(top: 100),
-                          height: 400,
-                          child: Padding(padding: EdgeInsets.all(8),
-                              child: SizedBox(
-                                width: 200,
-                                height: 200,
-                                child: Image.asset('assets/guide/arabica.gif',
-                                  fit: BoxFit.contain,
-                                ),
-                              )
-                          ),
-                        )
-                    )
-                ),
-              ),
-            if(activePage == 3)
-              Container(
-                padding: const EdgeInsets.only(top: 540),
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child:
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      alignment: Alignment.center,
-                      height: 30,
-                      child: FadeTransition(
-                          opacity: descAnim,
-                          child: Text('如果相遇，我会更懂得如何珍惜', style: GoogleFonts.zcoolKuaiLe(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[100],
-                          ))
-                      ),
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      height: 70,
-                      padding: const EdgeInsets.only(top: 30),
-                      child: FadeTransition(
-                          opacity: descAnim1,
-                          child: Text('做一个懂你的视频剪辑工具', style: GoogleFonts.zcoolKuaiLe(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[100],
-                          ))
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      alignment: Alignment.center,
-                      height: 140,
-                      child: FadeTransition(
-                          opacity: descAnim2,
-                          child: activePage == 3 ? OutlinedButton(
-                            style:  const ButtonStyle(
-                              backgroundColor: MaterialStatePropertyAll<Color>(Colors.transparent),
-                              padding: MaterialStatePropertyAll<EdgeInsets>(EdgeInsets.fromLTRB(40, 6, 40, 6)),
-                            ),
-                            onPressed: () {
-                              goMainHome();
-                            },
-                            child: Text('一起出发', style: GoogleFonts.zcoolKuaiLe(
-                              fontSize: 30,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.grey[100],
-                            )),
-                          ) : Container(
-                            height: 60,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ...List.generate(3, (index) => InkWell(
-                                  highlightColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  onTap: () => {
-                                    nextPage()
-                                  },
-                                  child: Padding(padding: const EdgeInsets.all(5),
-                                    child: Container(
-                                      width: 28,
-                                      height: 28,
-                                      decoration: ShapeDecoration(
-                                        color: activePage == (index + 1) ? Colors.brown[700] : Colors.grey[800],
-                                        shape: const CircleBorder(),
-                                      ),
-                                      alignment: Alignment.center,
-                                      child: Text('${index + 1}',
-                                        style: TextStyle(
-                                            fontSize: 13,
-                                            fontWeight:  activePage == (index + 1) ? FontWeight.bold : FontWeight.normal,
-                                            color: activePage == (index + 1) ? Colors.grey[100] : Colors.grey[600]
-                                        ),),
-                                    ),),
-                                )),
-                              ],
-                            ),
-                          )
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            if(showColor)
-              SizedBox(
+              if(activePage == 2)
+                Container(
+                  padding: const EdgeInsets.only(bottom: 260),
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
-                  child: Container(
-                      padding: const EdgeInsets.only(top: 100),
-                      width: MediaQuery.of(context).size.width,
-                      child: Image.asset('assets/guide/arabica-colorful.gif',
-                        fit: BoxFit.contain,
+                  child:FadeTransition(
+                      opacity: logoFadeAnim,
+                      child: AlignTransition(
+                          alignment: logoAnim,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            padding: const EdgeInsets.only(top: 100),
+                            height: 400,
+                            child: Padding(padding: EdgeInsets.all(8),
+                                child: SizedBox(
+                                  width: 200,
+                                  height: 200,
+                                  child: Image.asset('assets/guide/arabica-29.gif',
+                                    fit: BoxFit.contain,
+                                  ),
+                                )
+                            ),
+                          )
                       )
-                  )
-              ),
-          ],
+                  ),
+                ),
+              if(activePage == 2)
+                Container(
+                  padding: const EdgeInsets.only(top: 540),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child:
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        alignment: Alignment.center,
+                        height: 30,
+                        child: FadeTransition(
+                            opacity: descAnim,
+                            child: Text('只有克服阻碍，才能体验到成功的喜悦', style: GoogleFonts.zcoolKuaiLe(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[100],
+                            ))
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        height: 70,
+                        padding: const EdgeInsets.only(top: 30),
+                        child: FadeTransition(
+                            opacity: descAnim1,
+                            child: Text('一起勇往直前，突破重重难关', style: GoogleFonts.zcoolKuaiLe(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[100],
+                            ))
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        alignment: Alignment.center,
+                        height: 140,
+                        child: FadeTransition(
+                            opacity: descAnim2,
+                            child: activePage == 3 ? OutlinedButton(
+                              style:  const ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll<Color>(Colors.transparent),
+                                padding: MaterialStatePropertyAll<EdgeInsets>(EdgeInsets.fromLTRB(40, 6, 40, 6)),
+                              ),
+                              onPressed: () {
+                                goMainHome();
+                              },
+                              child: Text('一起出发', style: GoogleFonts.zcoolKuaiLe(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey[100],
+                              )),
+                            ) : Container(
+                              height: 60,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ...List.generate(3, (index) => InkWell(
+                                    highlightColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    onTap: () => {
+                                      nextPage()
+                                    },
+                                    child: Padding(padding: const EdgeInsets.all(5),
+                                      child: Container(
+                                        width: 28,
+                                        height: 28,
+                                        decoration: ShapeDecoration(
+                                          color: activePage == (index + 1) ? Colors.brown[700] : Colors.grey[800],
+                                          shape: const CircleBorder(),
+                                        ),
+                                        alignment: Alignment.center,
+                                        child: Text('${index + 1}',
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight:  activePage == (index + 1) ? FontWeight.bold : FontWeight.normal,
+                                              color: activePage == (index + 1) ? Colors.grey[100] : Colors.grey[600]
+                                          ),),
+                                      ),),
+                                  )),
+                                ],
+                              ),
+                            )
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              if(activePage == 3)
+                Container(
+                  padding: const EdgeInsets.only(bottom: 260),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child:FadeTransition(
+                      opacity: logoFadeAnim,
+                      child: AlignTransition(
+                          alignment: logoAnim,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            padding: const EdgeInsets.only(top: 100),
+                            height: 400,
+                            child: Padding(padding: EdgeInsets.all(8),
+                                child: SizedBox(
+                                  width: 200,
+                                  height: 200,
+                                  child: Image.asset('assets/guide/arabica.gif',
+                                    fit: BoxFit.contain,
+                                  ),
+                                )
+                            ),
+                          )
+                      )
+                  ),
+                ),
+              if(activePage == 3)
+                Container(
+                  padding: const EdgeInsets.only(top: 540),
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child:
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        alignment: Alignment.center,
+                        height: 30,
+                        child: FadeTransition(
+                            opacity: descAnim,
+                            child: Text('如果相遇，我会更懂得如何珍惜', style: GoogleFonts.zcoolKuaiLe(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[100],
+                            ))
+                        ),
+                      ),
+                      Container(
+                        alignment: Alignment.center,
+                        height: 70,
+                        padding: const EdgeInsets.only(top: 30),
+                        child: FadeTransition(
+                            opacity: descAnim1,
+                            child: Text('做一个懂你的视频剪辑工具', style: GoogleFonts.zcoolKuaiLe(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[100],
+                            ))
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        alignment: Alignment.center,
+                        height: 140,
+                        child: FadeTransition(
+                            opacity: descAnim2,
+                            child: activePage == 3 ? OutlinedButton(
+                              style:  const ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll<Color>(Colors.transparent),
+                                padding: MaterialStatePropertyAll<EdgeInsets>(EdgeInsets.fromLTRB(40, 6, 40, 6)),
+                              ),
+                              onPressed: () {
+                                goMainHome();
+                              },
+                              child: Text('一起出发', style: GoogleFonts.zcoolKuaiLe(
+                                fontSize: 30,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.grey[100],
+                              )),
+                            ) : Container(
+                              height: 60,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ...List.generate(3, (index) => InkWell(
+                                    highlightColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    onTap: () => {
+                                      nextPage()
+                                    },
+                                    child: Padding(padding: const EdgeInsets.all(5),
+                                      child: Container(
+                                        width: 28,
+                                        height: 28,
+                                        decoration: ShapeDecoration(
+                                          color: activePage == (index + 1) ? Colors.brown[700] : Colors.grey[800],
+                                          shape: const CircleBorder(),
+                                        ),
+                                        alignment: Alignment.center,
+                                        child: Text('${index + 1}',
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight:  activePage == (index + 1) ? FontWeight.bold : FontWeight.normal,
+                                              color: activePage == (index + 1) ? Colors.grey[100] : Colors.grey[600]
+                                          ),),
+                                      ),),
+                                  )),
+                                ],
+                              ),
+                            )
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              if(showColor)
+                SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: Container(
+                        padding: const EdgeInsets.only(top: 100),
+                        width: MediaQuery.of(context).size.width,
+                        child: Image.asset('assets/guide/arabica-colorful.gif',
+                          fit: BoxFit.contain,
+                        )
+                    )
+                ),
+            ],
+          ),
         )
     );
   }

@@ -3,6 +3,7 @@ import 'package:cc_clip_app/component/UserCard.dart';
 import 'package:cc_clip_app/component/IconCard.dart';
 import 'package:cc_clip_app/model/MenuIconData.dart';
 import 'package:cc_clip_app/util/UserStorage.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 // 侧边栏小组件
 class DrawMenu extends StatefulWidget {
@@ -20,6 +21,12 @@ class DrawMenuState extends State<DrawMenu> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+  }
+
+  Future<void> resetApp(context) async {
+    UserStorage().clear().then((value) => {
+      Phoenix.rebirth(context)
+    });
   }
 
   @override
@@ -43,7 +50,7 @@ class DrawMenuState extends State<DrawMenu> with TickerProviderStateMixin {
             padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
             child: OutlinedButton(
               onPressed: () {
-                UserStorage().clear();
+                resetApp(context);
               },
               child: Center(
                 child: Row(

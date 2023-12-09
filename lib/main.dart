@@ -5,9 +5,14 @@ import 'package:cc_clip_app/component/DrawContainer.dart';
 import 'package:cc_clip_app/pages/GuidePage.dart';
 import 'package:cc_clip_app/util/UserStorage.dart';
 import 'package:cc_clip_app/config/Config.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 
 // 程序入口
-void main() => runApp(const MyApp());
+void main() => runApp(
+  Phoenix(
+    child: const MyApp()
+  ),
+);
 
 // 声明App为一个无状态容器
 class MyApp extends StatelessWidget {

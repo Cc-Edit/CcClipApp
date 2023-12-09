@@ -87,7 +87,7 @@ class UserStorage {
   // 清空存储 并总是返回true
   Future<bool> clear() async {
     await _initShared();
-    _storage.clear();
+    await _storage.clear();
     return true;
   }
 
