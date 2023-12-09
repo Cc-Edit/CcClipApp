@@ -30,12 +30,17 @@ class UserContainerState extends State<UserContainer>
     Tab(text: '喜欢')
   ];
   String userUuid = '';
+  bool isInit = false;
 
   // 获取用户信息
   Future<void> initUserInfo() async {
     String? uuid= await UserStorage().getStorage(StoreKeys.userUuid);
     setState(() {
       userUuid = uuid ?? '';
+    });
+    getData(0);
+    setState(() {
+      isInit = true;
     });
   }
 
@@ -49,7 +54,7 @@ class UserContainerState extends State<UserContainer>
   void initState() {
     super.initState();
     initUserInfo();
-    getData(0);
+
     animationController = AnimationController(
         duration: const Duration(milliseconds: 1000), vsync: this);
   }
@@ -64,6 +69,7 @@ class UserContainerState extends State<UserContainer>
 
   @override
   Widget build(BuildContext context) {
+    if(!isInit) return const SizedBox();
     return DefaultTabController(
         length: homeTabs.length,
         child: Builder(builder: (BuildContext context) {

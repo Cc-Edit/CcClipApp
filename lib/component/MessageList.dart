@@ -17,9 +17,9 @@ class MessageList extends StatefulWidget {
 // TickerProviderStateMixin 用来实现动画
 class MessageListState extends State<MessageList> with TickerProviderStateMixin {
 
-  List<MessageListData> messageListData =  MessageListData.emptyList;
+  late List<MessageListData> messageListData;
   AnimationController? animationController; // 动画管理
-
+  bool isInit = false;
   final List<String> tabs = <String>['官方', '评论', '粉丝', '点赞'];
   String userUuid = '';
 
@@ -28,6 +28,10 @@ class MessageListState extends State<MessageList> with TickerProviderStateMixin 
     String? uuid= await UserStorage().getStorage(StoreKeys.userUuid);
     setState(() {
       userUuid = uuid ?? '';
+    });
+    getData(0);
+    setState(() {
+      isInit = true;
     });
   }
 
@@ -41,7 +45,6 @@ class MessageListState extends State<MessageList> with TickerProviderStateMixin 
   void initState() {
     super.initState();
     initUserInfo();
-    getData(0);
     animationController = AnimationController(
         duration: const Duration(milliseconds: 1000),
         vsync: this
@@ -57,6 +60,7 @@ class MessageListState extends State<MessageList> with TickerProviderStateMixin 
 
   @override
   Widget build(BuildContext context) {
+    if(!isInit) return const SizedBox();
     return DefaultTabController(
         length: tabs.length,
         child: Builder(builder: (BuildContext context) {
