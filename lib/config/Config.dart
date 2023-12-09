@@ -1,3 +1,8 @@
+class AppConstant {
+  static String serviceName = 'cccs.ccedit.com';
+  static String apiPath = 'api';
+}
+
 // 数据存储 key
 class StoreKeys {
   static String showGuide = 'showGuide';

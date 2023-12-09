@@ -112,7 +112,7 @@ class MyApp extends StatelessWidget {
               '/MainPage': (ctx) => mainContainer,
               '/LoginPage': (ctx) => const LoginPage(),
             },
-            home: snapshot.data ? const GuidePage() : mainContainer,
+            home: snapshot.data ? const GuidePage() : const LoginPage(),
             builder: (context, child) {
               return GestureDetector(
                 onTap: () => FocusManager.instance.primaryFocus?.unfocus(),

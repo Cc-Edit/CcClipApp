@@ -42,6 +42,7 @@ dependencies:
   shared_preferences: ^2.2.2
   form_field_validator: ^1.1.0
   fluttertoast: ^8.2.4
+  http: ^1.1.2
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1

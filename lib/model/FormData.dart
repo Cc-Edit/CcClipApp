@@ -72,7 +72,6 @@ class FormData {
       id: '4',
       type: InputType.piCode,
       icon: Icons.image,
-      defaultValue: 'aysr',
       key: 'imageCode',
       hintText: '请输入验证码',
       validator: [

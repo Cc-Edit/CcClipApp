@@ -1,8 +1,10 @@
+import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
-
 import 'package:cc_clip_app/model/FormData.dart';
 import 'package:flutter/material.dart';
+import '../api/ApiAuth.dart';
+import '../api/ApiBase.dart';
 
 class FormGenerate extends StatefulWidget {
   FormGenerate({
@@ -27,6 +29,18 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
   bool showPassword = false;
   double middleHeight = 400;
   EdgeInsets? paddingObj;
+  Map<String, dynamic> formData = {};
+  Image? image; // 验证码
+
+  void getCaptureImage() async{
+    CustomResponse response = await getCaptcha(220, 92);
+    if(response.success && !response.hasError ){
+      formData['captureEncode'] = response.data['captureEncode'];
+      setState(() {
+        image = Image.memory(base64Decode(response.data['image']));
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -37,6 +51,10 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
       middleHeight = physicalHeight / devicePixelRatio / 2 - 80;
     });
     super.initState();
+    // 存在验证码则初始化
+    if (widget.formData.where((item) => item.type == InputType.piCode).isNotEmpty) {
+      getCaptureImage();
+    }
     _initNodeMap();
     paddingObj = widget.padding?.resolve(TextDirection.ltr);
     scrollAnimationController = AnimationController(duration: const Duration(milliseconds: 600), vsync: this);
@@ -229,7 +247,15 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                           hintText: formItem.hintText,
                           helperText: formItem.helperText,
                           // suffixIcon: Icon(Icons.visibility_off_outlined, color: Colors.grey[100], size: 24,)
-                          suffixIcon: Icon(Icons.refresh, color: Colors.grey[100], size: 24,)
+                          suffixIcon: InkWell(
+                            splashColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            child: Icon(Icons.refresh, color: Colors.grey[100], size: 24,),
+                            onTap: () {
+                              getCaptureImage();
+                            },
+                          )
                       ),
                     ),
                   ),
@@ -237,7 +263,7 @@ class FormGenerateState extends State<FormGenerate> with TickerProviderStateMixi
                     padding: const EdgeInsets.fromLTRB(4, 0, 0, 0),
                     width: 110,
                     height: 46,
-                    child: Image.asset('assets/image/imageCode.png', fit: BoxFit.fill,),
+                    child: image,
                   )
                 ],
               ),

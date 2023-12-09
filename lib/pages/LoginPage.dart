@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:cc_clip_app/component/FormGenerate.dart';
 import 'package:cc_clip_app/model/FormData.dart';
+
 class LoginPage extends StatefulWidget{
   const LoginPage({super.key});
 
@@ -18,9 +19,11 @@ class LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   AnimationController? animationController;
   late Timer _timer;
 
+
   @override
   void initState(){
     super.initState();
+
     // 滑动控制
     scrollController = ScrollController(initialScrollOffset: 0);
     scrollController!.addListener(() {
