@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../api/ApiBase.dart';
-import '../api/ApiAuth.dart';
-import '../config/Config.dart';
-import '../util/UserStorage.dart';
+import 'package:cc_clip_app/api/ApiBase.dart';
+import 'package:cc_clip_app/api/ApiAuth.dart';
+import 'package:cc_clip_app/config/Config.dart';
+import 'package:cc_clip_app/util/UserStorage.dart';
 
 // 用户卡片
 class UserCard extends StatefulWidget {
