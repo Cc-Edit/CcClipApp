@@ -12,7 +12,7 @@
 如果有用请 🌟 Star 🌟 支持一下哟 🫣 <br/>
 
 ## 预览
-[视频](https://www.bilibili.com/video/BV1Ua4y1o7X3/)    
+[视频](https://www.bilibili.com/video/BV19c411U7Aj/)    
 ![preview.jpg](https://github.com/Cc-Edit/CcClipApp/blob/main/preview.jpg)
 
 ## 基础功能
