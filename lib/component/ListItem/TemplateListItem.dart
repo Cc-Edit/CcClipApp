@@ -1,15 +1,18 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:cc_clip_app/model/TemplateListData.dart';
 
 class TemplateListItem extends StatefulWidget {
   const TemplateListItem({
     super.key,
+    this.height = 100,
     this.listData,
     this.callBack,
     this.animationController,
     this.animation
   });
-
+  final double height;
   final TemplateListData? listData;
   final VoidCallback? callBack;
   final AnimationController? animationController;
@@ -19,7 +22,11 @@ class TemplateListItem extends StatefulWidget {
   State<StatefulWidget> createState() => TemplateListItemState();
 }
 class TemplateListItemState extends State<TemplateListItem> {
-
+  
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +39,7 @@ class TemplateListItemState extends State<TemplateListItem> {
             transform: Matrix4.translationValues(
                 0.0, 50 * (1.0 - widget.animation!.value), 0.0),
             child:Container(
+              height: widget.height,
               decoration: BoxDecoration(
                   gradient: const LinearGradient(
                       begin: Alignment.bottomLeft,
