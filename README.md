@@ -1,7 +1,7 @@
 
-|                                      学习讨论小组🍻                                      |   打赏（赠送学习资料：[webNote](https://github.com/Cc-Edit/webNote)） :confetti_ball:    | 
-|:----------------------------------------------------------------------------------:|:---------------------------------------------------------------------:| 
-| ![wechat.png](https://github.com/Cc-Edit/Cc-Edit/blob/main/public/CcClip.png) |     ![img.png](https://github.com/Cc-Edit/Cc-Edit/blob/main/public/img.png)  |
+|      Flutter 学习讨论📝              |   打赏（赠送学习资料：[webNote](https://github.com/Cc-Edit/webNote)） :confetti_ball:    | 
+|:------------------------------:|:-----------------------------------:| 
+| ![Flutter.png](https://github.com/Cc-Edit/Cc-Edit/blob/main/public/Flutter.png) |     ![img.png](https://github.com/Cc-Edit/Cc-Edit/blob/main/public/img.png)  |
 
 
 # CcClipApp
@@ -40,6 +40,7 @@
 - [x]  非登录状态页面
 - [x]  弹窗
 - [x]  Toast
+- [x]  瀑布流列表
 - [ ] 逐步完善中......
 
 ## 高级功能（gl 视频特效处理）
